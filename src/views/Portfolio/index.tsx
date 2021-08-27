@@ -94,6 +94,19 @@ const CardRow = styled.div`
       }
     }
   }
+
+  @media (max-width: 767.98px) {
+    flex-direction: column;
+
+    > p {
+      width: 100%;
+      text-align: left !important;
+    }
+    > div {
+      width: 100%;
+      text-align: left;
+    }
+  }
 `
 
 const DetailsButton = styled.div`

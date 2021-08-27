@@ -18,7 +18,7 @@ import { latinise } from 'utils/latinise'
 import SearchInput from 'components/SearchInput'
 import Select, { OptionProps } from 'components/Select/Select'
 import Loading from 'components/Loading'
-import FarmBanner from 'assets/images/banner1.png'
+import FarmBanner from 'assets/images/farms/bg-hero-farms.svg'
 import FarmCard, { FarmWithStakedValue } from './components/FarmCard/FarmCard'
 import Table from './components/FarmTable/FarmTable'
 import FarmTabButtons from './components/FarmTabButtons'
@@ -45,6 +45,25 @@ const ControlContainer = styled.div`
     padding: 12px 16px;
     margin-bottom: 0;
   }
+
+  @media (max-width: 767.98px) {
+    padding: 20px 30px;
+    border-radius: 30px;
+    margin-top: -80px;
+
+    & > div {
+      flex-wrap: nowrap;
+    }
+    & > div:nth-child(1) > div {
+      margin-left: 0;
+    }
+
+    > div:nth-child(2) > div > div > a,
+    > div:nth-child(2) > div > div > span > a,
+    > div:nth-child(2) > div:nth-child(2) > div > div {
+      font-size: 12px !important;
+    }
+  }
 `
 
 const ToggleWrapper = styled.div`
@@ -60,6 +79,11 @@ const ToggleWrapper = styled.div`
 const LabelWrapper = styled.div`
   > ${Text} {
     font-size: 12px;
+  }
+  margin-left: 16px;
+
+  @media (max-width: 767.98px) {
+    margin-left: 0;
   }
 `
 
@@ -94,14 +118,51 @@ const ViewControls = styled.div`
       padding: 0;
     }
   }
+  @media (max-width: 767.98px) {
+    &:nth-child(1) {
+      margin-bottom: 20px;
+    }
+    > div {
+      padding: 0;
+    }
+    > div > a,
+    > div > span > a,
+    > div > div {
+      font-size: 12px !important;
+    }
+  }
 `
 
 const FarmsBanner = styled.div`
   width: 100%;
-  min-height: 211px;
-  background-image: url(${FarmBanner});
+  min-height: 213px;
+  background-color: #ACB0D3;
   background-size: cover;
   background-position: top center;
+  > div {
+    width: 100%;
+    max-width: 100%;
+    height: 213px;
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    &::after {
+      padding-top: 0;
+    }
+  }
+
+  @media (max-width:767.98px) {
+    min-height: 200px;
+    > div {
+      height: 200px;
+
+      > img {
+        
+      }
+    }
+  }
 `
 
 const FarmHead = styled.div`
@@ -121,6 +182,14 @@ const FarmHead = styled.div`
       color: #464486;
       ${({ theme }) => theme.mediaQueries.sm} {
         padding-right: 32px;
+      }
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    & table {
+      & > div {
+        padding-left: 20px;
       }
     }
   }
@@ -437,12 +506,19 @@ const Farms: React.FC = () => {
 
   return (
     <>
-      <FarmsBanner />
+      <FarmsBanner >
+      <Image
+            src="/images/farms/bg-hero-farms.svg"
+            alt="Monster Farms"
+            width={100}
+            height={300}
+        />
+      </FarmsBanner>
       <Page>
         <ControlContainer>
           <ViewControls>
             <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
-            <LabelWrapper style={{ marginLeft: 16 }}>
+            <LabelWrapper>
               <SearchInput onChange={handleChangeQuery} placeholder="Search" />
             </LabelWrapper>
           </ViewControls>

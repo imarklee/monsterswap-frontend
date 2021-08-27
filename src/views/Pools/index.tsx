@@ -50,6 +50,19 @@ const PoolControls = styled.div`
   flex-direction: column;
   margin-bottom: 32px;
 
+  @media (max-width: 767.98px) {
+    padding: 20px 30px;
+    border-radius: 30px;
+    margin-top: -80px;
+
+    & > div {
+      flex-wrap: nowrap;
+    }
+    & > div:nth-child(1) > div {
+      margin-left: 0;
+    }
+  }
+
   ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: row;
     flex-wrap: wrap;
@@ -74,6 +87,11 @@ const LabelWrapper = styled.div`
   > ${Text} {
     font-size: 12px;
   }
+  margin-left: 16px;
+
+  @media (max-width: 767.98px) {
+    margin-left: 0;
+  } 
 `
 
 const ControlStretch = styled(Flex)`
@@ -85,9 +103,33 @@ const ControlStretch = styled(Flex)`
 const PoolsBanner = styled.div`
   width: 100%;
   min-height: 211px;
-  background-color: #524F9E;
+  background-color: #ACB0D3;
   background-size: cover;
   background-position: top center;
+  > div {
+    width: 100%;
+    max-width: 100%;
+    height: 300px;
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    &::after {
+      padding-top: 0;
+    }
+  }
+
+  @media (max-width:767.98px) {
+    min-height: 200px;
+    > div {
+      height: 200px;
+
+      > img {
+        
+      }
+    }
+  }
 `
 
 const ViewControls = styled.div`
@@ -99,6 +141,20 @@ const ViewControls = styled.div`
 
   > div {
     padding: 8px 0px;
+  }
+
+  @media (max-width: 767.98px) {
+    &:nth-child(1) {
+      margin-bottom: 20px;
+    }
+    > div {
+      padding: 0;
+    }
+    > div > a,
+    > div > span > a,
+    > div > div {
+      font-size: 12px;
+    }
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
@@ -138,6 +194,14 @@ const PoolHead = styled.div`
       color: #464486;
       ${({ theme }) => theme.mediaQueries.sm} {
         padding-right: 32px;
+      }
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    & table {
+      & > div {
+        padding-left: 20px;
       }
     }
   }
@@ -308,12 +372,19 @@ const Pools: React.FC = () => {
 
   return (
     <>
-      <PoolsBanner />
+      <PoolsBanner>
+        <Image
+            src="/images/pools/bg-hero-pools.svg"
+            alt="Monster Pools"
+            width={100}
+            height={300}
+        />
+      </PoolsBanner>
       <Page>
         <PoolControls>
           <ViewControls>
             <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
-            <LabelWrapper style={{ marginLeft: 16 }}>
+            <LabelWrapper>
               <SearchInput onChange={handleChangeSearchQuery} placeholder="Search" />
             </LabelWrapper>
           </ViewControls>

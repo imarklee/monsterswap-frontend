@@ -53,6 +53,17 @@ export const ActionContainer = styled.div`
     margin-bottom: 0;
     max-height: 100px;
   }
+
+  @media (max-width: 767.98px) {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+
+    > div > button {
+      padding: 0 10px;
+    }
+  }
 `
 
 export const StakedContent = styled.div`

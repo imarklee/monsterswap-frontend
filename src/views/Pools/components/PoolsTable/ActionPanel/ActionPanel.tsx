@@ -41,12 +41,13 @@ const collapseAnimation = keyframes`
 const StyledActionPanel = styled.div<{ expanded: boolean }>`
   animation: ${({ expanded }) =>
     expanded
-      ? css`
-          ${expandAnimation} 300ms linear forwards
-        `
-      : css`
-          ${collapseAnimation} 300ms linear forwards
-        `};
+    ? css`
+        ${expandAnimation} 300ms linear forwards
+      `
+    : css`
+        ${collapseAnimation} 300ms linear forwards
+      `
+    };
   overflow: hidden;
   background: #EAF2F7;
   border-bottom-left-radius: 10px;
@@ -118,6 +119,28 @@ const ActionValueContainer = styled.div`
     & > div {
       width: 33.33%;
       padding: 0 20px;
+    }
+  }
+  @media (max-width: 767.87px) {
+    flex-direction: column;
+    margin: 0 0 20px;
+
+    & > div:nth-child(2) {
+      display: flex;
+      flex-direction: column;
+    } 
+    & > div:nth-child(2) > div:nth-child(1) {
+      display: flex;
+      flex-direction: row !important;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    & > div:nth-child(2) > div:nth-child(2) {
+      margin-left: 0 !important;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
     }
   }
 `

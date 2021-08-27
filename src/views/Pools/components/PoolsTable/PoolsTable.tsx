@@ -38,6 +38,9 @@ const StyledRow = styled.div`
   & div {
     color: #464486;
   }
+  @media (max-width: 767.98px) {
+    padding-left: 20px;
+  }
 `
 
 const StyledCell = styled.div`

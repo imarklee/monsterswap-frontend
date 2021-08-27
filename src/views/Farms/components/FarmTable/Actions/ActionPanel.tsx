@@ -86,6 +86,11 @@ const ActionContainer = styled.div`
     flex-grow: 1;
     flex-basis: 0;
   }
+
+  @media (max-width: 767.98px) {
+    width: 100%;
+    flex-direction: row;
+  }
 `
 
 const InfoContainer = styled.div`

@@ -10,22 +10,31 @@ import { ReactComponent as ArrowRight } from 'assets/images/ArrowRight.svg'
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
-  height: 55px;
+  height: auto;
   background: #ACB0D3;
-  border-radius: 30px;
-  padding: 0 8px;
+  border-radius: 10px;
+  padding: 5px 8px;
   & > svg {
     margin: 0 12px;
+    & > path {
+      fill: white;
+    }
   }
   & > div {
     position: relative;
-    width: 100%;
+    width: 50px;
+    max-width: 50px;
+    height: 50px;
+    max-height: 50px;
+    &::before {
+      border: none;
+    }
     & > img {
       position: relative;
     }
   }
   ${({ theme }) => theme.mediaQueries.sm} {
-    padding: 0 20px;
+    padding: 5px 8px;
   }
 `
 

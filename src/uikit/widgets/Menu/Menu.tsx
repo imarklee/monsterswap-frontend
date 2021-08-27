@@ -29,6 +29,17 @@ const StyledNav = styled.nav<{ showMenu: boolean }>`
   border-bottom: solid 2px rgba(133, 133, 133, 0.1);
   z-index: 20;
   transform: translate3d(0, 0, 0);
+
+  @media (max-width: 767.98px) {
+    & > div > button {
+      margin-right: 5px;
+      font-size: 12px;
+    }
+
+    & > div > button:last-child {
+      font-size: 12px;
+    }
+  }
 `
 
 const BodyWrapper = styled.div`

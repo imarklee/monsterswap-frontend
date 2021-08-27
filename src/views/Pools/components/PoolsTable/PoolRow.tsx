@@ -33,6 +33,12 @@ const StyledRow = styled.div`
       padding: 8px 20px;
     }
   }
+  @media (max-width: 767.98px) {
+    & > div {
+      padding: 0;
+      margin-right: 10px;
+    }
+  }
 `
 
 const LPWrapper = styled.div`
