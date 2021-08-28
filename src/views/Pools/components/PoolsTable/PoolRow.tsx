@@ -22,7 +22,7 @@ const StyledRow = styled.div`
   background-color: transparent;
   display: flex;
   cursor: pointer;
-  background: #EAF2F7;
+  background: #eaf2f7;
   border-radius: 10px;
   margin-top: 15px;
   & > div {
@@ -46,7 +46,7 @@ const LPWrapper = styled.div`
   align-items: center;
   font-size: 18px;
   letter-spacing: 0.04em;
-  color: #4E4E9D;
+  color: #4e4e9d;
   flex: 1 0 150px;
 `
 
@@ -66,16 +66,28 @@ const PoolRow: React.FC<PoolRowProps> = ({ pool, account, userDataLoaded }) => {
 
   return (
     <>
-      <StyledRow role="row" onClick={toggleExpanded} style={{ borderBottomLeftRadius: expanded ? 0 : 10, borderBottomRightRadius: expanded ? 0 : 10 }}>
+      <StyledRow
+        role="row"
+        onClick={toggleExpanded}
+        style={{ borderBottomLeftRadius: expanded ? 0 : 10, borderBottomRightRadius: expanded ? 0 : 10 }}
+      >
         <NameCell pool={pool} />
-        {isXl && <LPWrapper>
-          { pool.earningToken.symbol } - { pool.stakingToken.symbol }
-        </LPWrapper> }
+        {isXl && (
+          <LPWrapper>
+            {pool.stakingToken.symbol} - {pool.earningToken.symbol}
+          </LPWrapper>
+        )}
         <AprCell pool={pool} performanceFee={performanceFeeAsDecimal} />
         {(isLg || isXl) && <TotalStakedCell pool={pool} />}
         {/* {isXl && <EndsInCell pool={pool} />} */}
         <EarningsCell pool={pool} account={account} userDataLoaded={userDataLoaded} />
-        <ExpandActionCell account={account} pool={pool} userDataLoaded={userDataLoaded} expanded={expanded} isFullLayout={isMd || isLg || isXl} />
+        <ExpandActionCell
+          account={account}
+          pool={pool}
+          userDataLoaded={userDataLoaded}
+          expanded={expanded}
+          isFullLayout={isMd || isLg || isXl}
+        />
       </StyledRow>
       {shouldRenderActionPanel && (
         <ActionPanel

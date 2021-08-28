@@ -1819,6 +1819,24 @@ const tokens = {
     decimals: 18,
     projectLink: 'https://coin98.com/',
   },
+  monster: {
+    symbol: 'MON',
+    address: {
+      56: '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82',
+      97: '0x23040c7b54112a6E6e70559d49114Ed80C41C282',
+    },
+    decimals: 18,
+    projectLink: 'https://monsterswap.net/',
+  },
+  btse: {
+    symbol: 'BTSE',
+    address: {
+      56: '0x23040c7b54112a6E6e70559d49114Ed80C41C282',
+      97: '0x23040c7b54112a6E6e70559d49114Ed80C41C282',
+    },
+    decimals: 18,
+    projectLink: 'https://www.btse.com/',
+  },
 }
 
 export default tokens

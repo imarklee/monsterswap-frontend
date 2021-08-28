@@ -91,7 +91,7 @@ const LabelWrapper = styled.div`
 
   @media (max-width: 767.98px) {
     margin-left: 0;
-  } 
+  }
 `
 
 const ControlStretch = styled(Flex)`
@@ -103,7 +103,7 @@ const ControlStretch = styled(Flex)`
 const PoolsBanner = styled.div`
   width: 100%;
   min-height: 211px;
-  background-color: #ACB0D3;
+  background-color: #acb0d3;
   background-size: cover;
   background-position: top center;
   > div {
@@ -120,13 +120,12 @@ const PoolsBanner = styled.div`
     }
   }
 
-  @media (max-width:767.98px) {
+  @media (max-width: 767.98px) {
     min-height: 200px;
     > div {
       height: 200px;
 
       > img {
-        
       }
     }
   }
@@ -235,8 +234,11 @@ const Pools: React.FC = () => {
 
   const pools = useMemo(() => {
     const cakePool = poolsWithoutAutoVault.find((pool) => pool.sousId === 0)
-    const cakeAutoVault = { ...cakePool, isAutoVault: true }
-    return [cakeAutoVault, ...poolsWithoutAutoVault]
+
+    // TAKE OUT AUTO-POOL
+    // const cakeAutoVault = { ...cakePool, isAutoVault: true }
+    // return [cakeAutoVault, ...poolsWithoutAutoVault]
+    return [...poolsWithoutAutoVault]
   }, [poolsWithoutAutoVault])
 
   // TODO aren't arrays in dep array checked just by reference, i.e. it will rerender every time reference changes?
@@ -373,12 +375,7 @@ const Pools: React.FC = () => {
   return (
     <>
       <PoolsBanner>
-        <Image
-            src="/images/pools/bg-hero-pools.svg"
-            alt="Monster Pools"
-            width={100}
-            height={300}
-        />
+        <Image src="/images/pools/bg-hero-pools.svg" alt="Monster Pools" width={100} height={300} />
       </PoolsBanner>
       <Page>
         <PoolControls>

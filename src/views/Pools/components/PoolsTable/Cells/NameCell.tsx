@@ -54,7 +54,14 @@ const NameCell: React.FC<NameCellProps> = ({ pool }) => {
 
   return (
     <StyledCell role="cell">
-      <PoolTokenPairImage isAuto={isAutoVault} primaryToken={earningToken} secondaryToken={stakingToken} mr="8px" width={40} height={40} />
+      <PoolTokenPairImage
+        isAuto={isAutoVault}
+        primaryToken={stakingToken}
+        secondaryToken={earningToken}
+        mr="8px"
+        width={40}
+        height={40}
+      />
       {/* <CellContent>
         {showStakedTag && (
           <Text fontSize="12px" bold color={isFinished ? 'failure' : 'secondary'} textTransform="uppercase">
