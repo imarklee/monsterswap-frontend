@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Text, Button, IconButton, AddIcon, MinusIcon, useModal, Skeleton, useTooltip } from 'uikit'
+import { Flex, Button, IconButton, AddIcon, MinusIcon, useModal, Skeleton, useTooltip } from 'uikit'
 import BigNumber from 'bignumber.js'
 import { useTranslation } from 'contexts/Localization'
 import { getBalanceNumber } from 'utils/formatBalance'
@@ -28,10 +28,10 @@ const StakeAction: React.FC<StakeActionsProps> = ({
   const { stakingToken, stakingTokenPrice, stakingLimit, isFinished, userData } = pool
   const { t } = useTranslation()
   const stakedTokenBalance = getBalanceNumber(stakedBalance, stakingToken.decimals)
-  const stakedTokenDollarBalance = getBalanceNumber(
-    stakedBalance.multipliedBy(stakingTokenPrice),
-    stakingToken.decimals,
-  )
+  // const stakedTokenDollarBalance = getBalanceNumber(
+  //   stakedBalance.multipliedBy(stakingTokenPrice),
+  //   stakingToken.decimals,
+  // )
 
   const [onPresentTokenRequired] = useModal(<NotEnoughTokensModal tokenSymbol={stakingToken.symbol} />)
 
@@ -83,7 +83,7 @@ const StakeAction: React.FC<StakeActionsProps> = ({
           </>
         </Flex>
         <Flex>
-          <Button>{ t('Harvest') }</Button>
+          <Button>{t('Harvest')}</Button>
           <IconButton variant="secondary" onClick={onPresentUnstake} mx="6px">
             <MinusIcon color="primary" width="24px" />
           </IconButton>

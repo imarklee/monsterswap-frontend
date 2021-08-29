@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js'
 import React, { useState } from 'react'
-import { CardBody, Flex, Text, CardRibbon } from 'uikit'
+import { Flex, CardRibbon } from 'uikit'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import { useTranslation } from 'contexts/Localization'
 import { BIG_ZERO } from 'utils/bigNumber'
@@ -15,8 +15,8 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
   const { sousId, stakingToken, earningToken, isFinished, userData, isAutoVault } = pool
   const { t } = useTranslation()
   const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO
-  const accountHasStakedBalance = stakedBalance.gt(0)
-  const [ isExpanded, setIsExpanded ] = useState(false);
+  // const accountHasStakedBalance = stakedBalance.gt(0)
+  const [isExpanded, setIsExpanded] = useState(false)
 
   return (
     <StyledCard
@@ -25,24 +25,36 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
     >
       <StyledCardInner>
         <StyledCardBody>
-          <PoolTokenPairImage isAuto={isAutoVault} primaryToken={earningToken} secondaryToken={stakingToken} mr="8px" width={40} height={40} />
+          <PoolTokenPairImage
+            isAuto={isAutoVault}
+            primaryToken={earningToken}
+            secondaryToken={stakingToken}
+            mr="8px"
+            width={40}
+            height={40}
+          />
           <StyledCardContent>
             <AprRow pool={pool} />
             <Flex mt="8px" flexDirection="column">
               {account ? (
-                <CardActions isExpanded={isExpanded} pool={pool} stakedBalance={stakedBalance} setExpanded={() => { setIsExpanded(!isExpanded) }} />
+                <CardActions
+                  isExpanded={isExpanded}
+                  pool={pool}
+                  stakedBalance={stakedBalance}
+                  setExpanded={() => {
+                    setIsExpanded(!isExpanded)
+                  }}
+                />
               ) : (
                 <>
-                  <p>
-                    {t('Start earning')}
-                  </p>
+                  <p>{t('Start earning')}</p>
                   <ConnectWalletButton />
                 </>
               )}
             </Flex>
           </StyledCardContent>
         </StyledCardBody>
-        { isExpanded && <ExpandedFooter pool={pool} account={account} /> }
+        {isExpanded && <ExpandedFooter pool={pool} account={account} />}
       </StyledCardInner>
     </StyledCard>
   )

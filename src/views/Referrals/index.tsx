@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Flex, Card, Button } from 'uikit'
 import { ReactComponent as NoAvatar } from 'assets/images/NoAvatar.svg'
 import { useWeb3React } from '@web3-react/core'
-import useTheme from 'hooks/useTheme'
+// import useTheme from 'hooks/useTheme'
 
 const ReferralBanner = styled.div`
   width: 100%;

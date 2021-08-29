@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { Box, CardBody, Flex, Text, useMatchBreakpoints } from 'uikit'
+import { Box, Flex, useMatchBreakpoints } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 import { useWeb3React } from '@web3-react/core'
 import ConnectWalletButton from 'components/ConnectWalletButton'
-import tokens from 'config/constants/tokens'
+// import tokens from 'config/constants/tokens'
 import { useCakeVault } from 'state/pools/hooks'
 import { Pool } from 'state/types'
 import { ReactComponent as ArrowDown } from 'assets/images/ArrowDown.svg'
@@ -32,10 +32,10 @@ const ArrowWrapper = styled.div`
 `
 
 const CakeVaultCard: React.FC<CakeVaultProps> = ({ pool, showStakedOnly }) => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   const { isXl } = useMatchBreakpoints()
   const { account } = useWeb3React()
-  const [ isExpanded, setIsExpanded ] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false)
   const {
     userData: { userShares, isLoading: isVaultUserDataLoading },
     fees: { performanceFee },
@@ -53,10 +53,17 @@ const CakeVaultCard: React.FC<CakeVaultProps> = ({ pool, showStakedOnly }) => {
     <StyledCard isPromoted={{ isDesktop: isXl }}>
       <StyledCardInner>
         <StyledCardBody>
-          <PoolTokenPairImage isAuto={pool.isAutoVault} primaryToken={pool.earningToken} secondaryToken={pool.stakingToken} mr="8px" width={40} height={40} />
+          <PoolTokenPairImage
+            isAuto={pool.isAutoVault}
+            primaryToken={pool.earningToken}
+            secondaryToken={pool.stakingToken}
+            mr="8px"
+            width={40}
+            height={40}
+          />
           <StyledCardContent>
             <AprRow pool={pool} performanceFee={performanceFeeAsDecimal} />
-            <Flex mt='8px'>
+            <Flex mt="8px">
               <Box>
                 <Box>
                   <RecentCakeProfitRow />
@@ -71,14 +78,18 @@ const CakeVaultCard: React.FC<CakeVaultProps> = ({ pool, showStakedOnly }) => {
                 ) : (
                   <ConnectWalletButton />
                 )}
-                <ArrowWrapper onClick={() => { setIsExpanded(!isExpanded) }}>
-                  { isExpanded ? <ArrowUp /> : <ArrowDown /> }
+                <ArrowWrapper
+                  onClick={() => {
+                    setIsExpanded(!isExpanded)
+                  }}
+                >
+                  {isExpanded ? <ArrowUp /> : <ArrowDown />}
                 </ArrowWrapper>
               </Flex>
             </Flex>
           </StyledCardContent>
         </StyledCardBody>
-        { isExpanded && <ExpandedFooter pool={pool} account={account} /> }
+        {isExpanded && <ExpandedFooter pool={pool} account={account} />}
       </StyledCardInner>
     </StyledCard>
   )

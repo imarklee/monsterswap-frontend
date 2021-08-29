@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Flex, Card, Button } from 'uikit'
+import { Flex, Card } from 'uikit'
 import { useWeb3React } from '@web3-react/core'
 import useTheme from 'hooks/useTheme'
 import Slider from 'react-slick'
@@ -288,8 +288,8 @@ const TotalLockedPart = styled.div`
 `
 
 const Home: React.FC = () => {
-  const { theme } = useTheme()
-  const { account } = useWeb3React()
+  // const { theme } = useTheme()
+  // const { account } = useWeb3React()
 
   const sliderSettings = {
     dots: true,

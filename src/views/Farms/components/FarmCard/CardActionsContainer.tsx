@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-import { Button, Flex, Text } from 'uikit'
+import { Button, Flex } from 'uikit'
 import { getAddress } from 'utils/addressHelpers'
 import { useAppDispatch } from 'state'
 import { fetchFarmUserDataAsync } from 'state/farms'
@@ -17,7 +17,7 @@ const Action = styled.div`
   padding-top: 16px;
   flex: 1;
   & button {
-    background: #49468A;
+    background: #49468a;
     height: 40px;
     font-size: 14px;
     margin-top: 0;
@@ -88,23 +88,20 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
 
   return (
     <Action>
-      {isApproved && stakedBalance.gt(0) ?
+      {isApproved && stakedBalance.gt(0) ? (
         <HarvestAction earnings={earnings} pid={pid} />
-        :
-        (
-          <Flex flex={1} justifyContent='space-between' alignItems='center'>
-            {
-              !isApproved &&
-                <div style={{ textAlign: 'left' }}>
-                  <p>Banana Earned</p>
-                  <h2>?</h2>
-                </div>
-            }
-            { !account ? <ConnectWalletButton mt="8px" width="100%" /> : renderApprovalOrStakeButton() }
-          </Flex>
-        )
-      }
-      { expanded && isApproved && stakedBalance.gt(0) && renderApprovalOrStakeButton() }
+      ) : (
+        <Flex flex={1} justifyContent="space-between" alignItems="center">
+          {!isApproved && (
+            <div style={{ textAlign: 'left' }}>
+              <p>Banana Earned</p>
+              <h2>?</h2>
+            </div>
+          )}
+          {!account ? <ConnectWalletButton mt="8px" width="100%" /> : renderApprovalOrStakeButton()}
+        </Flex>
+      )}
+      {expanded && isApproved && stakedBalance.gt(0) && renderApprovalOrStakeButton()}
     </Action>
   )
 }

@@ -12,9 +12,9 @@ import { getBscScanLink } from 'utils'
 // import { CommunityTag, CoreTag, DualTag } from 'components/Tags'
 
 import StakedAction from './StakedAction'
-import Apr, { AprProps } from '../Apr'
-import Multiplier, { MultiplierProps } from '../Multiplier'
-import Liquidity, { LiquidityProps } from '../Liquidity'
+import { AprProps } from '../Apr'
+import { MultiplierProps } from '../Multiplier'
+import { LiquidityProps } from '../Liquidity'
 
 export interface ActionPanelProps {
   apr: AprProps
@@ -68,12 +68,12 @@ const Container = styled.div<{ expanded }>`
 
 const StyledLinkExternal = styled.a`
   font-weight: 400;
-  color: #4E4E9D;
+  color: #4e4e9d;
   font-size: 14px;
   line-height: 16px;
   letter-spacing: 0.01em;
   text-decoration: underline;
-  margin-top: 8px;  
+  margin-top: 8px;
 `
 
 const ActionContainer = styled.div`
@@ -104,11 +104,12 @@ const InfoRow = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
-  & p, & span {
+  & p,
+  & span {
     font-family: 'Red Hat Text', sans-serif;
     font-size: 14px;
     font-weight: 500;
-    color: #4E4E9D;
+    color: #4e4e9d;
     line-height: 19px;
     letter-spacing: 0.01em;
   }
@@ -126,28 +127,28 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
 
   const { t } = useTranslation()
   const isActive = farm.multiplier !== '0X'
-  const { quoteToken, token, dual } = farm
+  const { quoteToken, token } = farm
   const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
-  const liquidityUrlPathParts = getLiquidityUrlPathParts({
-    quoteTokenAddress: quoteToken.address,
-    tokenAddress: token.address,
-  })
+  // const liquidityUrlPathParts = getLiquidityUrlPathParts({
+  //   quoteTokenAddress: quoteToken.address,
+  //   tokenAddress: token.address,
+  // })
   const { stakedBalance } = useFarmUser(details.pid)
   const lpPrice = useLpTokenPrice(farm.lpSymbol)
   const lpAddress = getAddress(farm.lpAddresses)
   const bsc = getBscScanLink(lpAddress, 'address')
-  const info = `/pool/${lpAddress}`
+  // const info = `/pool/${lpAddress}`
 
   return (
     <Container expanded={expanded}>
       <InfoContainer>
         <InfoRow>
           <p>Multiplier:</p>
-          <p>{ details.multiplier }</p>
+          <p>{details.multiplier}</p>
         </InfoRow>
         <InfoRow>
           <p>Stake:</p>
-          <p>{ lpLabel }</p>
+          <p>{lpLabel}</p>
         </InfoRow>
         <InfoRow>
           <p>Deposit Fees:</p>
@@ -160,14 +161,14 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         <InfoRow>
           <p>Staked Value:</p>
           {stakedBalance.gt(0) && lpPrice.gt(0) ? (
-          <Balance
-            fontSize="12px"
-            color="textSubtle"
-            decimals={2}
-            value={getBalanceNumber(lpPrice.times(stakedBalance))}
-            unit=" USD"
-            prefix="~"
-          />
+            <Balance
+              fontSize="12px"
+              color="textSubtle"
+              decimals={2}
+              value={getBalanceNumber(lpPrice.times(stakedBalance))}
+              unit=" USD"
+              prefix="~"
+            />
           ) : (
             <p>0 USD</p>
           )}
@@ -183,11 +184,15 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
             </StyledLinkExternal>
           </StakeContainer>
         )} */}
-        <Flex justifyContent='center'>
-          <StyledLinkExternal href={bsc} target='_blank'>{t('View on BSCSCAN')}</StyledLinkExternal>
+        <Flex justifyContent="center">
+          <StyledLinkExternal href={bsc} target="_blank">
+            {t('View on BSCSCAN')}
+          </StyledLinkExternal>
         </Flex>
-        <Flex justifyContent='center'>
-          <StyledLinkExternal href='' target='_blank'>{t('View Project Site')}</StyledLinkExternal>
+        <Flex justifyContent="center">
+          <StyledLinkExternal href="" target="_blank">
+            {t('View Project Site')}
+          </StyledLinkExternal>
         </Flex>
         {/* <StyledLinkExternal href={info}>{t('See Pair Info')}</StyledLinkExternal> */}
         {/* <TagsContainer>

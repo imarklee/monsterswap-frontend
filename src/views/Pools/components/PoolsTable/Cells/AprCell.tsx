@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Text, useMatchBreakpoints } from 'uikit'
+import { useMatchBreakpoints } from 'uikit'
 import { Pool } from 'state/types'
-import { useTranslation } from 'contexts/Localization'
-import BaseCell, { CellContent } from './BaseCell'
+// import { useTranslation } from 'contexts/Localization'
+// import BaseCell, { CellContent } from './BaseCell'
 import Apr from '../Apr'
 
 interface AprCellProps {
@@ -20,7 +20,7 @@ const StyledCell = styled.div`
     font-size: 18px;
     line-height: 24px;
     font-weight: bold;
-    color: #4E4E9D;
+    color: #4e4e9d;
   }
   ${({ theme }) => theme.mediaQueries.sm} {
     flex: 1 0 80px;
@@ -28,7 +28,7 @@ const StyledCell = styled.div`
 `
 
 const AprCell: React.FC<AprCellProps> = ({ pool, performanceFee }) => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   const { isXs, isSm } = useMatchBreakpoints()
   const { isAutoVault } = pool
   return (

@@ -1,17 +1,17 @@
-import styled, { css, keyframes } from 'styled-components'
-import { CardBody, Card, Box } from 'uikit'
+import styled, { keyframes } from 'styled-components'
+import { Card, Box } from 'uikit'
 
-const PromotedGradient = keyframes`
-  0% {
-    background-position: 50% 0%;
-  }
-  50% {
-    background-position: 50% 100%;
-  }
-  100% {
-    background-position: 50% 0%;
-  }
-`
+// const PromotedGradient = keyframes`
+//   0% {
+//     background-position: 50% 0%;
+//   }
+//   50% {
+//     background-position: 50% 100%;
+//   }
+//   100% {
+//     background-position: 50% 0%;
+//   }
+// ;`
 
 interface PromotedStyleCardProps {
   isDesktop: boolean
@@ -50,7 +50,7 @@ export const StyledCard = styled(Card)<{ isPromoted?: PromotedStyleCardProps; is
   display: flex;
   flex-direction: column;
   position: relative;
-  background: #EAF2F7;
+  background: #eaf2f7;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 8px;
@@ -65,17 +65,18 @@ export const StyledCardInner = styled(Box)`
 export const StyledCardBody = styled.div`
   display: flex;
   width: 100%;
-  & div, & p {
+  & div,
+  & p {
     font-family: 'Red Hat Text', sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 19px;
     letter-spacing: 0.01em;
-    color: #4E4E9D;
+    color: #4e4e9d;
   }
   & button {
     font-family: FunHouse;
-    background: #49468A;
+    background: #49468a;
     font-size: 14px;
     border: none;
     & svg {

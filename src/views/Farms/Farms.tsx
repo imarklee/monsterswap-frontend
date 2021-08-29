@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState, useMemo, useRef } from 'react'
 import { Route, useRouteMatch, useLocation, NavLink } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
-import { Image, Checkbox, RowType, Toggle, Text, Button, ArrowForwardIcon, Flex, useMatchBreakpoints } from 'uikit'
+import { Image, Checkbox, RowType, Text, Flex, useMatchBreakpoints } from 'uikit'
 import { ChainId } from '@pancakeswap/sdk'
 import styled from 'styled-components'
 import Page from 'components/Layout/Page'
@@ -16,9 +16,9 @@ import { orderBy } from 'lodash'
 import isArchivedPid from 'utils/farmHelpers'
 import { latinise } from 'utils/latinise'
 import SearchInput from 'components/SearchInput'
-import Select, { OptionProps } from 'components/Select/Select'
+import { OptionProps } from 'components/Select/Select'
 import Loading from 'components/Loading'
-import FarmBanner from 'assets/images/farms/bg-hero-farms.svg'
+// import FarmBanner from 'assets/images/farms/bg-hero-farms.svg'
 import FarmCard, { FarmWithStakedValue } from './components/FarmCard/FarmCard'
 import Table from './components/FarmTable/FarmTable'
 import FarmTabButtons from './components/FarmTabButtons'
@@ -136,7 +136,7 @@ const ViewControls = styled.div`
 const FarmsBanner = styled.div`
   width: 100%;
   min-height: 213px;
-  background-color: #ACB0D3;
+  background-color: #acb0d3;
   background-size: cover;
   background-position: top center;
   > div {
@@ -153,13 +153,12 @@ const FarmsBanner = styled.div`
     }
   }
 
-  @media (max-width:767.98px) {
+  @media (max-width: 767.98px) {
     min-height: 200px;
     > div {
       height: 200px;
 
       > img {
-        
       }
     }
   }
@@ -506,13 +505,8 @@ const Farms: React.FC = () => {
 
   return (
     <>
-      <FarmsBanner >
-      <Image
-            src="/images/farms/bg-hero-farms.svg"
-            alt="Monster Farms"
-            width={100}
-            height={300}
-        />
+      <FarmsBanner>
+        <Image src="/images/farms/bg-hero-farms.svg" alt="Monster Farms" width={100} height={300} />
       </FarmsBanner>
       <Page>
         <ControlContainer>

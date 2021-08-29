@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from 'uikit'
+// import { Text } from 'uikit'
 import getTimePeriods from 'utils/getTimePeriods'
 import { useTranslation } from 'contexts/Localization'
 

@@ -11,10 +11,10 @@ import usePersistState from 'hooks/usePersistState'
 import { useFetchPublicPoolsData, usePools, useFetchCakeVault, useCakeVault } from 'state/pools/hooks'
 import { usePollFarmsData } from 'state/farms/hooks'
 import { latinise } from 'utils/latinise'
-import FlexLayout from 'components/Layout/Flex'
+// import FlexLayout from 'components/Layout/Flex'
 import Page from 'components/Layout/Page'
 import SearchInput from 'components/SearchInput'
-import Select, { OptionProps } from 'components/Select/Select'
+// import Select, { OptionProps } from 'components/Select/Select'
 import { Pool } from 'state/types'
 import Loading from 'components/Loading'
 import PoolCard from './components/PoolCard'
@@ -71,17 +71,17 @@ const PoolControls = styled.div`
   }
 `
 
-const FilterContainer = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 8px 0px;
+// const FilterContainer = styled.div`
+//   display: flex;
+//   align-items: center;
+//   width: 100%;
+//   padding: 8px 0px;
 
-  ${({ theme }) => theme.mediaQueries.sm} {
-    width: auto;
-    padding: 0;
-  }
-`
+//   ${({ theme }) => theme.mediaQueries.sm} {
+//     width: auto;
+//     padding: 0;
+//   }
+// `
 
 const LabelWrapper = styled.div`
   > ${Text} {
@@ -94,11 +94,11 @@ const LabelWrapper = styled.div`
   }
 `
 
-const ControlStretch = styled(Flex)`
-  > div {
-    flex: 1;
-  }
-`
+// const ControlStretch = styled(Flex)`
+//   > div {
+//     flex: 1;
+//   }
+// `
 
 const PoolsBanner = styled.div`
   width: 100%;
@@ -233,7 +233,7 @@ const Pools: React.FC = () => {
   const performanceFeeAsDecimal = performanceFee && performanceFee / 100
 
   const pools = useMemo(() => {
-    const cakePool = poolsWithoutAutoVault.find((pool) => pool.sousId === 0)
+    // const cakePool = poolsWithoutAutoVault.find((pool) => pool.sousId === 0)
 
     // TAKE OUT AUTO-POOL
     // const cakeAutoVault = { ...cakePool, isAutoVault: true }
@@ -298,9 +298,9 @@ const Pools: React.FC = () => {
     setSearchQuery(event.target.value)
   }
 
-  const handleSortOptionChange = (option: OptionProps): void => {
-    setSortOption(option.value)
-  }
+  // const handleSortOptionChange = (option: OptionProps): void => {
+  //   setSortOption(option.value)
+  // }
 
   const sortPools = (poolsToSort: Pool[]) => {
     switch (sortOption) {

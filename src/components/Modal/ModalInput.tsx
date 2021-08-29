@@ -16,13 +16,13 @@ interface ModalInputProps {
   decimals?: number
 }
 
-const getBoxShadow = ({ isWarning = false, theme }) => {
-  if (isWarning) {
-    return theme.shadows.warning
-  }
+// const getBoxShadow = ({ isWarning = false, theme }) => {
+//   if (isWarning) {
+//     return theme.shadows.warning
+//   }
 
-  return theme.shadows.inset
-}
+//   return theme.shadows.inset
+// }
 
 const StyledTokenInput = styled.div<InputProps>`
   display: flex;
@@ -36,16 +36,16 @@ const StyledTokenInput = styled.div<InputProps>`
     font-family: 'Red Hat Text', sans-serif;
     font-size: 24px;
     line-height: 31px;
-    color: #524F9E;
+    color: #524f9e;
     font-weight: bold;
   }
   & h1 {
     font-size: 24px;
     line-height: 31px;
-    color: #524F9E;
+    color: #524f9e;
   }
   & button {
-    background: #49468A;
+    background: #49468a;
     box-shadow: none;
     height: 40px;
     font-size: 14px;
@@ -79,7 +79,7 @@ const StyledErrorMessage = styled(Text)`
   font-weight: bold;
   font-size: 18px;
   line-height: 31px;
-  color: #EA0000;
+  color: #ea0000;
   a {
     display: inline;
     font-family: 'Red Hat Text', sans-serif;

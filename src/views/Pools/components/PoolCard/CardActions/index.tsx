@@ -2,16 +2,16 @@ import BigNumber from 'bignumber.js'
 import React from 'react'
 import styled from 'styled-components'
 import { BIG_ZERO } from 'utils/bigNumber'
-import { Flex, Text, Box } from 'uikit'
+import { Flex, Text } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 import { PoolCategory } from 'config/constants/types'
 import { Pool } from 'state/types'
 import StakeActions from './StakeActions'
 import HarvestActions from './HarvestActions'
 
-const InlineText = styled(Text)`
-  display: inline;
-`
+// const InlineText = styled(Text)`
+//   display: inline;
+// `
 
 interface CardActionsProps {
   pool: Pool
@@ -21,10 +21,10 @@ interface CardActionsProps {
 }
 
 const CardActions: React.FC<CardActionsProps> = ({ pool, stakedBalance, isExpanded, setExpanded }) => {
-  const { sousId, stakingToken, earningToken, harvest, poolCategory, userData, earningTokenPrice } = pool
+  const { sousId, earningToken, harvest, poolCategory, userData, earningTokenPrice } = pool
   // Pools using native BNB behave differently than pools using a token
   const isBnbPool = poolCategory === PoolCategory.BINANCE
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   const allowance = userData?.allowance ? new BigNumber(userData.allowance) : BIG_ZERO
   const stakingTokenBalance = userData?.stakingTokenBalance ? new BigNumber(userData.stakingTokenBalance) : BIG_ZERO
   const earnings = userData?.pendingReward ? new BigNumber(userData.pendingReward) : BIG_ZERO
@@ -49,7 +49,8 @@ const CardActions: React.FC<CardActionsProps> = ({ pool, stakedBalance, isExpand
             setExpanded={setExpanded}
           />
         )}
-        {isExpanded && !needsApproval && <StakeActions
+        {isExpanded && !needsApproval && (
+          <StakeActions
             isLoading={isLoading}
             pool={pool}
             stakingTokenBalance={stakingTokenBalance}
@@ -57,7 +58,7 @@ const CardActions: React.FC<CardActionsProps> = ({ pool, stakedBalance, isExpand
             isBnbPool={isBnbPool}
             isStaked={isStaked}
           />
-        }
+        )}
       </Flex>
     </Flex>
   )

@@ -58,12 +58,12 @@ const FCard = styled.div<{ isPromotedFarm: boolean }>`
   text-align: center;
 `
 
-const Divider = styled.div`
-  background-color: ${({ theme }) => theme.colors.cardBorder};
-  height: 1px;
-  margin: 28px auto;
-  width: 100%;
-`
+// const Divider = styled.div`
+//   background-color: ${({ theme }) => theme.colors.cardBorder};
+//   height: 1px;
+//   margin: 28px auto;
+//   width: 100%;
+// `
 
 const ExpandingWrapper = styled.div<{ expanded: boolean }>`
   height: ${(props) => (props.expanded ? '100%' : '0px')};
@@ -79,7 +79,7 @@ const CardInfoContainer = styled.div`
   margin-left: 10px;
   & h1 {
     font-size: 18px;
-    color: #4E4E9D;
+    color: #4e4e9d;
     letter-spacing: 0.01em;
   }
   & h2 {
@@ -88,7 +88,7 @@ const CardInfoContainer = styled.div`
     font-size: 18px;
     line-height: 24px;
     letter-spacing: 0.01em;
-    color: #4E4E9D;
+    color: #4e4e9d;
     display: flex;
     align-items: center;
     & span {
@@ -97,7 +97,7 @@ const CardInfoContainer = styled.div`
       font-size: 18px;
       line-height: 24px;
       letter-spacing: 0.01em;
-      color: #4E4E9D;
+      color: #4e4e9d;
     }
   }
   & p {
@@ -105,7 +105,7 @@ const CardInfoContainer = styled.div`
     font-size: 14px;
     line-height: 19px;
     letter-spacing: 0.01em;
-    color: #4E4E9D;
+    color: #4e4e9d;
   }
 `
 
@@ -144,7 +144,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePric
       : ''
 
   const lpLabel = farm.lpSymbol && farm.lpSymbol.toUpperCase().replace('PANCAKE', '')
-  const earnLabel = farm.dual ? farm.dual.earnLabel : t('CAKE + Fees')
+  // const earnLabel = farm.dual ? farm.dual.earnLabel : t('CAKE + Fees')
 
   const liquidityUrlPathParts = getLiquidityUrlPathParts({
     quoteTokenAddress: farm.quoteToken.address,
@@ -158,12 +158,19 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePric
     <FCard isPromotedFarm={isPromotedFarm}>
       {isPromotedFarm && <StyledCardAccent />}
       <CardTop>
-        <TokenPairImage variant="inverted" primaryToken={farm.token} secondaryToken={farm.quoteToken} width={109} height={109} />
+        <TokenPairImage
+          variant="inverted"
+          primaryToken={farm.token}
+          secondaryToken={farm.quoteToken}
+          width={109}
+          height={109}
+        />
         <CardInfoContainer>
           <CardInfoRow>
             <h1>{lpLabel.split(' ')[0]}</h1>
             {!removed && (
-              <h2><span>APR:</span> { displayApr }%
+              <h2>
+                <span>APR:</span> {displayApr}%
                 <ApyButton
                   lpLabel={lpLabel}
                   addLiquidityUrl={addLiquidityUrl}
@@ -176,9 +183,16 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePric
           </CardInfoRow>
           <CardInfoRow>
             <div style={{ paddingRight: 32, width: '100%' }}>
-              <CardActionsContainer expanded={showExpandableSection} farm={farm} account={account} addLiquidityUrl={addLiquidityUrl} />
+              <CardActionsContainer
+                expanded={showExpandableSection}
+                farm={farm}
+                account={account}
+                addLiquidityUrl={addLiquidityUrl}
+              />
             </div>
-            <ArrowContainer onClick={() => setShowExpandableSection(!showExpandableSection)}>{ showExpandableSection ? <ArrowUp /> : <ArrowDown /> }</ArrowContainer>
+            <ArrowContainer onClick={() => setShowExpandableSection(!showExpandableSection)}>
+              {showExpandableSection ? <ArrowUp /> : <ArrowDown />}
+            </ArrowContainer>
           </CardInfoRow>
         </CardInfoContainer>
       </CardTop>

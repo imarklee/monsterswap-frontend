@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { Button, useModal, IconButton, AddIcon, MinusIcon, Skeleton, Text, Heading } from 'uikit'
+import { Button, useModal, IconButton, AddIcon, MinusIcon, Skeleton } from 'uikit'
 import { useLocation } from 'react-router-dom'
 import { BigNumber } from 'bignumber.js'
 import ConnectWalletButton from 'components/ConnectWalletButton'
-import Balance from 'components/Balance'
+// import Balance from 'components/Balance'
 import { useWeb3React } from '@web3-react/core'
 import { useFarmUser, useLpTokenPrice } from 'state/farms/hooks'
 import { fetchFarmUserDataAsync } from 'state/farms'
@@ -49,7 +49,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   const { onStake } = useStakeFarms(pid)
   const { onUnstake } = useUnstakeFarms(pid)
   const location = useLocation()
-  const lpPrice = useLpTokenPrice(lpSymbol)
+  // const lpPrice = useLpTokenPrice(lpSymbol)
 
   const isApproved = account && allowance && allowance.isGreaterThan(0)
 
@@ -107,9 +107,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
     return (
       <ActionContainer>
         <ActionTitles>
-          <h2>
-            {t('Start Farming')}
-          </h2>
+          <h2>{t('Start Farming')}</h2>
         </ActionTitles>
         <ActionContent>
           <ConnectWalletButton width="100%" />
@@ -124,9 +122,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
         <ActionContainer>
           <ActionContent>
             <StakedContent>
-              <p>
-                {t('Staked')}
-              </p>
+              <p>{t('Staked')}</p>
               <h1>{displayBalance()}</h1>
             </StakedContent>
             <IconButtonWrapper>
@@ -166,9 +162,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
     return (
       <ActionContainer>
         <ActionTitles>
-          <h2>
-            {t('Start Farming')}
-          </h2>
+          <h2>{t('Start Farming')}</h2>
         </ActionTitles>
         <ActionContent>
           <Skeleton width={180} marginBottom={28} marginTop={14} />
@@ -180,9 +174,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   return (
     <ActionContainer>
       <ActionTitles>
-        <h2>
-          {t('Enable Farm')}
-        </h2>
+        <h2>{t('Enable Farm')}</h2>
       </ActionTitles>
       <ActionContent>
         <Button width="100%" disabled={requestedApproval} onClick={handleApprove} variant="secondary">

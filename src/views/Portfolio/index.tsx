@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Flex, Card, LinkExternal } from 'uikit'
 import { useWeb3React } from '@web3-react/core'
-import useTheme from 'hooks/useTheme'
+// import useTheme from 'hooks/useTheme'
 import { ReactComponent as ArrowDown } from 'assets/images/ArrowDown.svg'
 import { PortfolioHeader } from './components'
 import { CardButton } from '../Home/components'
@@ -130,7 +130,7 @@ const StyledLinkExternal = styled(LinkExternal)`
 `
 
 const Portfolio: React.FC = () => {
-  const { theme } = useTheme()
+  // const { theme } = useTheme()
   const { account } = useWeb3React()
   const [showDetails, setShowDetails] = useState(false)
 

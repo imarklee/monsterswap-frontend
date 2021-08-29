@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Flex, Text, Button, Heading, useModal, Skeleton } from 'uikit'
+import { Flex, Button, useModal, Skeleton } from 'uikit'
 import BigNumber from 'bignumber.js'
 import { Token } from 'config/constants/types'
 import { useTranslation } from 'contexts/Localization'
@@ -20,7 +20,7 @@ interface HarvestActionsProps {
   isLoading?: boolean
   needsApproval: boolean
   pool: any
-  isExpanded: boolean,
+  isExpanded: boolean
   setExpanded: () => void
 }
 
@@ -43,7 +43,7 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
   needsApproval,
   pool,
   isExpanded,
-  setExpanded
+  setExpanded,
 }) => {
   const { t } = useTranslation()
   const earningTokenBalance = getBalanceNumber(earnings, earningToken.decimals)
@@ -102,18 +102,14 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
         )}
       </Flex>
       <Flex>
-        {
-          needsApproval && <ApprovalAction pool={pool} isLoading={isLoading} />
-        }
-        { hasEarnings &&
+        {needsApproval && <ApprovalAction pool={pool} isLoading={isLoading} />}
+        {hasEarnings && (
           <Button onClick={onPresentCollect}>
             {/* {isCompoundPool ? t('Collect') : t('Harvest')} */}
-            { t('Compound') }
-          </Button>    
-        }
-        <ArrowWrapper onClick={setExpanded}>
-          { isExpanded ? <ArrowUp /> : <ArrowDown /> }
-        </ArrowWrapper>
+            {t('Compound')}
+          </Button>
+        )}
+        <ArrowWrapper onClick={setExpanded}>{isExpanded ? <ArrowUp /> : <ArrowDown />}</ArrowWrapper>
       </Flex>
     </Flex>
   )

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
-import { Flex, Skeleton, Text } from 'uikit'
+import { Flex, Skeleton } from 'uikit'
 import styled from 'styled-components'
-import { useTranslation } from 'contexts/Localization'
+// import { useTranslation } from 'contexts/Localization'
 import BigNumber from 'bignumber.js'
 import Balance from 'components/Balance'
 import { Pool } from 'state/types'
@@ -24,7 +24,7 @@ const StyledCell = styled(BaseCell)`
     font-size: 18px;
     line-height: 24px;
     font-weight: bold;
-    color: #4E4E9D;
+    color: #4e4e9d;
   }
   ${({ theme }) => theme.mediaQueries.sm} {
     flex: 1 0 150px;
@@ -32,7 +32,7 @@ const StyledCell = styled(BaseCell)`
 `
 
 const TotalStakedCell: React.FC<TotalStakedCellProps> = ({ pool }) => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   const { sousId, stakingToken, totalStaked, isAutoVault } = pool
   const { totalCakeInVault } = useCakeVault()
 

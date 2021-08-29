@@ -4,12 +4,12 @@ import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
 import { Button, Flex, Heading, IconButton, AddIcon, MinusIcon, useModal } from 'uikit'
 import { useLocation } from 'react-router-dom'
-import Balance from 'components/Balance'
+// import Balance from 'components/Balance'
 import { useTranslation } from 'contexts/Localization'
 import { useAppDispatch } from 'state'
 import { fetchFarmUserDataAsync } from 'state/farms'
 import { useLpTokenPrice } from 'state/farms/hooks'
-import { getBalanceAmount, getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
+import { getBalanceAmount, getFullDisplayBalance } from 'utils/formatBalance'
 import DepositModal from '../DepositModal'
 import WithdrawModal from '../WithdrawModal'
 import useUnstakeFarms from '../../hooks/useUnstakeFarms'
@@ -43,7 +43,7 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
   const location = useLocation()
   const dispatch = useAppDispatch()
   const { account } = useWeb3React()
-  const lpPrice = useLpTokenPrice(tokenName)
+  // const lpPrice = useLpTokenPrice(tokenName)
 
   const handleStake = async (amount: string) => {
     await onStake(amount)
@@ -100,8 +100,8 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
   return (
     <Flex flex={1} justifyContent="space-between" alignItems="center">
       <Flex flexDirection="column" alignItems="flex-start">
-        <p>{ stakedBalance.eq(0) && t('Banana Earned') }</p>
-        <p>{ stakedBalance.gt(0) && t('Staked') }</p>
+        <p>{stakedBalance.eq(0) && t('Banana Earned')}</p>
+        <p>{stakedBalance.gt(0) && t('Staked')}</p>
         <Heading>{displayBalance()}</Heading>
       </Flex>
       {renderStakingButtons()}

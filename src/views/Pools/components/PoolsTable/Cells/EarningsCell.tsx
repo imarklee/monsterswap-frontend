@@ -28,7 +28,7 @@ const StyledCell = styled(BaseCell)`
     font-size: 18px;
     line-height: 24px;
     font-weight: bold;
-    color: #4E4E9D;
+    color: #4e4e9d;
   }
   ${({ theme }) => theme.mediaQueries.sm} {
     flex: 1 0 100px;
@@ -71,7 +71,7 @@ const EarningsCell: React.FC<EarningsCellProps> = ({ pool, account, userDataLoad
   const dateTimeLastAction = new Date(lastActionInMs)
   const dateStringToDisplay = dateTimeLastAction.toLocaleString()
 
-  const labelText = isAutoVault ? t('Recent CAKE profit') : t('%asset% Earned', { asset: earningToken.symbol })
+  // const labelText = isAutoVault ? t('Recent CAKE profit') : t('%asset% Earned', { asset: earningToken.symbol })
   earningTokenBalance = isAutoVault ? autoCakeToDisplay : earningTokenBalance
   hasEarnings = isAutoVault ? hasAutoEarnings : hasEarnings
   earningTokenDollarBalance = isAutoVault ? autoUsdToDisplay : earningTokenDollarBalance

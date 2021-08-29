@@ -1,7 +1,7 @@
 import React from 'react'
 import styled, { keyframes, DefaultTheme } from 'styled-components'
 import { Text } from '../../../components/Text'
-import { Colors } from '../../../theme/types'
+// import { Colors } from '../../../theme/types'
 import { MENU_ENTRY_HEIGHT } from '../config'
 
 export interface Props {

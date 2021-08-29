@@ -11,7 +11,6 @@ import {
   useMatchBreakpoints,
   useModal,
   SubMenu,
-  SubMenuItem,
   EllipsisIcon,
 } from 'uikit'
 import { getBscScanLink } from 'utils'

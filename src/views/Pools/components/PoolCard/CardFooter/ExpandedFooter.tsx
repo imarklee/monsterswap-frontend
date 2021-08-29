@@ -3,13 +3,13 @@ import BigNumber from 'bignumber.js'
 import styled from 'styled-components'
 import { getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
 import { useTranslation } from 'contexts/Localization'
-import { Flex, MetamaskIcon, Text, TooltipText, TimerIcon, Skeleton, useTooltip, Button, HelpIcon } from 'uikit'
-import { BASE_BSC_SCAN_URL } from 'config'
+import { Flex, Text, TooltipText, TimerIcon, Skeleton, useTooltip } from 'uikit'
+// import { BASE_BSC_SCAN_URL } from 'config'
 import { useBlock } from 'state/block/hooks'
 import { useCakeVault } from 'state/pools/hooks'
 import { Pool } from 'state/types'
-import { getAddress, getCakeVaultAddress } from 'utils/addressHelpers'
-import { registerToken } from 'utils/wallet'
+import { getAddress } from 'utils/addressHelpers'
+// import { registerToken } from 'utils/wallet'
 import { getBscScanLink } from 'utils'
 import Balance from 'components/Balance'
 import { getPoolBlockInfo } from 'views/Pools/helpers'
@@ -27,7 +27,7 @@ const ExpandedWrapper = styled(Flex)`
   }
   & a {
     font-size: 14px;
-    color: #4E4E9D;
+    color: #4e4e9d;
     letter-spacing: 0.01em;
     text-decoration: underline;
     margin-top: 8px;
@@ -39,13 +39,14 @@ const FooterRow = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-top: 8px;
-  & p, & span {
+  & p,
+  & span {
     font-family: 'Red Hat Text', sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 19px;
     letter-spacing: 0.01em;
-    color: #4E4E9D;
+    color: #4e4e9d;
   }
 `
 
@@ -69,10 +70,10 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
     isAutoVault,
   } = pool
 
-  const tokenAddress = earningToken.address ? getAddress(earningToken.address) : ''
-  const poolContractAddress = getAddress(contractAddress)
-  const cakeVaultContractAddress = getCakeVaultAddress()
-  const isMetaMaskInScope = !!window.ethereum?.isMetaMask
+  // const tokenAddress = earningToken.address ? getAddress(earningToken.address) : ''
+  // const poolContractAddress = getAddress(contractAddress)
+  // const cakeVaultContractAddress = getCakeVaultAddress()
+  // const isMetaMaskInScope = !!window.ethereum?.isMetaMask
   const isManualCakePool = sousId === 0
 
   const { shouldShowBlockCountdown, blocksUntilStart, blocksRemaining, hasPoolStarted, blocksToDisplay } =
@@ -122,7 +123,7 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
       </FooterRow>
       <FooterRow>
         <p>{t('Stake')}:</p>
-        <p>{ pool.stakingToken.symbol }</p>
+        <p>{pool.stakingToken.symbol}</p>
       </FooterRow>
       <FooterRow>
         <p>{t('Deposit Fees')}:</p>
@@ -174,16 +175,18 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
           <TooltipText ref={targetRef} small>
             {t('Performance Fee')}
           </TooltipText>
-          <p>
-            {performanceFee / 100}%
-          </p>
+          <p>{performanceFee / 100}%</p>
         </FooterRow>
       )}
-      <Flex justifyContent='center'>
-        <a href={`https://pancakeswap.info/token/${getAddress(earningToken.address)}`} target='_blank' rel='noreferrer'>{t('View on Bscscan')}</a>
+      <Flex justifyContent="center">
+        <a href={`https://pancakeswap.info/token/${getAddress(earningToken.address)}`} target="_blank" rel="noreferrer">
+          {t('View on Bscscan')}
+        </a>
       </Flex>
-      <Flex justifyContent='center'>
-        <a href={earningToken.projectLink} target='_blank' rel='noreferrer'>{t('View Project Site')}</a>
+      <Flex justifyContent="center">
+        <a href={earningToken.projectLink} target="_blank" rel="noreferrer">
+          {t('View Project Site')}
+        </a>
       </Flex>
       {/* {poolContractAddress && (
         <Flex justifyContent='center'>

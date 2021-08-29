@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Modal, Text, Flex, Image, Button, Slider, BalanceInput, AutoRenewIcon } from 'uikit'
+import { Modal, Text, Flex, Button, BalanceInput, AutoRenewIcon } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 import useTheme from 'hooks/useTheme'
 import useToast from 'hooks/useToast'
 import BigNumber from 'bignumber.js'
 import { getFullDisplayBalance, formatNumber, getDecimalAmount } from 'utils/formatBalance'
 import { Pool } from 'state/types'
-import { getAddress } from 'utils/addressHelpers'
-import PercentageButton from './PercentageButton'
+// import { getAddress } from 'utils/addressHelpers'
+// import PercentageButton from './PercentageButton'
 import useStakePool from '../../../hooks/useStakePool'
 import useUnstakePool from '../../../hooks/useUnstakePool'
 
@@ -21,18 +21,19 @@ interface StakeModalProps {
   onDismiss?: () => void
 }
 
-const StyledLink = styled.a`
-  width: 100%;
-`
+// const StyledLink = styled.a`
+//   width: 100%;
+// `
 
 const InputWrapper = styled.div`
   background: rgba(73, 70, 138, 0.2);
   border-radius: 10px;
   padding: 12px;
-  & p, & input {
+  & p,
+  & input {
     font-size: 20px;
     line-height: 31px;
-    color: #524F9E;
+    color: #524f9e;
     text-align: right;
     font-family: 'Red Hat Text', sans-serif;
   }
@@ -47,10 +48,10 @@ const InputWrapper = styled.div`
   & h1 {
     font-size: 20px;
     margin-left: 8px;
-    color: #524F9E;
+    color: #524f9e;
   }
   & button {
-    background: #49468A;
+    background: #49468a;
     border-radius: 10px;
     height: 40px;
     font-size: 14px;
@@ -74,11 +75,11 @@ const ButtonWrapper = styled.div`
     margin: 0 12px;
     font-size: 16px;
     &.secondary {
-      border: 1px solid #49468A;
-      color: #524F9E;
+      border: 1px solid #49468a;
+      color: #524f9e;
     }
     &.primary {
-      background: #49468A;
+      background: #49468a;
     }
   }
 `
@@ -211,7 +212,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             balance: Number(getFullDisplayBalance(getCalculatedStakingLimit(), stakingToken.decimals)).toFixed(4),
           })}
         </p>
-        <Flex alignItems='center'>
+        <Flex alignItems="center">
           <BalanceInput
             value={stakeAmount}
             onUserInput={handleStakeInputChange}
@@ -220,7 +221,7 @@ const StakeModal: React.FC<StakeModalProps> = ({
             decimals={stakingToken.decimals}
           />
           <Button onClick={() => handleChangePercent(100)}>Max</Button>
-          <h1>{ stakingToken.symbol }</h1>
+          <h1>{stakingToken.symbol}</h1>
         </Flex>
       </InputWrapper>
       {hasReachedStakeLimit && (
@@ -247,11 +248,11 @@ const StakeModal: React.FC<StakeModalProps> = ({
         <PercentageButton onClick={() => handleChangePercent(100)}>{t('Max')}</PercentageButton>
       </Flex> */}
       <ButtonWrapper>
-        <Button variant='secondary' className='secondary'>
-          { t('Cancel') }
+        <Button variant="secondary" className="secondary">
+          {t('Cancel')}
         </Button>
         <Button
-          className='primary'
+          className="primary"
           isLoading={pendingTx}
           endIcon={pendingTx ? <AutoRenewIcon spin color="currentColor" /> : null}
           onClick={handleConfirmClick}

@@ -1,22 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Label = styled.div`
-  font-size: 12px;
-  color: ${({ theme }) => theme.colors.textSubtle};
-  text-align: left;
-`
+// const Label = styled.div`
+//   font-size: 12px;
+//   color: ${({ theme }) => theme.colors.textSubtle};
+//   text-align: left;
+// `
 
 const ContentContainer = styled.div<{ label: string }>`
   min-height: 24px;
   display: flex;
   align-items: center;
-  & div, & span {
+  & div,
+  & span {
     font-family: ${({ label }) => (label === 'Liquidity' || label === 'Earned') && "'Red Hat Text', sans-serif"};
-    font-size: ${({ label }) => label === 'Earned' ? '24px' : '18px'};
+    font-size: ${({ label }) => (label === 'Earned' ? '24px' : '18px')};
     font-weight: ${({ label }) => (label === 'Liquidity' || label === 'Earned') && 'bold'};
-    letter-spacing: ${({ label }) => (label === 'Liquidity' || label === 'Earned') ? '0.01em' : '0.04em'};
-    color: #4E4E9D;
+    letter-spacing: ${({ label }) => (label === 'Liquidity' || label === 'Earned' ? '0.01em' : '0.04em')};
+    color: #4e4e9d;
   }
 `
 
