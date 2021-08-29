@@ -786,7 +786,7 @@
   "Contribute %symbol%": "Contribute %symbol%",
   "Volume": "Volume",
   "%symbol% per $1,000": "%symbol% per $1,000",
-  "per $1,000": "per $1,000",  
+  "per $1,000": "per $1,000",
   "Prediction (BETA)": "Prediction (BETA)",
   "Collectibles": "Collectibles",
   "Team Battle": "Team Battle",
@@ -1315,5 +1315,7 @@
   "5 Winners": "5 Winners",
   "20 Contenders...": "20 Contenders...",
   "Farm Auctions": "Farm Auctions",
-  "auction bunny": "auction bunny"
+  "auction bunny": "auction bunny",
+  "MonsterSwap": "Monsterswap",
+  "Portfolio": "Portfolio"
 }
