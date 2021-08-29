@@ -85,7 +85,7 @@ const CommissionEarned = styled.div`
 `
 
 const Referrals: React.FC = () => {
-  const { theme } = useTheme()
+  // const { theme } = useTheme()
   const { account } = useWeb3React()
 
   return (
