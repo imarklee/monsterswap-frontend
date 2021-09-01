@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import {Image} from 'uikit'
 
 const Container = styled.div`
   display: flex;
@@ -8,6 +9,9 @@ const Container = styled.div`
   & > div {
     width: 100%;
     margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   & h1 {
@@ -25,6 +29,18 @@ const Container = styled.div`
     margin-top: 8px;
   }
 
+  @media (max-width: 767.98px) {
+    padding-left: 40px;
+    padding-right: 40px;
+
+    & > div:nth-child(1) {
+      margin-bottom: 30px;
+    }
+    & > div > h1:nth-child(1) {
+      display: none;
+    }
+  }
+
   ${({ theme }) => theme.mediaQueries.sm} {
     justify-content: space-between;
 
@@ -39,20 +55,15 @@ const Container = styled.div`
   }
 `
 
-const PortfolioBanner = styled.div`
-  height: 225px;
-  background: #4e4e9d;
-  border-radius: 10px;
-`
-
 const PortfolioHeader: React.FC = () => {
   return (
     <Container>
       <div>
-        <h1>Your Monster Portfolio</h1>
+        <h1>Your</h1>
+        <h1>Monster Portfolio</h1>
         <h2>Keep track of your pools and farms</h2>
       </div>
-      <PortfolioBanner />
+      <Image src="/images/portfolio/ic-portfolio.svg" alt="Monster Swap" width={490} height={245} />
     </Container>
   )
 }
