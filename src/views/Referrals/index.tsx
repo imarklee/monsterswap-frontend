@@ -1,19 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Flex, Card, Button } from 'uikit'
+import { Flex, Card, Button, Image } from 'uikit'
 import { ReactComponent as NoAvatar } from 'assets/images/NoAvatar.svg'
 import { useWeb3React } from '@web3-react/core'
 // import useTheme from 'hooks/useTheme'
 
+const Container = styled.div`
+  max-width: 1200px;
+  margin: 47px auto;
+
+  @media (max-width: 767.98px) {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 30px auto;
+  }
+`
+
 const ReferralBanner = styled.div`
-  width: 100%;
-  height: 201px;
-  background: #4e4e9d;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 `
 
 const UnlockWrapper = styled.div`
-  max-width: 1070px;
-  margin: 40px auto;
+  max-width: 1200px;
+  margin: 105px auto 0;
   padding: 32px 0;
   display: flex;
   flex-direction: column;
@@ -32,16 +43,32 @@ const UnlockWrapper = styled.div`
     color: #4e4e9d;
     margin-top: 32px;
   }
+
+  @media (max-width: 767.98px) {
+    margin: 30px auto;
+  }
 `
 const ReferralContent = styled.div`
   max-width: 768px;
-  margin: 32px auto;
+  margin: 105px auto 32px;
   width: 100%;
   & > div > div {
     width: 100%;
 
     ${({ theme }) => theme.mediaQueries.md} {
       width: 49%;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    margin: 30px auto;
+
+    & > div:nth-child(2) {
+      flex-direction: column;
+
+      & > div:nth-child(1) {
+        margin-bottom: 20px;
+      }
     }
   }
 `
@@ -75,6 +102,8 @@ const ReferralCount = styled.div`
   }
 `
 
+
+
 const CommissionEarned = styled.div`
   display: flex;
   align-items: center;
@@ -89,8 +118,10 @@ const Referrals: React.FC = () => {
   const { account } = useWeb3React()
 
   return (
-    <>
-      <ReferralBanner />
+    <Container>
+      <ReferralBanner>
+        <Image src="/images/referral/ic-referral.svg" alt="Referral" width={557} height={140} />
+      </ReferralBanner>
       {account ? (
         <ReferralContent>
           <StyledCard style={{ marginBottom: 24 }}>
@@ -119,7 +150,7 @@ const Referrals: React.FC = () => {
           <p>Unlock wallet to get your unique referral link</p>
         </UnlockWrapper>
       )}
-    </>
+    </Container>
   )
 }
 

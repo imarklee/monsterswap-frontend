@@ -8,7 +8,9 @@ import { PortfolioHeader } from './components'
 import { CardButton } from '../Home/components'
 
 const Container = styled.div`
-  padding: 48px;
+  max-width: 1200px;
+  margin: 83px auto;
+  
   & > div {
     flex-direction: column;
   }
@@ -17,6 +19,12 @@ const Container = styled.div`
     & > div {
       flex-direction: row;
     }
+  }
+
+  @media (max-width: 767.98px) {
+    margin: 40px auto;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 `
 
@@ -96,16 +104,16 @@ const CardRow = styled.div`
   }
 
   @media (max-width: 767.98px) {
-    flex-direction: column;
+    // flex-direction: column;
 
-    > p {
-      width: 100%;
-      text-align: left !important;
-    }
-    > div {
-      width: 100%;
-      text-align: left;
-    }
+    // > p {
+    //   width: 100%;
+    //   text-align: left !important;
+    // }
+    // > div {
+    //   width: 100%;
+    //   text-align: left;
+    // }
   }
 `
 

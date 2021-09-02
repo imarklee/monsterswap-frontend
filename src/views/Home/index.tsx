@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Flex, Card } from 'uikit'
+import {Flex, Card, Image} from 'uikit'
 import { useWeb3React } from '@web3-react/core'
 import useTheme from 'hooks/useTheme'
 import Slider from 'react-slick'
@@ -9,7 +9,10 @@ import { ReactComponent as PrevIcon } from 'assets/images/PrevIcon.svg'
 import { CardButton, MonsterDataRow, MonsterFarmDataRow } from './components'
 
 const Container = styled.div`
-  padding: 30px;
+  padding: 90px 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+
   & > div {
     flex-direction: column;
   }
@@ -43,7 +46,7 @@ const StyledCard = styled(Card)<{ bgColor?: string }>`
 `
 
 const BannerContainer = styled.div`
-  padding: 200px 0 50px;
+  padding: 0 69px 30px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -51,6 +54,11 @@ const BannerContainer = styled.div`
   height: 100%;
   & h1 {
     margin-bottom: 12px;
+  }
+
+  > div {
+    margin-bottom: 51px;
+    margin-top: -53px;
   }
 `
 
@@ -244,7 +252,7 @@ const Home: React.FC = () => {
         <LeftPart>
           <StyledCard>
             <BannerContainer>
-              <MonsterBanner />
+              <Image src="/images/home/logo-monster-home.svg" alt="Monster Swap" width={225} height={250} />
               <StyledTitle fontSize="36px">MONSTERSWAP</StyledTitle>
               <StyledText fontSize="14px">The #1 AMM and yield farm on Binance Smart Chain</StyledText>
             </BannerContainer>
