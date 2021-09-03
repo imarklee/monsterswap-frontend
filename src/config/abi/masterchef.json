@@ -2,13 +2,13 @@
   {
     "inputs": [
       {
-        "internalType": "contract CakeToken",
-        "name": "_cake",
+        "internalType": "contract MonsterToken",
+        "name": "_monster",
         "type": "address"
       },
       {
-        "internalType": "contract SyrupBar",
-        "name": "_syrup",
+        "internalType": "contract MonsterDai",
+        "name": "_monsterDai",
         "type": "address"
       },
       {
@@ -17,13 +17,23 @@
         "type": "address"
       },
       {
+        "internalType": "address",
+        "name": "_feeaddr",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
-        "name": "_cakePerBlock",
+        "name": "_monsterPerBlock",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
         "name": "_startBlock",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_multiplier",
         "type": "uint256"
       }
     ],
@@ -150,6 +160,16 @@
         "type": "address"
       },
       {
+        "internalType": "uint16",
+        "name": "_depositFeeBP",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_harvestFeeBP",
+        "type": "uint16"
+      },
+      {
         "internalType": "bool",
         "name": "_withUpdate",
         "type": "bool"
@@ -165,7 +185,7 @@
     "name": "cake",
     "outputs": [
       {
-        "internalType": "contract CakeToken",
+        "internalType": "contract MonsterToken",
         "name": "",
         "type": "address"
       }
@@ -189,6 +209,19 @@
   {
     "inputs": [
       {
+        "internalType": "contract IBEP20",
+        "name": "_lpToken",
+        "type": "address"
+      }
+    ],
+    "name": "checkPoolDuplicate",
+    "outputs": [],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "_pid",
         "type": "uint256"
@@ -197,6 +230,11 @@
         "internalType": "uint256",
         "name": "_amount",
         "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_referrer",
+        "type": "address"
       }
     ],
     "name": "deposit",
@@ -257,6 +295,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "feeAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -284,6 +335,40 @@
     "inputs": [
       {
         "internalType": "uint256",
+        "name": "_pid",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPoolInfo",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "lpToken",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "allocPoint",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lastRewardBlock",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "accCakePerShare",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
         "name": "_amount",
         "type": "uint256"
       }
@@ -301,24 +386,11 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "_pid",
-        "type": "uint256"
-      }
-    ],
-    "name": "migrate",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
-    "name": "migrator",
+    "name": "monsterReferral",
     "outputs": [
       {
-        "internalType": "contract IMigratorChef",
+        "internalType": "contract IMonsterReferral",
         "name": "",
         "type": "address"
       }
@@ -392,6 +464,16 @@
         "internalType": "uint256",
         "name": "accCakePerShare",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint16",
+        "name": "depositFeeBP",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "harvestFeeBP",
+        "type": "uint16"
       }
     ],
     "stateMutability": "view",
@@ -430,6 +512,16 @@
         "type": "uint256"
       },
       {
+        "internalType": "uint16",
+        "name": "_depositFeeBP",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "_harvestFeeBP",
+        "type": "uint16"
+      },
+      {
         "internalType": "bool",
         "name": "_withUpdate",
         "type": "bool"
@@ -443,12 +535,25 @@
   {
     "inputs": [
       {
-        "internalType": "contract IMigratorChef",
-        "name": "_migrator",
+        "internalType": "address",
+        "name": "_feeAddress",
         "type": "address"
       }
     ],
-    "name": "setMigrator",
+    "name": "setFeeAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract IMonsterReferral",
+        "name": "_monsterReferral",
+        "type": "address"
+      }
+    ],
+    "name": "setMonsterReferral",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -471,7 +576,7 @@
     "name": "syrup",
     "outputs": [
       {
-        "internalType": "contract SyrupBar",
+        "internalType": "contract MonsterDai",
         "name": "",
         "type": "address"
       }

@@ -6,6 +6,7 @@ import { useTranslation } from 'contexts/Localization'
 
 const StyledNav = styled.nav`
   margin-bottom: 0px;
+  width: 100%;
 `
 
 const getActiveIndex = (pathname: string): number => {
@@ -13,30 +14,29 @@ const getActiveIndex = (pathname: string): number => {
     pathname.includes('/pool') ||
     pathname.includes('/create') ||
     pathname.includes('/add') ||
-    pathname.includes('/remove') ||
     pathname.includes('/find') ||
     pathname.includes('/liquidity')
   ) {
-    return 1
+    return 0
   }
-  return 0
+  return 1
 }
 
-const Nav = () => {
+const AddRemoveNav = () => {
   const location = useLocation()
   const { t } = useTranslation()
   return (
     <StyledNav>
-      <ButtonMenu activeIndex={getActiveIndex(location.pathname)} variant="subtle">
-        <ButtonMenuItem id="swap-nav-link" to="/swap" as={Link}>
-          {t('Swap')}
+      <ButtonMenu activeIndex={getActiveIndex(location.pathname)} fullWidth variant="subtle">
+        <ButtonMenuItem id="swap-nav-link" to="/add" as={Link}>
+          {t('Add')}
         </ButtonMenuItem>
-        <ButtonMenuItem id="pool-nav-link" to="/add" as={Link}>
-          {t('Liquidity')}
+        <ButtonMenuItem id="pool-nav-link" to="/remove" as={Link}>
+          {t('Remove')}
         </ButtonMenuItem>
       </ButtonMenu>
     </StyledNav>
   )
 }
 
-export default Nav
+export default AddRemoveNav

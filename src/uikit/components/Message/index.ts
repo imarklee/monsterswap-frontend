@@ -1,2 +1,3 @@
 export { default as Message } from './Message'
-export type { MessageProps } from './types'
+export { default as InstructionMessage } from './InstructionMessage'
+export type { MessageProps, InstructionMessageProps } from './types'

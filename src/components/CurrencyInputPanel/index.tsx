@@ -1,6 +1,6 @@
 import React from 'react'
 import { Currency, Pair } from '@pancakeswap/sdk'
-import { Button, ChevronDownIcon, Text, useModal, Flex } from 'uikit'
+import { Button, ChevronDownIcon, Text, SupperText, useModal, Flex } from 'uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
@@ -15,7 +15,8 @@ const InputRow = styled.div<{ selected: boolean }>`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  padding: ${({ selected }) => (selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem')};
+  justify-content: space-between;
+  padding: ${({ selected }) => (selected ? '1rem 0.5rem 1rem 1rem' : '1rem 0.75rem 1rem 1rem')};
 `
 const CurrencySelectButton = styled(Button).attrs({ variant: 'text', scale: 'sm' })`
   padding: 0 0.5rem;
@@ -38,8 +39,8 @@ const InputPanel = styled.div<{ hideInput?: boolean }>`
   z-index: 1;
 `
 const Container = styled.div<{ hideInput: boolean }>`
-  border-radius: 16px;
-  background-color: ${({ theme }) => theme.colors.input};
+  border-radius: 10px;
+  background-color: ${({ theme }) => theme.colors.purpleLight};
   box-shadow: ${({ theme }) => theme.shadows.inset};
 `
 interface CurrencyInputPanelProps {
@@ -56,7 +57,8 @@ interface CurrencyInputPanelProps {
   hideInput?: boolean
   otherCurrency?: Currency | null
   id: string
-  showCommonBases?: boolean
+  showCommonBases?: boolean,
+  children?: React.ReactNode
 }
 export default function CurrencyInputPanel({
   value,
@@ -73,6 +75,7 @@ export default function CurrencyInputPanel({
   otherCurrency,
   id,
   showCommonBases,
+  children,
 }: CurrencyInputPanelProps) {
   const { account } = useActiveWeb3React()
   const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined)
@@ -90,7 +93,7 @@ export default function CurrencyInputPanel({
   return (
     <InputPanel id={id}>
       <Container hideInput={hideInput}>
-        {!hideInput && (
+        {/* {!hideInput && (
           <LabelRow>
             <RowBetween>
               <Text fontSize="14px">{translatedLabel}</Text>
@@ -103,24 +106,8 @@ export default function CurrencyInputPanel({
               )}
             </RowBetween>
           </LabelRow>
-        )}
+        )} */}
         <InputRow style={hideInput ? { padding: '0', borderRadius: '8px' } : {}} selected={disableCurrencySelect}>
-          {!hideInput && (
-            <>
-              <NumericalInput
-                className="token-amount-input"
-                value={value}
-                onUserInput={(val) => {
-                  onUserInput(val)
-                }}
-              />
-              {account && currency && showMaxButton && label !== 'To' && (
-                <Button onClick={onMax} scale="sm" variant="text">
-                  MAX
-                </Button>
-              )}
-            </>
-          )}
           <CurrencySelectButton
             selected={!!currency}
             className="open-currency-select-button"
@@ -132,16 +119,26 @@ export default function CurrencyInputPanel({
           >
             <Flex alignItems="center" justifyContent="space-between">
               {pair ? (
-                <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={16} margin />
+                <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={55} margin />
               ) : currency ? (
-                <CurrencyLogo currency={currency} size="24px" style={{ marginRight: '8px' }} />
+                <CurrencyLogo currency={currency} size="55px" style={{ marginRight: '8px' }} />
               ) : null}
               {pair ? (
                 <Text id="pair">
+                  {account && currency && showMaxButton && label !== 'To' && (
+                    <SupperText onClick={onMax} >
+                      MAX
+                    </SupperText>
+                  )}
                   {pair?.token0.symbol}:{pair?.token1.symbol}
                 </Text>
               ) : (
-                <Text id="pair">
+                <Text id="pair" fontFamily="UbuntuBold" fontSize="22px" bold>
+                  {account && currency && showMaxButton && label !== 'To' && (
+                    <SupperText onClick={onMax} >
+                      MAX
+                    </SupperText>
+                  )}
                   {(currency && currency.symbol && currency.symbol.length > 20
                     ? `${currency.symbol.slice(0, 4)}...${currency.symbol.slice(
                         currency.symbol.length - 5,
@@ -153,7 +150,19 @@ export default function CurrencyInputPanel({
               {!disableCurrencySelect && <ChevronDownIcon />}
             </Flex>
           </CurrencySelectButton>
+          {!hideInput && (
+            <>
+              <NumericalInput
+                className="token-amount-input"
+                value={value}
+                onUserInput={(val) => {
+                  onUserInput(val)
+                }}
+              />
+            </>
+          )}
         </InputRow>
+        { children }
       </Container>
     </InputPanel>
   )

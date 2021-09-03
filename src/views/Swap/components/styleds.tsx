@@ -10,6 +10,9 @@ export const Wrapper = styled.div`
 
 export const ArrowWrapper = styled.div<{ clickable: boolean }>`
   padding: 2px;
+  position: absolute;
+  left: 2.2rem;
+  z-index: 999;
 
   ${({ clickable }) =>
     clickable

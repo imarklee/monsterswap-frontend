@@ -12,6 +12,14 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Funhouse';
     src: url(./font/Funhouse.ttf);
   }
+  @font-face {
+    font-family: 'Ubuntu';
+    src: url(./font/Ubuntu.ttf);
+  }
+  @font-face {
+    font-family: 'UbuntuBold';
+    src: url(./font/UbuntuBold.ttf);
+  }
   * {
     font-family: 'Funhouse';
   }

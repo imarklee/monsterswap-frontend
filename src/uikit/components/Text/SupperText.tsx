@@ -12,17 +12,14 @@ const getColor = ({ color, theme }: ThemedProps) => {
 }
 
 const getFontSize = ({ fontSize, small }: TextProps) => {
-  return small ? '14px' : fontSize || '16px'
+  return small ? '10px' : fontSize || '12px'
 }
 
-const Text = styled.div<TextProps>`
+const SupperText = styled.div<TextProps>`
   color: ${getColor};
   font-size: ${getFontSize};
   font-weight: ${({ bold }) => (bold ? 600 : 400)};
-  line-height: 1.5;
-  display: flex;
-  flex-direction: column;
-  ${({ fontFamily }) => fontFamily && `font-family: ${fontFamily};`} 
+  line-height: 1;
   ${({ textTransform }) => textTransform && `text-transform: ${textTransform};`}
   ${({ ellipsis }) =>
     ellipsis &&
@@ -35,10 +32,10 @@ const Text = styled.div<TextProps>`
   ${layout}
 `
 
-Text.defaultProps = {
+SupperText.defaultProps = {
   color: 'text',
   small: false,
   ellipsis: false,
 }
 
-export default Text
+export default SupperText

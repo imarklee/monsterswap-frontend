@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, TuneIcon, NotificationDot, useModal } from 'uikit'
+import { Button, SettingIcon, NotificationDot, useModal } from 'uikit'
 import { useExpertModeManager } from 'state/user/hooks'
 import SettingsModal from './SettingsModal'
 
@@ -10,7 +10,7 @@ export default function SettingsTab() {
   return (
     <NotificationDot show={expertMode}>
       <Button variant="text" p={0} onClick={onPresentSettingsModal} id="open-settings-dialog-button">
-        <TuneIcon color="primary" width="24px" />
+        <SettingIcon color="#4E4E9D" width="30px" />
       </Button>
     </NotificationDot>
   )

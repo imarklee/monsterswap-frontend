@@ -2,13 +2,15 @@ import React, { useCallback, useState } from 'react'
 import { BigNumber } from '@ethersproject/bignumber'
 import { TransactionResponse } from '@ethersproject/providers'
 import { Currency, currencyEquals, ETHER, TokenAmount, WETH } from '@pancakeswap/sdk'
-import { Button, Text, Flex, AddIcon, CardBody, Message, useModal } from 'uikit'
+import { Button, Text, Flex, AddRoundedIcon, CardBody, InstructionMessage, useModal } from 'uikit'
 import { RouteComponentProps } from 'react-router-dom'
+import AddRemoveSubNav from 'components/Menu/AddRemoveSubNav'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import { useTranslation } from 'contexts/Localization'
 import UnsupportedCurrencyFooter from 'components/UnsupportedCurrencyFooter'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { LightCard } from '../../components/Card'
+import styled, { css } from 'styled-components'
+import { LightCard, LightGreyCard } from '../../components/Card'
 import { AutoColumn, ColumnCenter } from '../../components/Layout/Column'
 import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
@@ -37,6 +39,25 @@ import { currencyId } from '../../utils/currencyId'
 import PoolPriceBar from './PoolPriceBar'
 import Page from '../Page'
 
+export const ArrowWrapper = styled.div<{ clickable: boolean }>`
+  padding: 2px;
+  position: absolute;
+  left: 1.2rem;
+  z-index: 999;
+  top: -35px;
+
+  ${({ clickable }) =>
+    clickable
+      ? css`
+          :hover {
+            cursor: pointer;
+            opacity: 0.8;
+          }
+        `
+      : null}
+`
+
+
 export default function AddLiquidity({
   match: {
     params: { currencyIdA, currencyIdB },
@@ -51,8 +72,8 @@ export default function AddLiquidity({
 
   const oneCurrencyIsWETH = Boolean(
     chainId &&
-      ((currencyA && currencyEquals(currencyA, WETH[chainId])) ||
-        (currencyB && currencyEquals(currencyB, WETH[chainId]))),
+    ((currencyA && currencyEquals(currencyA, WETH[chainId])) ||
+      (currencyB && currencyEquals(currencyB, WETH[chainId]))),
   )
 
   const expertMode = useIsExpertMode()
@@ -175,9 +196,8 @@ export default function AddLiquidity({
           setAttemptingTxn(false)
 
           addTransaction(response, {
-            summary: `Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
-              currencies[Field.CURRENCY_A]?.symbol
-            } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`,
+            summary: `Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${currencies[Field.CURRENCY_A]?.symbol
+              } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`,
           })
 
           setTxHash(response.hash)
@@ -306,16 +326,11 @@ export default function AddLiquidity({
     <Page>
       <AppBody>
         <AppHeader
-          title={t('Add Liquidity')}
-          subtitle={t('Add liquidity to receive LP tokens')}
-          helper={t(
-            'Liquidity providers earn a 0.17% trading fee on all trades made for that token pair, proportional to their share of the liquidity pool.',
-          )}
-          backTo="/pool"
+          subtitle={t('View Your Liquidity Positions >')}
         />
         <CardBody>
           <AutoColumn gap="20px">
-            {noLiquidity && (
+            {/* {noLiquidity && (
               <ColumnCenter>
                 <Message variant="warning">
                   <div>
@@ -327,7 +342,17 @@ export default function AddLiquidity({
                   </div>
                 </Message>
               </ColumnCenter>
-            )}
+            )} */}
+            <ColumnCenter>
+              <InstructionMessage variant="warning" backColor="purpleLight">
+                <div>
+                  <Text fontFamily="Ubuntu">{t('Tip: When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time.')}</Text>
+                </div>
+              </InstructionMessage>
+            </ColumnCenter>
+            <ColumnCenter>
+              <AddRemoveSubNav />
+            </ColumnCenter>
             <CurrencyInputPanel
               value={formattedAmounts[Field.CURRENCY_A]}
               onUserInput={onFieldAInput}
@@ -340,8 +365,10 @@ export default function AddLiquidity({
               id="add-liquidity-input-tokena"
               showCommonBases
             />
-            <ColumnCenter>
-              <AddIcon width="16px" />
+            <ColumnCenter style={{ position: 'relative' }}>
+              <ArrowWrapper clickable>
+                <AddRoundedIcon width="62px" />
+              </ArrowWrapper>
             </ColumnCenter>
             <CurrencyInputPanel
               value={formattedAmounts[Field.CURRENCY_B]}
@@ -354,26 +381,22 @@ export default function AddLiquidity({
               currency={currencies[Field.CURRENCY_B]}
               id="add-liquidity-input-tokenb"
               showCommonBases
-            />
+            >
             {currencies[Field.CURRENCY_A] && currencies[Field.CURRENCY_B] && pairState !== PairState.INVALID && (
               <>
-                <LightCard padding="0px" borderRadius="20px">
-                  <RowBetween padding="1rem">
-                    <Text fontSize="14px">
-                      {noLiquidity ? t('Initial prices and pool share') : t('Prices and pool share')}
-                    </Text>
-                  </RowBetween>{' '}
-                  <LightCard padding="1rem" borderRadius="20px">
+                <Row width="100%" justify="center" padding="0 0 10px 0" >
+                  <LightGreyCard padding="0.5rem" width="90%" borderRadius="10px">
                     <PoolPriceBar
                       currencies={currencies}
                       poolTokenPercentage={poolTokenPercentage}
                       noLiquidity={noLiquidity}
                       price={price}
                     />
-                  </LightCard>
-                </LightCard>
+                  </LightGreyCard>
+                </Row>
               </>
             )}
+            </CurrencyInputPanel>
 
             {addIsUnsupported ? (
               <Button disabled mb="4px">
