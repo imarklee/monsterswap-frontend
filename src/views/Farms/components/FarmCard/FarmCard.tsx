@@ -36,7 +36,7 @@ const StyledCardAccent = styled.div`
   background: white;
   background-size: 400% 400%;
   animation: ${AccentGradient} 2s linear infinite;
-  border-radius: 32px;
+  border-radius: 10px;
   position: absolute;
   top: -1px;
   right: -1px;

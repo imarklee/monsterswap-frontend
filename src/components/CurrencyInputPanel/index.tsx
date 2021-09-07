@@ -1,5 +1,5 @@
 import React from 'react'
-import { Currency, Pair } from '@pancakeswap/sdk'
+import { Currency, Pair } from '@monsterswap/sdk'
 import { Button, ChevronDownIcon, Text, SupperText, useModal, Flex } from 'uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
@@ -46,12 +46,14 @@ const Container = styled.div<{ hideInput: boolean }>`
 interface CurrencyInputPanelProps {
   value: string
   onUserInput: (value: string) => void
+  onUserInputNumberValue?: (value: number) => void
   onMax?: () => void
   showMaxButton: boolean
   label?: string
   onCurrencySelect: (currency: Currency) => void
   currency?: Currency | null
   disableCurrencySelect?: boolean
+  showText?: string
   hideBalance?: boolean
   pair?: Pair | null
   hideInput?: boolean
@@ -63,6 +65,7 @@ interface CurrencyInputPanelProps {
 export default function CurrencyInputPanel({
   value,
   onUserInput,
+  onUserInputNumberValue,
   onMax,
   showMaxButton,
   label,
@@ -70,6 +73,7 @@ export default function CurrencyInputPanel({
   currency,
   disableCurrencySelect = false,
   hideBalance = false,
+  showText = "",
   pair = null, // used for double token logo
   hideInput = false,
   otherCurrency,
@@ -108,57 +112,73 @@ export default function CurrencyInputPanel({
           </LabelRow>
         )} */}
         <InputRow style={hideInput ? { padding: '0', borderRadius: '8px' } : {}} selected={disableCurrencySelect}>
-          <CurrencySelectButton
-            selected={!!currency}
-            className="open-currency-select-button"
-            onClick={() => {
-              if (!disableCurrencySelect) {
-                onPresentCurrencyModal()
-              }
-            }}
-          >
-            <Flex alignItems="center" justifyContent="space-between">
-              {pair ? (
-                <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={55} margin />
-              ) : currency ? (
-                <CurrencyLogo currency={currency} size="55px" style={{ marginRight: '8px' }} />
-              ) : null}
-              {pair ? (
-                <Text id="pair">
-                  {account && currency && showMaxButton && label !== 'To' && (
-                    <SupperText onClick={onMax} >
-                      MAX
-                    </SupperText>
-                  )}
-                  {pair?.token0.symbol}:{pair?.token1.symbol}
-                </Text>
-              ) : (
-                <Text id="pair" fontFamily="UbuntuBold" fontSize="22px" bold>
-                  {account && currency && showMaxButton && label !== 'To' && (
-                    <SupperText onClick={onMax} >
-                      MAX
-                    </SupperText>
-                  )}
-                  {(currency && currency.symbol && currency.symbol.length > 20
-                    ? `${currency.symbol.slice(0, 4)}...${currency.symbol.slice(
-                        currency.symbol.length - 5,
-                        currency.symbol.length,
-                      )}`
-                    : currency?.symbol) || t('Select a currency')}
-                </Text>
-              )}
-              {!disableCurrencySelect && <ChevronDownIcon />}
-            </Flex>
-          </CurrencySelectButton>
+          { showText === "" ? (
+            <CurrencySelectButton
+              selected={!!currency}
+              className="open-currency-select-button"
+              onClick={() => {
+                if (!disableCurrencySelect) {
+                  onPresentCurrencyModal()
+                }
+              }}
+            >
+              <Flex alignItems="center" justifyContent="space-between">
+                {pair ? (
+                  <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={55} margin />
+                ) : currency ? (
+                  <CurrencyLogo currency={currency} size="55px" style={{ marginRight: '8px' }} />
+                ) : null}
+                {pair ? (
+                  <Text id="pair">
+                    {account && currency && showMaxButton && label !== 'To' && (
+                      <SupperText onClick={onMax} >
+                        MAX
+                      </SupperText>
+                    )}
+                    {pair?.token0.symbol}:{pair?.token1.symbol}
+                  </Text>
+                ) : (
+                  <Text id="pair" fontFamily="UbuntuBold" fontSize="22px" bold>
+                    {account && currency && showMaxButton && label !== 'To' && (
+                      <SupperText onClick={onMax} >
+                        MAX
+                      </SupperText>
+                    )}
+                    {(currency && currency.symbol && currency.symbol.length > 20
+                      ? `${currency.symbol.slice(0, 4)}...${currency.symbol.slice(
+                          currency.symbol.length - 5,
+                          currency.symbol.length,
+                        )}`
+                      : currency?.symbol) || t('Select a currency')}
+                  </Text>
+                )}
+                {!disableCurrencySelect && <ChevronDownIcon />}
+              </Flex>
+            </CurrencySelectButton>
+          ) : (
+            <Text id="pair" fontFamily="UbuntuBold" fontSize="22px" bold>
+              { t('Amount to Remove') }
+            </Text>
+          )}
           {!hideInput && (
             <>
+            { showText === "" ? (
               <NumericalInput
-                className="token-amount-input"
-                value={value}
-                onUserInput={(val) => {
-                  onUserInput(val)
-                }}
-              />
+              className="token-amount-input"
+              value={value}
+              onUserInput={(val) => {  
+                onUserInput(val)
+              }}
+            />
+          ) : (
+            <NumericalInput
+            className="token-amount-input"
+            value={value}
+            onUserInput={(val) => { 
+              onUserInputNumberValue(Number(val))
+            }}
+          />
+        )}
             </>
           )}
         </InputRow>

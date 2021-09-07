@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Currency, ETHER, JSBI, TokenAmount } from '@pancakeswap/sdk'
+import { Currency, ETHER, JSBI, TokenAmount } from '@monsterswap/sdk'
 import { Button, ChevronDownIcon, Text, AddIcon, useModal } from 'uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
@@ -28,7 +28,7 @@ const StyledButton = styled(Button)`
   background-color: ${({ theme }) => theme.colors.input};
   color: ${({ theme }) => theme.colors.text};
   box-shadow: none;
-  border-radius: 16px;
+  border-radius: 10px;
 `
 
 export default function PoolFinder() {

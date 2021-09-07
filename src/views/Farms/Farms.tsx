@@ -3,7 +3,7 @@ import { Route, useRouteMatch, useLocation, NavLink } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { Image, Checkbox, RowType, Text, Flex, useMatchBreakpoints } from 'uikit'
-import { ChainId } from '@pancakeswap/sdk'
+import { ChainId } from '@monsterswap/sdk'
 import styled from 'styled-components'
 import Page from 'components/Layout/Page'
 import { useFarms, usePollFarmsData, usePriceCakeBusd } from 'state/farms/hooks'
@@ -354,7 +354,6 @@ const Farms: React.FC = () => {
     stakedOnlyFarms,
     numberOfFarmsVisible,
   ])
-
   chosenFarmsLength.current = chosenFarmsMemoized.length
 
   useEffect(() => {

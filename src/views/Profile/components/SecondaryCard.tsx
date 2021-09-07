@@ -3,7 +3,7 @@ import { Text } from 'uikit'
 
 const SecondaryCard = styled(Text)`
   border: 2px solid ${({ theme }) => theme.colors.tertiary};
-  border-radius: 16px;
+  border-radius: 10px;
 `
 
 SecondaryCard.defaultProps = {

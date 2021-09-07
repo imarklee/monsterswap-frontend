@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useHistory, useParams } from 'react-router-dom'
 import { ButtonMenu, ButtonMenuItem } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 
@@ -22,20 +22,30 @@ const getActiveIndex = (pathname: string): number => {
   return 1
 }
 
+interface IAddRemoveNav {
+  currencyIdA: string
+  currencyIdB: string
+}
+
 const AddRemoveNav = () => {
   const location = useLocation()
+  const { currencyIdA, currencyIdB } = useParams<IAddRemoveNav>()
   const { t } = useTranslation()
   return (
-    <StyledNav>
-      <ButtonMenu activeIndex={getActiveIndex(location.pathname)} fullWidth variant="subtle">
-        <ButtonMenuItem id="swap-nav-link" to="/add" as={Link}>
-          {t('Add')}
-        </ButtonMenuItem>
-        <ButtonMenuItem id="pool-nav-link" to="/remove" as={Link}>
-          {t('Remove')}
-        </ButtonMenuItem>
-      </ButtonMenu>
-    </StyledNav>
+    <>
+    { currencyIdA && currencyIdB && currencyIdA !== 'undefined' && currencyIdB !== 'undefined' && 
+      <StyledNav>
+        <ButtonMenu activeIndex={getActiveIndex(location.pathname)} fullWidth variant="subtle">
+          <ButtonMenuItem id="swap-nav-link" to={`/add/${currencyIdA}/${currencyIdB}`} as={Link}>
+            {t('Add')}
+          </ButtonMenuItem>
+          <ButtonMenuItem id="pool-nav-link" to={`/remove/${currencyIdA}/${currencyIdB}`} as={Link}>
+            {t('Remove')}
+          </ButtonMenuItem>
+        </ButtonMenu>
+      </StyledNav>
+    }
+    </>
   )
 }
 

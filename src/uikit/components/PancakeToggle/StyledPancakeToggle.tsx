@@ -96,7 +96,7 @@ export const PancakeStack = styled.div<HandleProps>`
     content: '';
     position: absolute;
     background: #ef8927;
-    border-radius: 20px;
+    border-radius: 10px;
     width: 50%;
     height: 20%;
   }

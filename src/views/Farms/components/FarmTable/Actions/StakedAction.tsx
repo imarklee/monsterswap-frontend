@@ -61,11 +61,13 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
 
   const handleStake = async (amount: string) => {
+    console.log("[handleStake]", amount, [pid])
     await onStake(amount)
     dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
   }
 
   const handleUnstake = async (amount: string) => {
+
     await onUnstake(amount)
     dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
   }

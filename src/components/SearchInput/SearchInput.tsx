@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce'
 import { useTranslation } from 'contexts/Localization'
 
 const StyledInput = styled(Input)`
-  border-radius: 16px;
+  border-radius: 10px;
   margin-left: auto;
   font-family: 'Red Hat Text', sans-serif;
   font-size: 14px;

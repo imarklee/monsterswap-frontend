@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Fraction, Percent } from '@pancakeswap/sdk'
+import { Currency, CurrencyAmount, Fraction, Percent } from '@monsterswap/sdk'
 import React from 'react'
 import { Button, Text } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
@@ -57,7 +57,7 @@ function ConfirmAddModalBottom({
         <Text>{t('Share of Pool')}:</Text>
         <Text>{noLiquidity ? '100' : poolTokenPercentage?.toSignificant(4)}%</Text>
       </RowBetween>
-      <Button onClick={onAdd} mt="20px">
+      <Button onClick={onAdd} mt="20px" width="100%">
         {noLiquidity ? t('Create Pool & Supply') : t('Confirm Supply')}
       </Button>
     </>

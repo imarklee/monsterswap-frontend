@@ -7,18 +7,20 @@ declare module 'styled-components' {
   export interface DefaultTheme extends PancakeTheme {}
 }
 
+const baseUrl = process.env.REACT_APP_BASE_URL
+
 const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Funhouse';
-    src: url(./font/Funhouse.ttf);
+    src: url(${baseUrl}/font/Funhouse.ttf);
   }
   @font-face {
     font-family: 'Ubuntu';
-    src: url(./font/Ubuntu.ttf);
+    src: local('Ubuntu'), url(${baseUrl}/font/Ubuntu.ttf) format('truetype');
   }
   @font-face {
     font-family: 'UbuntuBold';
-    src: url(./font/UbuntuBold.ttf);
+    src: local('UbuntuBold'), url(${baseUrl}/font/UbuntuBold.ttf) format('truetype');
   }
   * {
     font-family: 'Funhouse';

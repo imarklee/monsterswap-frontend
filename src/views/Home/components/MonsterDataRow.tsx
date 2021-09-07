@@ -68,7 +68,7 @@ const MonsterDataRow: React.FC = () => {
             <Flex>
                 <p>Distributed Monster/Block</p>
                 <p>
-                    <b>15</b>
+                    <b>11.5</b>
                 </p>
             </Flex>
         </StatsContent>

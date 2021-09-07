@@ -3,6 +3,10 @@ import styled from 'styled-components'
 import {Flex, Card, Image} from 'uikit'
 import { useWeb3React } from '@web3-react/core'
 import useTheme from 'hooks/useTheme'
+import { useTranslation } from 'contexts/Localization'
+import { useGetStats } from 'hooks/api'
+import { formatLocalisedCompactNumber } from 'utils/formatBalance'
+
 import Slider from 'react-slick'
 import { ReactComponent as NextIcon } from 'assets/images/NextIcon.svg'
 import { ReactComponent as PrevIcon } from 'assets/images/PrevIcon.svg'
@@ -223,10 +227,27 @@ const TotalLockedPart = styled.div`
     }
   }
 `
+// Values fetched from bitQuery effective 13/8/21
+const txCount = 44713126
+const addressCount = 2607499
+
 
 const Home: React.FC = () => {
   // const { theme } = useTheme()
   // const { account } = useWeb3React()
+
+  const { t } = useTranslation()
+  const data = useGetStats()
+  const { theme } = useTheme()
+
+  const tvlString = data ? formatLocalisedCompactNumber(data.tvl) : '-'
+  const trades = formatLocalisedCompactNumber(txCount)
+  const users = formatLocalisedCompactNumber(addressCount)
+
+  const tvlText = t('And those users are now entrusting the platform with over $%tvl% in funds.', { tvl: tvlString })
+  const [entrusting, inFunds] = tvlText.split(tvlString)
+
+  console.log("[home-tvlString]", tvlString, data)
 
   const sliderSettings = {
     dots: true,

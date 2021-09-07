@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Token, Currency } from '@pancakeswap/sdk'
+import { Token, Currency } from '@monsterswap/sdk'
 import { Button, Text, ErrorIcon, Flex, Message, Checkbox, Tag, Grid } from 'uikit'
 import { AutoColumn } from 'components/Layout/Column'
 import { useAddUserToken } from 'state/user/hooks'

@@ -28,11 +28,6 @@ const AppHeader: React.FC<Props> = ({ title, subtitle, helper, backTo, noConfig 
   return (
     <AppHeaderContainer>
       <Flex alignItems="center" mr={noConfig ? 0 : '16px'}>
-        {backTo && (
-          <IconButton as={Link} to={backTo}>
-            <ArrowBackIcon width="32px" />
-          </IconButton>
-        )}
         <Flex flexDirection="column">
           { title && 
             <Heading as="h2" mb="8px">
@@ -42,7 +37,7 @@ const AppHeader: React.FC<Props> = ({ title, subtitle, helper, backTo, noConfig 
           <Flex alignItems="center">
             {helper && <QuestionHelper text={helper} mr="4px" />}
             {subtitle && 
-              <Text color="textSubtle" fontSize="14px" fontFamily="Ubuntu">
+              <Text as={Link} to={backTo} color="textSubtle" fontSize="14px" fontFamily="Ubuntu" >
                 {subtitle}
               </Text>
             }

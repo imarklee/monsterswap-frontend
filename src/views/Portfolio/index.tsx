@@ -4,6 +4,7 @@ import { Flex, Card, LinkExternal } from 'uikit'
 import { useWeb3React } from '@web3-react/core'
 // import useTheme from 'hooks/useTheme'
 import { ReactComponent as ArrowDown } from 'assets/images/ArrowDown.svg'
+import { useTotalStakedBalance } from './hooks'
 import { PortfolioHeader } from './components'
 import { CardButton } from '../Home/components'
 
@@ -141,7 +142,7 @@ const Portfolio: React.FC = () => {
   // const { theme } = useTheme()
   const { account } = useWeb3React()
   const [showDetails, setShowDetails] = useState(false)
-
+  const poolData = useTotalStakedBalance()
   return (
     <Container>
       <PortfolioHeader />

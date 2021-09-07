@@ -23,7 +23,7 @@ const Container = styled.div`
 
   & button {
     background: #49468a;
-    border-radius: 16px;
+    border-radius: 10px;
     padding: 0;
     height: 40px;
     width: 159px;
