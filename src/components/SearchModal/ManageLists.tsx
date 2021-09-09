@@ -73,7 +73,7 @@ const ListRow = memo(function ListRow({ listUrl }: { listUrl: string }) {
 
   const { targetRef, tooltip, tooltipVisible } = useTooltip(
     <div>
-      <Text>{list && listVersionLabel(list.version)}</Text>
+      <Text fontFamily="UbuntuBold" >{list && listVersionLabel(list.version)}</Text>
       <a href={`https://tokenlists.org/token-list?url=${listUrl}`}>{t('See')}</a>
       <Button variant="danger" scale="xs" onClick={handleRemoveList} disabled={Object.keys(listsByUrl).length === 1}>
         {t('Remove')}
@@ -99,10 +99,10 @@ const ListRow = memo(function ListRow({ listUrl }: { listUrl: string }) {
       )}
       <Column style={{ flex: '1' }}>
         <Row>
-          <Text bold>{list.name}</Text>
+          <Text bold fontFamily="UbuntuBold">{list.name}</Text>
         </Row>
         <RowFixed mt="4px">
-          <Text fontSize="12px" mr="6px" textTransform="lowercase">
+          <Text fontSize="12px" fontFamily="UbuntuBold" mr="6px" textTransform="lowercase">
             {list.tokens.length} {t('Tokens')}
           </Text>
           <span ref={targetRef}>
@@ -234,7 +234,7 @@ function ManageLists({
   }, [listUrlInput, setImportList, setListUrl, setModalView, tempList])
 
   return (
-    <Wrapper>
+    <Wrapper style={{minHeight: "450px"}}>
       <AutoColumn gap="14px">
         <Row>
           <Input
@@ -243,10 +243,11 @@ function ManageLists({
             placeholder={t('https:// or ipfs:// or ENS name')}
             value={listUrlInput}
             onChange={handleInput}
+            fontFamily="Ubuntu"
           />
         </Row>
         {addError ? (
-          <Text color="failure" style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
+          <Text color="failure" fontFamily="UbuntuBold" style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>
             {addError}
           </Text>
         ) : null}
@@ -258,8 +259,8 @@ function ManageLists({
               <RowFixed>
                 {tempList.logoURI && <ListLogo logoURI={tempList.logoURI} size="40px" />}
                 <AutoColumn gap="4px" style={{ marginLeft: '20px' }}>
-                  <Text bold>{tempList.name}</Text>
-                  <Text color="textSubtle" small textTransform="lowercase">
+                  <Text bold fontFamily="UbuntuBold">{tempList.name}</Text>
+                  <Text color="textSubtle" fontFamily="UbuntuBold" small textTransform="lowercase">
                     {tempList.tokens.length} {t('Tokens')}
                   </Text>
                 </AutoColumn>
@@ -267,7 +268,7 @@ function ManageLists({
               {isImported ? (
                 <RowFixed>
                   <CheckmarkIcon width="16px" mr="10px" />
-                  <Text>{t('Loaded')}</Text>
+                  <Text fontFamily="UbuntuBold">{t('Loaded')}</Text>
                 </RowFixed>
               ) : (
                 <Button width="fit-content" onClick={handleImport}>

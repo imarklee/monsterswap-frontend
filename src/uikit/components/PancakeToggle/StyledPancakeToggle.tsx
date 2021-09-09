@@ -22,10 +22,10 @@ const scaleKeyValues = {
     butterSmearTwoRight: '2.5px', // these values adjust the position of it
   },
   md: {
-    pancakeSize: '32px',
+    pancakeSize: '40px',
     travelDistance: '34px',
     toggleHeight: '40px',
-    toggleWidth: '72px',
+    toggleWidth: '80px',
     pancakeThickness: '2px',
     pancakeTwoOffset: '-3px',
     pancakeThreeOffset: '-8px',
@@ -61,67 +61,25 @@ export const PancakeStack = styled.div<HandleProps>`
   }
 
   .pancake {
-    background: #e27c31;
-    border-radius: 50%;
+    background: #8F9395;
+    border-radius: 10px;
     width: ${getScale('pancakeSize')};
     height: ${getScale('pancakeSize')};
     position: absolute;
     transition: 0.4s ease;
-    top: 2px;
-    left: 4px;
-    box-shadow: 0 ${getScale('pancakeThickness')} 0 ${getScale('pancakeThickness')} #fbbe7c;
+    top: 0px;
+    left: 2px;
+    box-shardow: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    font-family: 'Ubuntu';
   }
 
   .pancake:nth-child(1) {
-    background: ${({ theme }) => theme.pancakeToggle.handleBackground};
-    box-shadow: 0 ${getScale('pancakeThickness')} 0 ${getScale('pancakeThickness')}
-      ${({ theme }) => theme.pancakeToggle.handleShadow};
-  }
-
-  .pancake:nth-child(2) {
-    left: 0;
-    top: ${getScale('pancakeTwoOffset')};
-    transform: scale(0);
-    transition: 0.2s ease 0.2s;
-  }
-
-  .pancake:nth-child(3) {
-    top: ${getScale('pancakeThreeOffset')};
-    transform: scale(0);
-    transition: 0.2s ease 0.2s;
-  }
-
-  .pancake:nth-child(3):before,
-  .pancake:nth-child(3):after {
-    content: '';
-    position: absolute;
-    background: #ef8927;
-    border-radius: 10px;
-    width: 50%;
-    height: 20%;
-  }
-
-  .pancake:nth-child(3):before {
-    top: ${getScale('butterSmearOneTop')};
-    left: ${getScale('butterSmearOneLeft')};
-  }
-
-  .pancake:nth-child(3):after {
-    top: ${getScale('butterSmearTwoTop')};
-    right: ${getScale('butterSmearTwoRight')};
-  }
-
-  .butter {
-    width: ${getScale('butterWidth')};
-    height: ${getScale('butterHeight')};
-    background: #fbdb60;
-    top: ${getScale('butterTop')};
-    left: ${getScale('butterLeft')};
-    position: absolute;
-    border-radius: ${getScale('butterRadius')};
-    box-shadow: 0 ${getScale('butterThickness')} 0 ${getScale('butterThickness')} #d67823;
-    transform: scale(0);
-    transition: 0.2s ease;
+    background: #565A69;
+    box-shadow: 0;
   }
 `
 
@@ -132,6 +90,7 @@ export const PancakeInput = styled.input<InputProps>`
   position: absolute;
   top: 0;
   width: 40px;
+  background: #565A69;
 
   &:focus + label {
     box-shadow: ${({ theme }) => theme.shadows.focus};
@@ -142,34 +101,19 @@ export const PancakeInput = styled.input<InputProps>`
   }
 
   &:checked + label .pancake:nth-child(1) {
-    background: #e27c31;
-    box-shadow: 0 ${getScale('pancakeThickness')} 0 ${getScale('pancakeThickness')} #fbbe7c;
+    background: #565A69;
+    box-shadow: 0;
     transition-delay: 0.2s;
-  }
-
-  &:checked + label .pancake:nth-child(2) {
-    transform: scale(1);
-    transition-delay: 0.2s;
-  }
-
-  &:checked + label .pancake:nth-child(3) {
-    transform: scale(1);
-    transition-delay: 0.4s;
-  }
-
-  &:checked + label .butter {
-    transform: scale(1);
-    transition-delay: 0.6s;
   }
 `
 
 export const PancakeLabel = styled.label<PancakeToggleProps>`
   width: ${getScale('toggleWidth')};
   height: ${getScale('toggleHeight')};
-  background: ${({ theme, checked }) => theme.colors[checked ? 'success' : 'input']};
-  box-shadow: ${({ theme }) => theme.shadows.inset};
+  background: #8F9395;
+  box-shadow: 0;
   display: inline-block;
-  border-radius: 50px;
+  border-radius: 10px;
   position: relative;
   transition: all 0.3s ease;
   transform-origin: 20% center;

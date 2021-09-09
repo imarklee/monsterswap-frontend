@@ -43,8 +43,6 @@ export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCar
   const userPoolBalance = useTokenBalance(account ?? undefined, pair.liquidityToken)
   const totalPoolTokens = useTotalSupply(pair.liquidityToken)
 
-  console.log("[userPoolBalance]", userPoolBalance, totalPoolTokens)
-
   const poolTokenPercentage =
     !!userPoolBalance && !!totalPoolTokens && JSBI.greaterThanOrEqual(totalPoolTokens.raw, userPoolBalance.raw)
       ? new Percent(userPoolBalance.raw, totalPoolTokens.raw)
@@ -72,41 +70,41 @@ export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCar
                 <FixedHeightRow onClick={() => setShowMore(!showMore)}>
                   <RowFixed>
                     <DoubleCurrencyLogo currency0={currency0} currency1={currency1} margin size={20} />
-                    <Text small color="textSubtle">
+                    <Text small color="textSubtle" fontFamily="Ubuntu">
                       {currency0.symbol}-{currency1.symbol} LP
                     </Text>
                   </RowFixed>
                   <RowFixed>
-                    <Text>{userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}</Text>
+                    <Text fontFamily="Ubuntu">{userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}</Text>
                   </RowFixed>
                 </FixedHeightRow>
                   <FixedHeightRow>
-                    <Text color="textSubtle" small>
+                    <Text color="textSubtle" small fontFamily="Ubuntu">
                       {t('Share of Pool')}:
                     </Text>
-                    <Text>{poolTokenPercentage ? `${poolTokenPercentage.toFixed(6)}%` : '-'}</Text>
+                    <Text fontFamily="Ubuntu">{poolTokenPercentage ? `${poolTokenPercentage.toFixed(6)}%` : '-'}</Text>
                   </FixedHeightRow>
                 </AutoColumn>
                 <AutoColumn gap="4px" style={{ width:"50%" }}>
                   <FixedHeightRow>
-                    <Text color="textSubtle" small>
+                    <Text color="textSubtle" small fontFamily="Ubuntu">
                       {t('Pooled %asset%', { asset: currency0.symbol })}:
                     </Text>
                     {token0Deposited ? (
                       <RowFixed>
-                        <Text ml="6px">{token0Deposited?.toSignificant(6)}</Text>
+                        <Text ml="6px" fontFamily="Ubuntu">{token0Deposited?.toSignificant(6)}</Text>
                       </RowFixed>
                     ) : (
                       '-'
                     )}
                   </FixedHeightRow>
                   <FixedHeightRow>
-                    <Text color="textSubtle" small>
+                    <Text color="textSubtle" small fontFamily="Ubuntu">
                       {t('Pooled %asset%', { asset: currency1.symbol })}:
                     </Text>
                     {token1Deposited ? (
                       <RowFixed>
-                        <Text ml="6px">{token1Deposited?.toSignificant(6)}</Text>
+                        <Text ml="6px" fontFamily="Ubuntu">{token1Deposited?.toSignificant(6)}</Text>
                       </RowFixed>
                     ) : (
                       '-'
@@ -117,14 +115,19 @@ export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCar
           </CardBody>
         </Card>
       ) : (
-        <LightCard>
-          <Text fontSize="14px" style={{ textAlign: 'center' }}>
-            <span role="img" aria-label="pancake-icon">
-              🥞
+        <LightCard  style={{ background: theme.colors.purpleLight }}>
+          <Text fontSize="14px" color="#110518" fontFamily="Ubuntu" style={{ textAlign: 'left', display: "inline" }}>
+            <span style={{color: "#F0B90B", fontFamily: "Ubuntu"}}>
+              * 
             </span>{' '}
+            <span style={{fontFamily: "Ubuntu"}}>
             {t(
-              "By adding liquidity you'll earn 0.17% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.",
+              " By adding liquidity you'll earn 0.17% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity. ",
             )}
+            </span>
+            <span style={{color: "#F0B90B", fontFamily: "Ubuntu"}}>
+              {t(" Learn more")}
+            </span>{' '}
           </Text>
         </LightCard>
       )}

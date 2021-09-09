@@ -6,6 +6,8 @@ import {
   useUserTransactionTTL,
   useUserSlippageTolerance,
   useUserSingleHopOnly,
+  useUserToggleChart,
+  useUserChartSizeLarge,
 } from 'state/user/hooks'
 import { useTranslation } from 'contexts/Localization'
 
@@ -21,6 +23,8 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
   const [ttl, setTtl] = useUserTransactionTTL()
   const [expertMode, toggleExpertMode] = useExpertModeManager()
   const [singleHopOnly, setSingleHopOnly] = useUserSingleHopOnly()
+  const [toggleChart, setToggleChart] = useUserToggleChart()
+  const [chartSizeLarge, setChartSizeLarge] = useUserChartSizeLarge()
   const [audioPlay, toggleSetAudioMode] = useAudioModeManager()
   const { onChangeRecipient } = useSwapActionHandlers()
 
@@ -62,28 +66,51 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
   }
 
   return (
-    <Modal title={t('Settings')} headerBackground="gradients.cardHeader" onDismiss={onDismiss}>
-      <ModalBody>
-        <AutoColumn gap="md" style={{ padding: '1rem' }}>
-          <Text bold fontSize="20px">
-            {t('Transaction Settings')}
-          </Text>
+    <Modal title={t('Transaction Settings')} headerBackground="#EAF2F7" onDismiss={onDismiss}>
+      <ModalBody style={{overflow: "hidden"}}>
+        <AutoColumn gap="md" style={{ padding: '0 1rem 1rem 1rem' }}>
           <TransactionSettings
             rawSlippage={userSlippageTolerance}
             setRawSlippage={setUserslippageTolerance}
             deadline={ttl}
             setDeadline={setTtl}
           />
-          <Text bold fontSize="20px" mt="32px">
+          <Text color="#110518" bold fontSize="22px" mt="32px" fontFamily="UbuntuBold">
             {t('Interface Settings')}
           </Text>
           <RowBetween>
             <RowFixed>
-              <Text fontSize="14px">{t('Toggle Expert Mode')}</Text>
-              <QuestionHelper
-                text={t('Bypasses confirmation modals and allows high slippage trades. Use at your own risk.')}
-                ml="4px"
-              />
+              <Text color="#110518" fontSize="18px" fontFamily="UbuntuBold">{t('Toggle Chart')}</Text>
+            </RowFixed>
+            <PancakeToggle
+              id="toggle-chart-button"
+              checked={toggleChart}
+              onChange={() => {
+                setToggleChart(!toggleChart)
+              }}
+            />
+          </RowBetween>
+          <RowBetween>
+            <RowFixed>
+              <Text color="#110518" fontSize="18px" fontFamily="UbuntuBold">{t('Toggle Chart Size Large')}</Text>
+            </RowFixed>
+            <PancakeToggle
+              id="toggle-chart-size-large-button"
+              checked={chartSizeLarge}
+              onChange={() => {
+                setChartSizeLarge(!chartSizeLarge)
+              }}
+            />
+          </RowBetween>
+          {/* <RowBetween>
+            <RowFixed>
+              <Text fontSize="18px" fontFamily="UbuntuBold">{t('Audio')}</Text>
+            </RowFixed>
+            <PancakeToggle checked={audioPlay} onChange={toggleSetAudioMode} />
+          </RowBetween> */}
+          <RowBetween>
+            <RowFixed>
+              <Text color="#110518" fontSize="18px" fontFamily="UbuntuBold">{t('Toggle Expert Mode')}</Text>
             </RowFixed>
             <PancakeToggle
               id="toggle-expert-mode-button"
@@ -100,8 +127,7 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
           </RowBetween>
           <RowBetween>
             <RowFixed>
-              <Text fontSize="14px">{t('Disable Multihops')}</Text>
-              <QuestionHelper text={t('Restricts swaps to direct pairs only.')} ml="4px" />
+              <Text color="#110518" fontSize="18px" fontFamily="UbuntuBold">{t('Disable Multihops')}</Text>
             </RowFixed>
             <PancakeToggle
               id="toggle-disable-multihop-button"
@@ -111,13 +137,6 @@ const SettingsModal: React.FC<InjectedModalProps> = ({ onDismiss }) => {
               }}
             />
           </RowBetween>
-          <Flex justifyContent="space-between" alignItems="center" mb="8px">
-            <RowFixed>
-              <Text fontSize="14px">{t('Audio')}</Text>
-              <QuestionHelper text={t('🐰 Turn down your volume a bit before you swap')} ml="4px" />
-            </RowFixed>
-            <PancakeToggle checked={audioPlay} onChange={toggleSetAudioMode} />
-          </Flex>
         </AutoColumn>
       </ModalBody>
     </Modal>

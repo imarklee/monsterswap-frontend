@@ -91,7 +91,7 @@ export default function ManageTokens({
   const isAddressValid = searchQuery === '' || isAddress(searchQuery)
 
   return (
-    <Wrapper>
+    <Wrapper style={{minHeight: "450px"}}>
       <Column style={{ width: '100%', flex: '1 1' }}>
         <AutoColumn gap="14px">
           <Row>
@@ -104,9 +104,10 @@ export default function ManageTokens({
               ref={inputRef as RefObject<HTMLInputElement>}
               onChange={handleInput}
               isWarning={!isAddressValid}
+              fontFamily="Ubuntu"
             />
           </Row>
-          {!isAddressValid && <Text color="failure">{t('Enter valid token address')}</Text>}
+          {!isAddressValid && <Text color="failure" fontFamily="Ubuntu">{t('Enter valid token address')}</Text>}
           {searchToken && (
             <ImportRow
               token={searchToken}

@@ -97,6 +97,7 @@ export default function AddLiquidity({
   const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity)
 
   const isValid = !error
+  const criticalError = error && (error.includes("Insufficient") || error.includes("Invalid pair"))
 
   // modal and loading
   const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
@@ -215,7 +216,7 @@ export default function AddLiquidity({
   const modalHeader = () => {
     return noLiquidity ? (
       <Flex alignItems="center">
-        <Text fontSize="48px" marginRight="10px">
+        <Text fontSize="48px" marginRight="10px" color="#110518" fontFamily="UbuntuBold">
           {`${currencies[Field.CURRENCY_A]?.symbol}/${currencies[Field.CURRENCY_B]?.symbol}`}
         </Text>
         <DoubleCurrencyLogo
@@ -227,7 +228,7 @@ export default function AddLiquidity({
     ) : (
       <AutoColumn>
         <Flex alignItems="center">
-          <Text fontSize="48px" marginRight="10px">
+          <Text fontSize="48px" marginRight="10px" color="#110518" fontFamily="UbuntuBold">
             {liquidityMinted?.toSignificant(6)}
           </Text>
           <DoubleCurrencyLogo
@@ -237,11 +238,11 @@ export default function AddLiquidity({
           />
         </Flex>
         <Row>
-          <Text fontSize="24px">
+          <Text fontSize="24px" color="#110518" fontFamily="UbuntuBold">
             {`${currencies[Field.CURRENCY_A]?.symbol}/${currencies[Field.CURRENCY_B]?.symbol} Pool Tokens`}
           </Text>
         </Row>
-        <Text small textAlign="left" my="24px">
+        <Text small textAlign="left" fontStyle="italic" color="#110518" my="24px" fontFamily="UbuntuBold">
           {t('Output is estimated. If the price changes by more than %slippage%% your transaction will revert.', {
             slippage: allowedSlippage / 100,
           })}
@@ -382,20 +383,20 @@ export default function AddLiquidity({
               id="add-liquidity-input-tokenb"
               showCommonBases
             >
-            {currencies[Field.CURRENCY_A] && currencies[Field.CURRENCY_B] && pairState !== PairState.INVALID && (
-              <>
-                <Row width="100%" justify="center" padding="0 0 10px 0" >
-                  <LightGreyCard padding="0.5rem" width="90%" borderRadius="10px">
-                    <PoolPriceBar
-                      currencies={currencies}
-                      poolTokenPercentage={poolTokenPercentage}
-                      noLiquidity={noLiquidity}
-                      price={price}
-                    />
-                  </LightGreyCard>
-                </Row>
-              </>
-            )}
+              {currencies[Field.CURRENCY_A] && currencies[Field.CURRENCY_B] && pairState !== PairState.INVALID && (
+                <>
+                  <Row width="100%" justify="center" padding="0 0 10px 0" >
+                    <LightGreyCard padding="0.5rem" width="90%" borderRadius="10px" style={{ fontFamily: "Ubuntu" }}>
+                      <PoolPriceBar
+                        currencies={currencies}
+                        poolTokenPercentage={poolTokenPercentage}
+                        noLiquidity={noLiquidity}
+                        price={price}
+                      />
+                    </LightGreyCard>
+                  </Row>
+                </>
+              )}
             </CurrencyInputPanel>
 
             {addIsUnsupported ? (
@@ -454,6 +455,10 @@ export default function AddLiquidity({
                     }
                   }}
                   disabled={!isValid || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED}
+                  style={{
+                    background: (!isValid || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED) ? (criticalError ? "#E25656" : "#E9EAEB") : "#4E4E9D",
+                    color: (!isValid || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED) ? (criticalError ? "#FFF" : "#BDC2C4") : "#FFF"
+                  }}
                 >
                   {error ?? t('Supply')}
                 </Button>

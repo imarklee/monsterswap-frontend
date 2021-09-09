@@ -1,52 +1,64 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import PanIcon from './PanIcon'
-import PancakeIcon from './PancakeIcon'
 import { SpinnerProps } from './types'
 
 const rotate = keyframes`
-  from {
-    transform: rotate(0deg);
+  0% {
+    transform: rotateZ(0deg);
   }
-  to {
+  100% {
     transform: rotate(360deg);
   }
 `
 
-const float = keyframes`
-	0% {
-		transform: translatey(0px);
-	}
-	50% {
-		transform: translatey(10px);
-	}
-	100% {
-		transform: translatey(0px);
-	}
+const dash = keyframes`
+  0%, 25% {
+    stroke-dashoffset: 280;
+    transform: rotate(0);
+  }
+  50%, 75% {
+    stroke-dashoffset: 75;
+    transform: rotate(45deg);
+  }
+  100% {
+    stroke-dashoffset: 280;
+    transform: rotate(360deg);
+  }
 `
 
 const Container = styled.div`
   position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
-
-const RotatingPancakeIcon = styled(PancakeIcon)`
-  position: absolute;
-  top: 0;
-  left: 0;
+const SVG = styled.svg`
   animation: ${rotate} 2s linear infinite;
-  transform: translate3d(0, 0, 0);
-`
+  z-index: 2;
+  margin: -25px 0 0 -25px; 
+  max-width: 128px;
 
-const FloatingPanIcon = styled(PanIcon)`
-  animation: ${float} 6s ease-in-out infinite;
-  transform: translate3d(0, 0, 0);
-`
+  & .path {
+    animation: ${dash} 1.5s ease-in-out infinite;
+    stroke: #38E3F9;
+    display: block;
+    stroke-linecap: round;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 280;
+    transform-origin: 50% 50%;
+  }
+`;
 
-const Spinner: React.FC<SpinnerProps> = ({ size = 128 }) => {
+
+
+const Spinner: React.FC<SpinnerProps> = ({ size = 128, width = '128px', height = '128px' }) => {
   return (
     <Container>
-      <RotatingPancakeIcon width={`${size * 0.5}px`} />
-      <FloatingPanIcon width={`${size}px`} />
+      <SVG viewBox={`0 0 ${size} ${size}`} width={width} height={height} >
+        <circle className="path" cx={size / 2} cy={size / 2} r="50" fill="none" strokeWidth="5" />
+      </SVG>
     </Container>
   )
 }

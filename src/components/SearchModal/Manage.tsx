@@ -10,6 +10,7 @@ import { CurrencyModalView } from './types'
 
 const StyledButtonMenu = styled(ButtonMenu)`
   width: 100%;
+  height: 50px;
 `
 
 export default function Manage({
@@ -36,8 +37,8 @@ export default function Manage({
         variant="subtle"
         mb="32px"
       >
-        <ButtonMenuItem width="50%">{t('Lists')}</ButtonMenuItem>
-        <ButtonMenuItem width="50%">{t('Tokens')}</ButtonMenuItem>
+        <ButtonMenuItem width="50%" height="50px">{t('Lists')}</ButtonMenuItem>
+        <ButtonMenuItem width="50%" height="50px">{t('Tokens')}</ButtonMenuItem>
       </StyledButtonMenu>
       {showLists ? (
         <ManageLists setModalView={setModalView} setImportList={setImportList} setListUrl={setListUrl} />

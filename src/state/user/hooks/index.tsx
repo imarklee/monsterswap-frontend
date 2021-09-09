@@ -18,6 +18,8 @@ import {
   muteAudio,
   unmuteAudio,
   toggleTheme as toggleThemeAction,
+  updateUserToggleChart,
+  updateUserChartSizeLarge,
 } from '../actions'
 import { serializeToken, deserializeToken } from './helpers'
 
@@ -77,6 +79,40 @@ export function useUserSingleHopOnly(): [boolean, (newSingleHopOnly: boolean) =>
   )
 
   return [singleHopOnly, setSingleHopOnly]
+}
+
+export function useUserToggleChart(): [boolean, (newToggleChart: boolean) => void] {
+  const dispatch = useDispatch<AppDispatch>()
+
+  const userToggleChart = useSelector<AppState, AppState['user']['userToggleChart']>(
+    (state) => state.user.userToggleChart,
+  )
+
+  const setUserToggleChart = useCallback(
+    (newToggleChart: boolean) => {
+      dispatch(updateUserToggleChart({ userToggleChart: newToggleChart }))
+    },
+    [dispatch],
+  )
+
+  return [userToggleChart, setUserToggleChart]
+}
+
+export function useUserChartSizeLarge(): [boolean, (newChartSizeLarge: boolean) => void] {
+  const dispatch = useDispatch<AppDispatch>()
+
+  const userChartSizeLarge = useSelector<AppState, AppState['user']['userChartSizeLarge']>(
+    (state) => state.user.userChartSizeLarge,
+  )
+
+  const setUserToggleChart = useCallback(
+    (newChartSizeLarge: boolean) => {
+      dispatch(updateUserChartSizeLarge({ userChartSizeLarge: newChartSizeLarge }))
+    },
+    [dispatch],
+  )
+
+  return [userChartSizeLarge, setUserToggleChart]
 }
 
 export function useUserSlippageTolerance(): [number, (slippage: number) => void] {

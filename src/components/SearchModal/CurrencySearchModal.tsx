@@ -10,6 +10,7 @@ import {
   InjectedModalProps,
   Heading,
   Button,
+  EditIcon,
 } from 'uikit'
 import styled from 'styled-components'
 import usePrevious from 'hooks/usePreviousValue'
@@ -119,7 +120,8 @@ export default function CurrencySearchModal({
           ''
         )}
         {modalView === CurrencyModalView.search && (
-          <Footer>
+          <Footer style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <EditIcon width="27px" color="white" />
             <Button
               scale="sm"
               variant="text"

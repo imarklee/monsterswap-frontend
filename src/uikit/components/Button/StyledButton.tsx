@@ -56,7 +56,7 @@ const StyledButton = styled.button<BaseButtonProps>`
   display: inline-flex;
   font-size: 16px;
   font-weight: 600;
-  font-family: ${getFontFamily}
+  font-family: ${getFontFamily};
   justify-content: center;
   letter-spacing: 0.03em;
   line-height: 1;
