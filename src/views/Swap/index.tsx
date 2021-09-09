@@ -316,6 +316,7 @@ export default function Swap({ history }: RouteComponentProps) {
               onUserInput={handleTypeInput}
               onMax={handleMaxInput}
               onCurrencySelect={handleInputSelect}
+              showCommonBases
               otherCurrency={currencies[Field.OUTPUT]}
               id="swap-currency-input"
             />

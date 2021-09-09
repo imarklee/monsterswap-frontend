@@ -38,7 +38,7 @@ const FixedContentRow = styled.div`
 `
 
 function Balance({ balance }: { balance: CurrencyAmount }) {
-  return <StyledBalanceText title={balance.toExact()}>{balance.toSignificant(4)}</StyledBalanceText>
+  return <StyledBalanceText title={balance.toExact()} fontFamily='UbuntuBold'>{balance.toSignificant(4)}</StyledBalanceText>
 }
 
 const MenuItem = styled(RowBetween)<{ disabled: boolean; selected: boolean }>`
@@ -86,8 +86,8 @@ function CurrencyRow({
     >
       <CurrencyLogo currency={currency} size="24px" />
       <Column>
-        <Text bold>{currency.symbol}</Text>
-        <Text color="textSubtle" small ellipsis maxWidth="200px">
+        <Text bold fontFamily='UbuntuBold'>{currency.symbol}</Text>
+        <Text color="textSubtle" small ellipsis fontFamily='UbuntuBold' maxWidth="200px">
           {!isOnSelectedList && customAdded && 'Added by user •'} {currency.name}
         </Text>
       </Column>

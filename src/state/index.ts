@@ -5,6 +5,7 @@ import farmsReducer from './farms'
 import poolsReducer from './pools'
 import predictionsReducer from './predictions'
 import profileReducer from './profile'
+import portfolioReducer from './portfolio'
 import teamsReducer from './teams'
 import achievementsReducer from './achievements'
 import blockReducer from './block'
@@ -32,6 +33,7 @@ const store = configureStore({
     pools: poolsReducer,
     predictions: predictionsReducer,
     profile: profileReducer,
+    portfolio: portfolioReducer,
     teams: teamsReducer,
     collectibles: collectiblesReducer,
     voting: votingReducer,

@@ -56,6 +56,11 @@ export interface Pool extends PoolConfig {
   }
 }
 
+export interface FarmLpPrice {
+  lpSymbol: string
+  stakedLpPrice: BigNumber
+}
+
 export interface Profile {
   userId: number
   points: number
@@ -70,10 +75,14 @@ export interface Profile {
 }
 
 // Slices states
-
 export interface FarmsState {
   data: Farm[]
   loadArchivedFarmsData: boolean
+  userDataLoaded: boolean
+}
+
+export interface PortfolioState {
+  lpPriceData: FarmLpPrice[]
   userDataLoaded: boolean
 }
 
@@ -475,6 +484,7 @@ export interface State {
   pools: PoolsState
   predictions: PredictionsState
   profile: ProfileState
+  portfolio: PortfolioState
   teams: TeamsState
   collectibles: CollectiblesState
   voting: VotingState

@@ -128,6 +128,7 @@ function CurrencySearch({
               id="token-search-input"
               placeholder={t('Search name or paste address')}
               scale="lg"
+              fontFamily="Ubuntu"
               autoComplete="off"
               value={searchQuery}
               ref={inputRef as RefObject<HTMLInputElement>}
@@ -162,7 +163,7 @@ function CurrencySearch({
           </Box>
         ) : (
           <Column style={{ padding: '20px', height: '100%' }}>
-            <Text color="textSubtle" textAlign="center" mb="20px">
+            <Text color="textSubtle" textAlign="center" mb="20px" fontFamily="UbuntuBold">
               {t('No results found.')}
             </Text>
           </Column>

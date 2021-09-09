@@ -30,6 +30,8 @@ const Footer = styled.div`
 const StyledModalContainer = styled(ModalContainer)`
   max-width: 420px;
   width: 100%;
+  font-family: 'Ubuntu';
+  background-color: '#EAF2F7';
 `
 
 const StyledModalBody = styled(ModalBody)`
@@ -88,7 +90,7 @@ export default function CurrencySearchModal({
       <ModalHeader>
         <ModalTitle>
           {config[modalView].onBack && <ModalBackButton onBack={config[modalView].onBack} />}
-          <Heading>{config[modalView].title}</Heading>
+          <Heading fontFamily="UbuntuBold" >{config[modalView].title}</Heading>
         </ModalTitle>
         <ModalCloseButton onDismiss={onDismiss} />
       </ModalHeader>
@@ -123,6 +125,7 @@ export default function CurrencySearchModal({
               variant="text"
               onClick={() => setModalView(CurrencyModalView.manage)}
               className="list-token-manage-button"
+              fontFamily="UbuntuBold"
             >
               {t('Manage Tokens')}
             </Button>
