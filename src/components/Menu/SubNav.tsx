@@ -5,7 +5,7 @@ import { ButtonMenu, ButtonMenuItem } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 
 const StyledNav = styled.nav`
-  margin-bottom: 40px;
+  margin-bottom: 0px;
 `
 
 const getActiveIndex = (pathname: string): number => {
@@ -27,11 +27,11 @@ const Nav = () => {
   const { t } = useTranslation()
   return (
     <StyledNav>
-      <ButtonMenu activeIndex={getActiveIndex(location.pathname)} scale="sm" variant="subtle">
+      <ButtonMenu activeIndex={getActiveIndex(location.pathname)} variant="subtle">
         <ButtonMenuItem id="swap-nav-link" to="/swap" as={Link}>
           {t('Swap')}
         </ButtonMenuItem>
-        <ButtonMenuItem id="pool-nav-link" to="/pool" as={Link}>
+        <ButtonMenuItem id="pool-nav-link" to="/add" as={Link}>
           {t('Liquidity')}
         </ButtonMenuItem>
       </ButtonMenu>

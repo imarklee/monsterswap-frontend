@@ -32,15 +32,20 @@ const getHeight = ({ scale = scales.MD }: StyledInputProps) => {
   }
 }
 
+const getFontFamily = ({ fontFamily = 'Funhouse' }: StyledInputProps) => {
+  return fontFamily
+}
+
 const Input = styled.input<InputProps>`
   background-color: ${({ theme }) => theme.colors.input};
   border: 0;
-  border-radius: 16px;
+  border-radius: 10px;
   box-shadow: ${getBoxShadow};
   color: ${({ theme }) => theme.colors.text};
   display: block;
   font-size: 16px;
   height: ${getHeight};
+  font-family: ${getFontFamily};
   outline: 0;
   padding: 0 16px;
   width: 100%;
@@ -66,6 +71,7 @@ Input.defaultProps = {
   scale: scales.MD,
   isSuccess: false,
   isWarning: false,
+  fontFamily: 'Funhouse',
 }
 
 export default Input

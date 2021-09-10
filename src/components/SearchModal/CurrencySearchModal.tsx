@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { Currency, Token } from '@pancakeswap/sdk'
+import { Currency, Token } from '@monsterswap/sdk'
 import {
   ModalContainer,
   ModalHeader,
@@ -10,6 +10,7 @@ import {
   InjectedModalProps,
   Heading,
   Button,
+  EditIcon,
 } from 'uikit'
 import styled from 'styled-components'
 import usePrevious from 'hooks/usePreviousValue'
@@ -30,6 +31,8 @@ const Footer = styled.div`
 const StyledModalContainer = styled(ModalContainer)`
   max-width: 420px;
   width: 100%;
+  font-family: 'Ubuntu';
+  background-color: '#EAF2F7';
 `
 
 const StyledModalBody = styled(ModalBody)`
@@ -88,7 +91,7 @@ export default function CurrencySearchModal({
       <ModalHeader>
         <ModalTitle>
           {config[modalView].onBack && <ModalBackButton onBack={config[modalView].onBack} />}
-          <Heading>{config[modalView].title}</Heading>
+          <Heading fontFamily="UbuntuBold" >{config[modalView].title}</Heading>
         </ModalTitle>
         <ModalCloseButton onDismiss={onDismiss} />
       </ModalHeader>
@@ -117,12 +120,14 @@ export default function CurrencySearchModal({
           ''
         )}
         {modalView === CurrencyModalView.search && (
-          <Footer>
+          <Footer style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <EditIcon width="27px" color="white" />
             <Button
               scale="sm"
               variant="text"
               onClick={() => setModalView(CurrencyModalView.manage)}
               className="list-token-manage-button"
+              fontFamily="UbuntuBold"
             >
               {t('Manage Tokens')}
             </Button>

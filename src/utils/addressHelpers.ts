@@ -1,4 +1,4 @@
-import { ChainId } from '@pancakeswap/sdk'
+import { ChainId } from '@monsterswap/sdk'
 import addresses from 'config/constants/contracts'
 import tokens from 'config/constants/tokens'
 import { Address } from 'config/constants/types'
@@ -10,6 +10,9 @@ export const getAddress = (address: Address): string => {
 
 export const getCakeAddress = () => {
   return getAddress(tokens.cake.address)
+}
+export const getMonsterAddress = () => {
+  return getAddress(tokens.monster.address)
 }
 export const getMasterChefAddress = () => {
   return getAddress(addresses.masterChef)

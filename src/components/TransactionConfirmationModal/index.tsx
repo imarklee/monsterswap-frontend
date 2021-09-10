@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react'
-import { ChainId, Currency, Token } from '@pancakeswap/sdk'
+import { ChainId, Currency, Token } from '@monsterswap/sdk'
 import styled from 'styled-components'
 import {
   Button,
   Text,
   ErrorIcon,
-  ArrowUpIcon,
+  ArrowUpRoundIcon,
   MetamaskIcon,
   Flex,
   Box,
@@ -30,6 +30,10 @@ const Section = styled(AutoColumn)`
 
 const ConfirmedIcon = styled(ColumnCenter)`
   padding: 24px 0;
+  height: 128px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 function ConfirmationPendingContent({ pendingText }: { pendingText: string }) {
@@ -40,13 +44,13 @@ function ConfirmationPendingContent({ pendingText }: { pendingText: string }) {
         <Spinner />
       </ConfirmedIcon>
       <AutoColumn gap="12px" justify="center">
-        <Text fontSize="20px">{t('Waiting For Confirmation')}</Text>
+        <Text fontFamily="UbuntuBold" fontSize="22px" color="#110518">{t('Waiting For Confirmation')}</Text>
         <AutoColumn gap="12px" justify="center">
-          <Text bold small textAlign="center">
+          <Text bold small textAlign="center" fontFamily="UbuntuBold">
             {pendingText}
           </Text>
         </AutoColumn>
-        <Text small color="textSubtle" textAlign="center">
+        <Text small color="textSubtle" fontFamily="Ubuntu" textAlign="center">
           {t('Confirm this transaction in your wallet')}
         </Text>
       </AutoColumn>
@@ -75,12 +79,12 @@ function TransactionSubmittedContent({
     <Wrapper>
       <Section>
         <ConfirmedIcon>
-          <ArrowUpIcon strokeWidth={0.5} width="90px" color="primary" />
+          <ArrowUpRoundIcon strokeWidth={0.5} width="90px" color="#EAF2F7" />
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify="center">
-          <Text fontSize="20px">{t('Transaction Submitted')}</Text>
+          <Text fontFamily="UbuntuBold" fontSize="20px" color="#110518" >{t('Transaction Submitted')}</Text>
           {chainId && hash && (
-            <a href={getBscScanLink(hash, 'transaction', chainId)} target="_blank" rel="noreferrer">
+            <a href={getBscScanLink(hash, 'transaction', chainId)} target="_blank" rel="noreferrer" style={{fontFamily: 'Ubuntu', color: '#524F9E'}}>
               {t('View on BscScan')}
             </a>
           )}
@@ -91,7 +95,7 @@ function TransactionSubmittedContent({
               width="fit-content"
               onClick={() => registerToken(token.address, token.symbol, token.decimals)}
             >
-              <RowFixed>
+              <RowFixed style={{fontFamily: 'Ubuntu'}} >
                 {t('Add %asset% to Metamask', { asset: currencyToAdd.symbol })}
                 <MetamaskIcon width="16px" ml="6px" />
               </RowFixed>
@@ -171,7 +175,7 @@ const TransactionConfirmationModal: React.FC<InjectedModalProps & ConfirmationMo
   if (!chainId) return null
 
   return (
-    <Modal title={title} headerBackground="gradients.cardHeader" onDismiss={handleDismiss}>
+    <Modal title={title} headerBackground="#EAF2F7" onDismiss={handleDismiss}>
       {attemptingTxn ? (
         <ConfirmationPendingContent pendingText={pendingText} />
       ) : hash ? (

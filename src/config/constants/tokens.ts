@@ -1,5 +1,21 @@
-import { ChainId, Token } from '@pancakeswap/sdk'
+import { ChainId, Token } from '@monsterswap/sdk'
 
+// export const CAKE: { [chainId: number]: Token } = {
+//   [ChainId.MAINNET]: new Token(
+//     ChainId.MAINNET,
+//     '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82',
+//     18,
+//     'CAKE',
+//     'PancakeSwap Token',
+//   ),
+//   [ChainId.TESTNET]: new Token(
+//     ChainId.TESTNET,
+//     '0xa35062141Fa33BCA92Ce69FeD37D0E8908868AAe',
+//     18,
+//     'CAKE',
+//     'PancakeSwap Token',
+//   ),
+// }
 export const CAKE: { [chainId: number]: Token } = {
   [ChainId.MAINNET]: new Token(
     ChainId.MAINNET,
@@ -10,10 +26,10 @@ export const CAKE: { [chainId: number]: Token } = {
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,
-    '0xa35062141Fa33BCA92Ce69FeD37D0E8908868AAe',
+    '0x23040c7b54112a6E6e70559d49114Ed80C41C282',
     18,
-    'CAKE',
-    'PancakeSwap Token',
+    'MONSTER',
+    'MonsterSwap Token',
   ),
 }
 export const BUSD: { [chainId: number]: Token } = {
@@ -33,7 +49,25 @@ export const BUSD: { [chainId: number]: Token } = {
   ),
 }
 
-export const WBNB = new Token(ChainId.MAINNET, '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', 18, 'WBNB', 'Wrapped BNB')
+export const WBNB: { [chainId: number]: Token } = {
+  [ChainId.MAINNET]: new Token(
+    ChainId.MAINNET,
+    '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c',
+    18,
+    'WBNB',
+    'Wrapped BNB',
+  ),
+  [ChainId.TESTNET]: new Token(
+    ChainId.TESTNET,
+    '0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd',
+    18,
+    'WBNB',
+    'Wrapped BNB',
+  ),
+}
+
+
+// export const WBNB = new Token(ChainId.MAINNET, '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', 18, 'WBNB', 'Wrapped BNB')
 export const DAI = new Token(ChainId.MAINNET, '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3', 18, 'DAI', 'Dai Stablecoin')
 export const USDT = new Token(ChainId.MAINNET, '0x55d398326f99059fF775485246999027B3197955', 18, 'USDT', 'Tether USD')
 export const BTCB = new Token(ChainId.MAINNET, '0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c', 18, 'BTCB', 'Binance BTC')
@@ -797,7 +831,7 @@ const tokens = {
     symbol: 'BUSD',
     address: {
       56: '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56',
-      97: '',
+      97: '0xeD24FC36d5Ee211Ea25A80239Fb8C4Cfd80f12Ee',
     },
     decimals: 18,
     projectLink: 'https://www.paxos.com/busd/',

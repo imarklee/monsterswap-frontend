@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { Pair } from '@pancakeswap/sdk'
+import { Pair } from '@monsterswap/sdk'
 import { Text, Flex, CardBody, CardFooter, Button, AddIcon } from 'uikit'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'contexts/Localization'
@@ -50,6 +50,7 @@ export default function Pool() {
     fetchingV2PairBalances || v2Pairs?.length < liquidityTokensWithBalances.length || v2Pairs?.some((V2Pair) => !V2Pair)
 
   const allV2PairsWithLiquidity = v2Pairs.map(([, pair]) => pair).filter((v2Pair): v2Pair is Pair => Boolean(v2Pair))
+  console.log("[v2Pairs]", allV2PairsWithLiquidity, trackedTokenPairs)
 
   const renderBody = () => {
     if (!account) {
@@ -85,7 +86,7 @@ export default function Pool() {
   return (
     <Page>
       <AppBody>
-        <AppHeader title={t('Your Liquidity')} subtitle={t('Remove liquidity to receive tokens back')} />
+        <AppHeader subtitle={t('View Your Liquidity Positions >')} />
         <Body>
           {renderBody()}
           {account && !v2IsLoading && (

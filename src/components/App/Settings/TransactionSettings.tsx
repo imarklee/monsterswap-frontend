@@ -80,11 +80,7 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
     <AutoColumn gap="md">
       <AutoColumn gap="sm">
         <RowFixed>
-          <Text fontSize="14px">{t('Slippage Tolerance')}</Text>
-          <QuestionHelper
-            text={t('Your transaction will revert if the price changes unfavorably by more than this percentage.')}
-            ml="4px"
-          />
+          <Text color="#110518" fontSize="20px" fontFamily="UbuntuBold">{t('Slippage Tolerance')}</Text>
         </RowFixed>
         <Flex flexWrap={['wrap', 'wrap', 'nowrap']}>
           <Grid gridTemplateColumns="1fr 1fr 1fr" gridGap="8px" mb={['8px', '8px', 0]} mr={[0, 0, '8px']}>
@@ -93,7 +89,8 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
                 setSlippageInput('')
                 setRawSlippage(10)
               }}
-              variant={rawSlippage === 10 ? 'primary' : 'tertiary'}
+              fontFamily="UbuntuBold"
+              style={{ background: rawSlippage === 10 ? '#FFB300' : '#8F9395', color: rawSlippage === 10 ? '#FFF' : '#110518', fontSize: "20px" }}
             >
               0.1%
             </Button>
@@ -102,7 +99,8 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
                 setSlippageInput('')
                 setRawSlippage(50)
               }}
-              variant={rawSlippage === 50 ? 'primary' : 'tertiary'}
+              fontFamily="UbuntuBold"
+              style={{ background: rawSlippage === 50 ? '#FFB300' : '#8F9395', color: rawSlippage === 50 ? '#FFF' : '#110518', fontSize: "20px" }}
             >
               0.5%
             </Button>
@@ -111,7 +109,8 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
                 setSlippageInput('')
                 setRawSlippage(100)
               }}
-              variant={rawSlippage === 100 ? 'primary' : 'tertiary'}
+              fontFamily="UbuntuBold"
+              style={{ background: rawSlippage === 100 ? '#FFB300' : '#8F9395', color: rawSlippage === 100 ? '#FFF' : '#110518', fontSize: "20px" }}
             >
               1%
             </Button>
@@ -126,9 +125,11 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
               }}
               onChange={(e) => parseCustomSlippage(e.target.value)}
               isWarning={!slippageInputIsValid}
+              fontFamily="Ubuntu"
+              color="#110518"
               isSuccess={![10, 50, 100].includes(rawSlippage)}
             />
-            <Text color="primary" bold ml="8px">
+            <Text color="#110518" fontFamily="UbuntuBold" bold ml="8px">
               %
             </Text>
           </RowBetween>
@@ -152,8 +153,7 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
 
       <AutoColumn gap="sm">
         <RowFixed>
-          <Text fontSize="14px">{t('Transaction deadline')}</Text>
-          <QuestionHelper text={t('Your transaction will revert if it is pending for more than this long.')} ml="4px" />
+          <Text color="#110518" fontSize="20px" fontFamily="UbuntuBold">{t('Transaction deadline')}</Text>
         </RowFixed>
         <RowFixed>
           <Input
@@ -161,11 +161,12 @@ export default function SlippageTabs({ rawSlippage, setRawSlippage, deadline, se
             onBlur={() => {
               parseCustomDeadline((deadline / 60).toString())
             }}
+            fontFamily="Ubuntu"
             placeholder={(deadline / 60).toString()}
             value={deadlineInput}
             onChange={(e) => parseCustomDeadline(e.target.value)}
           />
-          <Text pl="8px" fontSize="14px">
+          <Text color="#110518" pl="8px" fontSize="18px" fontFamily="UbuntuBold">
             {t('minutes')}
           </Text>
         </RowFixed>

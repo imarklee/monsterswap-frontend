@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { CurrencyAmount, JSBI, Token, Trade } from '@pancakeswap/sdk'
-import { Button, Text, ArrowDownIcon, Box, useModal } from 'uikit'
+import { CurrencyAmount, JSBI, Token, Trade } from '@monsterswap/sdk'
+import { Button, Text, ArrowDownIcon, SwapSwitch, Box, useModal } from 'uikit'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/UnsupportedCurrencyFooter'
 import { RouteComponentProps } from 'react-router-dom'
@@ -46,7 +46,7 @@ import SwapWarningModal from './components/SwapWarningModal'
 const Label = styled(Text)`
   font-size: 12px;
   font-weight: bold;
-  color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.primary};
 `
 
 export default function Swap({ history }: RouteComponentProps) {
@@ -305,7 +305,7 @@ export default function Swap({ history }: RouteComponentProps) {
   return (
     <Page>
       <AppBody>
-        <AppHeader title={t('Exchange')} subtitle={t('Trade tokens in an instant')} />
+        <AppHeader />
         <Wrapper id="swap-page">
           <AutoColumn gap="md">
             <CurrencyInputPanel
@@ -316,14 +316,16 @@ export default function Swap({ history }: RouteComponentProps) {
               onUserInput={handleTypeInput}
               onMax={handleMaxInput}
               onCurrencySelect={handleInputSelect}
+              showCommonBases
               otherCurrency={currencies[Field.OUTPUT]}
               id="swap-currency-input"
             />
             <AutoColumn justify="space-between">
-              <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '0 1rem' }}>
+              <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '10px 1rem' }}>
                 <ArrowWrapper clickable>
-                  <ArrowDownIcon
-                    width="16px"
+                  <SwapSwitch
+                    width="62px"
+                    height="62px"
                     onClick={() => {
                       setApprovalSubmitted(false) // reset 2 step UI for approvals
                       onSwitchTokens()

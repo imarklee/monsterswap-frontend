@@ -3,10 +3,14 @@ import styled from 'styled-components'
 import {Flex, Card, Image} from 'uikit'
 import { useWeb3React } from '@web3-react/core'
 import useTheme from 'hooks/useTheme'
+import { useTranslation } from 'contexts/Localization'
+import { useGetStats } from 'hooks/api'
+import { formatLocalisedCompactNumber } from 'utils/formatBalance'
+
 import Slider from 'react-slick'
 import { ReactComponent as NextIcon } from 'assets/images/NextIcon.svg'
 import { ReactComponent as PrevIcon } from 'assets/images/PrevIcon.svg'
-import { CardButton } from './components'
+import { CardButton, MonsterDataRow, MonsterFarmDataRow } from './components'
 
 const Container = styled.div`
   padding: 90px 30px;
@@ -194,77 +198,6 @@ const FarmStakingPart = styled.div`
   height: 100%;
 `
 
-const StatsContent = styled.div`
-  margin: 12px 0;
-  & > div {
-    padding: 12px;
-    margin: 2px 0;
-    justify-content: space-between;
-    &:nth-child(2n + 1) {
-      background: #f3f4f8;
-      border-radius: 10px;
-    }
-    & p,
-    & p b {
-      font-family: 'Red Hat Text', sans-serif;
-      font-size: 14px;
-    }
-    & p {
-      color: rgb(17, 5, 24);
-      & b {
-        color: #4e4e9d;
-      }
-    }
-  }
-`
-
-const EarnedPart = styled.div`
-  position: relative;
-  height: 100%;
-  & h1,
-  & p,
-  & h2 {
-    color: white;
-  }
-  & h2 {
-    font-size: 14px;
-    font-weight: 400;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    line-height: 20px;
-    display: flex;
-    align-items: center;
-    & svg {
-      margin: -2px 0 0 4px;
-    }
-  }
-  & p {
-    margin-top: 6px;
-    font-weight: 700;
-  }
-  & > div {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-  }
-`
-
-const EarnedBottomLeft = styled.div`
-  border-top: 2px solid rgba(255, 255, 255, 0.2);
-  border-right: 2px solid rgba(255, 255, 255, 0.2);
-  border-top-right-radius: 10px;
-  top: -10px;
-  right: -10px;
-`
-
-const EarnedTopRight = styled.div`
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
-  border-left: 2px solid rgba(255, 255, 255, 0.2);
-  border-bottom-left-radius: 10px;
-  bottom: -10px;
-  left: -10px;
-`
 
 const TotalLockedPart = styled.div`
   height: 100%;
@@ -294,10 +227,27 @@ const TotalLockedPart = styled.div`
     }
   }
 `
+// Values fetched from bitQuery effective 13/8/21
+const txCount = 44713126
+const addressCount = 2607499
+
 
 const Home: React.FC = () => {
   // const { theme } = useTheme()
   // const { account } = useWeb3React()
+
+  const { t } = useTranslation()
+  const data = useGetStats()
+  const { theme } = useTheme()
+
+  const tvlString = data ? formatLocalisedCompactNumber(data.tvl) : '-'
+  const trades = formatLocalisedCompactNumber(txCount)
+  const users = formatLocalisedCompactNumber(addressCount)
+
+  const tvlText = t('And those users are now entrusting the platform with over $%tvl% in funds.', { tvl: tvlString })
+  const [entrusting, inFunds] = tvlText.split(tvlString)
+
+  console.log("[home-tvlString]", tvlString, data)
 
   const sliderSettings = {
     dots: true,
@@ -370,38 +320,7 @@ const Home: React.FC = () => {
           <StyledCard>
             <FarmStakingPart>
               <StyledTitle fontSize="26px">Monster Stats</StyledTitle>
-              <StatsContent>
-                <Flex>
-                  <p>USD Market CAP</p>
-                  <p>
-                    <b>$900,000</b>
-                  </p>
-                </Flex>
-                <Flex>
-                  <p>Monster In Circulation</p>
-                  <p>
-                    <b>32,004,918</b>
-                  </p>
-                </Flex>
-                <Flex>
-                  <p>Monster Burned</p>
-                  <p>
-                    <b>5,283,000</b>
-                  </p>
-                </Flex>
-                <Flex>
-                  <p>DEX Liquidity</p>
-                  <p>
-                    <b>$1,000,000</b>
-                  </p>
-                </Flex>
-                <Flex>
-                  <p>Distributed Monster/Block</p>
-                  <p>
-                    <b>15</b>
-                  </p>
-                </Flex>
-              </StatsContent>
+              <MonsterDataRow />
               <CardButton bgColor="#4E4E9D">Learn More</CardButton>
             </FarmStakingPart>
           </StyledCard>
@@ -409,15 +328,7 @@ const Home: React.FC = () => {
         <RightSmall>
           <RightSmallUpper>
             <StyledCard bgColor="#4E4E9D">
-              <EarnedPart>
-                <EarnedTopRight />
-                <EarnedBottomLeft />
-                <StyledTitle fontSize="16px">Earn up to</StyledTitle>
-                <StyledText fontSize="28px">554.87%</StyledText>
-                <h2>
-                  In Farms <NextIcon />
-                </h2>
-              </EarnedPart>
+              <MonsterFarmDataRow />
             </StyledCard>
           </RightSmallUpper>
           <RightSmallDown>

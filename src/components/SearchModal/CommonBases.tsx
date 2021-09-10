@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChainId, Currency, currencyEquals, ETHER, Token } from '@pancakeswap/sdk'
+import { ChainId, Currency, currencyEquals, ETHER, Token } from '@monsterswap/sdk'
 import { Text } from 'uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
@@ -15,6 +15,7 @@ const BaseWrapper = styled.div<{ disable?: boolean }>`
   border-radius: 10px;
   display: flex;
   padding: 6px;
+  font-family: 'UbuntuBold';
 
   align-items: center;
   :hover {
@@ -38,11 +39,11 @@ export default function CommonBases({
   const { t } = useTranslation()
   return (
     <AutoColumn gap="md">
-      <AutoRow>
-        <Text fontSize="14px">{t('Common bases')}</Text>
+      {/* <AutoRow>
+        <Text fontSize="14px" fontFamily='UbuntuBold'>{t('Common bases')}</Text>
         <QuestionHelper text={t('These tokens are commonly paired with other tokens.')} ml="4px" />
-      </AutoRow>
-      <AutoRow gap="auto">
+      </AutoRow> */}
+      <AutoRow gap="5px" justify="flex-start">
         <BaseWrapper
           onClick={() => {
             if (!selectedCurrency || !currencyEquals(selectedCurrency, ETHER)) {
@@ -52,14 +53,14 @@ export default function CommonBases({
           disable={selectedCurrency === ETHER}
         >
           <CurrencyLogo currency={ETHER} style={{ marginRight: 8 }} />
-          <Text>BNB</Text>
+          <Text fontFamily="UbuntuBold">BNB</Text>
         </BaseWrapper>
         {(chainId ? SUGGESTED_BASES[chainId] : []).map((token: Token) => {
           const selected = selectedCurrency instanceof Token && selectedCurrency.address === token.address
           return (
             <BaseWrapper onClick={() => !selected && onSelect(token)} disable={selected} key={token.address}>
               <CurrencyLogo currency={token} style={{ marginRight: 8 }} />
-              <Text>{token.symbol}</Text>
+              <Text fontFamily="UbuntuBold">{token.symbol}</Text>
             </BaseWrapper>
           )
         })}

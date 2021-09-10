@@ -12,3 +12,9 @@ export interface MessageProps extends SpaceProps {
   variant: Variant
   icon?: React.ReactNode
 }
+
+export interface InstructionMessageProps extends SpaceProps {
+  variant: Variant
+  icon?: React.ReactNode
+  backColor: string
+}

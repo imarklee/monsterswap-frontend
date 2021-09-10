@@ -3,10 +3,13 @@ import styled from 'styled-components'
 import { Card } from 'uikit'
 
 export const BodyWrapper = styled(Card)`
-  border-radius: 24px;
-  max-width: 436px;
+  border-radius: 10px;
+  // max-width: 436px;
+  max-width: 40%;
   width: 100%;
   z-index: 1;
+  background: ${({ theme }) => theme.colors.gradients.bubblegum};
+  font-family: 'Ubuntu';
 `
 
 /**

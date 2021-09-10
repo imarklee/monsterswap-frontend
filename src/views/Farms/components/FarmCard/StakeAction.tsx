@@ -46,6 +46,7 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
   // const lpPrice = useLpTokenPrice(tokenName)
 
   const handleStake = async (amount: string) => {
+    console.log("[handleStake]", amount, [pid])
     await onStake(amount)
     dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
   }

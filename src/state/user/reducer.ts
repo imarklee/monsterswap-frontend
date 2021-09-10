@@ -15,6 +15,8 @@ import {
   muteAudio,
   unmuteAudio,
   toggleTheme,
+  updateUserChartSizeLarge,
+  updateUserToggleChart,
 } from './actions'
 
 const currentTimestamp = () => new Date().getTime()
@@ -27,6 +29,10 @@ export interface UserState {
 
   // only allow swaps on direct pairs
   userSingleHopOnly: boolean
+
+  userToggleChart: boolean
+
+  userChartSizeLarge: boolean
 
   // user defined slippage tolerance in bips, used in all txns
   userSlippageTolerance: number
@@ -59,6 +65,8 @@ function pairKey(token0Address: string, token1Address: string) {
 export const initialState: UserState = {
   userExpertMode: false,
   userSingleHopOnly: false,
+  userToggleChart: false,
+  userChartSizeLarge: false,
   userSlippageTolerance: INITIAL_ALLOWED_SLIPPAGE,
   userDeadline: DEFAULT_DEADLINE_FROM_NOW,
   tokens: {},
@@ -99,6 +107,12 @@ export default createReducer(initialState, (builder) =>
     })
     .addCase(updateUserSingleHopOnly, (state, action) => {
       state.userSingleHopOnly = action.payload.userSingleHopOnly
+    })
+    .addCase(updateUserToggleChart, (state, action) => {
+      state.userToggleChart = action.payload.userToggleChart
+    })
+    .addCase(updateUserChartSizeLarge, (state, action) => {
+      state.userChartSizeLarge = action.payload.userChartSizeLarge
     })
     .addCase(addSerializedToken, (state, { payload: { serializedToken } }) => {
       if (!state.tokens) {

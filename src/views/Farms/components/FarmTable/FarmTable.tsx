@@ -36,7 +36,7 @@ const StyledTable = styled.table`
 
 const TableHead = styled.thead`
   filter: ${({ theme }) => theme.card.dropShadow};
-  border-radius: 16px;
+  border-radius: 10px;
   margin-bottom: 16px;
   & tr {
     td {
@@ -61,7 +61,7 @@ const TableHead = styled.thead`
 `
 
 const TableBody = styled.tbody`
-  border-radius: 16px;
+  border-radius: 10px;
   & tr {
     border: none;
     td {

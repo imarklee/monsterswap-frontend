@@ -1,6 +1,6 @@
 import React, { KeyboardEvent, RefObject, useCallback, useMemo, useRef, useState, useEffect } from 'react'
-import { Currency, ETHER, Token } from '@pancakeswap/sdk'
-import { Text, Input, Box } from 'uikit'
+import { Currency, ETHER, Token } from '@monsterswap/sdk'
+import { Text, Input, Box, NoResultIcon } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 import { FixedSizeList } from 'react-window'
 import { useAudioModeManager } from 'state/user/hooks'
@@ -128,6 +128,7 @@ function CurrencySearch({
               id="token-search-input"
               placeholder={t('Search name or paste address')}
               scale="lg"
+              fontFamily="Ubuntu"
               autoComplete="off"
               value={searchQuery}
               ref={inputRef as RefObject<HTMLInputElement>}
@@ -140,7 +141,7 @@ function CurrencySearch({
           )}
         </AutoColumn>
         {searchToken && !searchTokenIsAdded ? (
-          <Column style={{ padding: '20px 0', height: '100%' }}>
+          <Column style={{ padding: '20px 0', height: '100%', minHeight: '350px' }}>
             <ImportRow token={searchToken} showImportView={showImportView} setImportToken={setImportToken} />
           </Column>
         ) : filteredSortedTokens?.length > 0 || filteredInactiveTokens?.length > 0 ? (
@@ -161,8 +162,9 @@ function CurrencySearch({
             />
           </Box>
         ) : (
-          <Column style={{ padding: '20px', height: '100%' }}>
-            <Text color="textSubtle" textAlign="center" mb="20px">
+          <Column style={{ padding: '20px', height: '100%', minHeight: '350px' }}>
+            <NoResultIcon width="191px" height="108px" color="transparent" />
+            <Text color="textSubtle" textAlign="center" mt="50px" mb="20px" fontFamily="UbuntuBold">
               {t('No results found.')}
             </Text>
           </Column>

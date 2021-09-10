@@ -3,7 +3,7 @@ import { Route, useRouteMatch, useLocation, NavLink } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { Image, Checkbox, RowType, Text, Flex, useMatchBreakpoints } from 'uikit'
-import { ChainId } from '@pancakeswap/sdk'
+import { ChainId } from '@monsterswap/sdk'
 import styled from 'styled-components'
 import Page from 'components/Layout/Page'
 import { useFarms, usePollFarmsData, usePriceCakeBusd } from 'state/farms/hooks'
@@ -276,7 +276,7 @@ const Farms: React.FC = () => {
         }
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.quoteToken.busdPrice)
         const { cakeRewardsApr, lpRewardsApr } = isActive
-          ? getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity, farm.lpAddresses[ChainId.MAINNET])
+          ? getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity, farm.lpAddresses[ChainId.TESTNET])
           : { cakeRewardsApr: 0, lpRewardsApr: 0 }
 
         return { ...farm, apr: cakeRewardsApr, lpRewardsApr, liquidity: totalLiquidity }
@@ -354,7 +354,6 @@ const Farms: React.FC = () => {
     stakedOnlyFarms,
     numberOfFarmsVisible,
   ])
-
   chosenFarmsLength.current = chosenFarmsMemoized.length
 
   useEffect(() => {
@@ -385,7 +384,7 @@ const Farms: React.FC = () => {
     const tokenAddress = token.address
     const quoteTokenAddress = quoteToken.address
     const lpLabel = farm.lpSymbol && farm.lpSymbol.split(' ')[0].toUpperCase().replace('PANCAKE', '')
-
+    console.log("[farmLiquidity]", farm)
     const row: RowProps = {
       apr: {
         value: getDisplayApr(farm.apr, farm.lpRewardsApr),

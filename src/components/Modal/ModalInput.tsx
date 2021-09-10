@@ -29,7 +29,7 @@ const StyledTokenInput = styled.div<InputProps>`
   flex-direction: column;
   background-color: rgba(73, 70, 138, 0.2);
   padding: 24px 16px 20px 0;
-  border-radius: 16px;
+  border-radius: 10px;
   margin-bottom: 12px;
   width: 100%;
   & p {

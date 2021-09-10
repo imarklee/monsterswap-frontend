@@ -1,6 +1,7 @@
-import { TokenAmount, Pair, Currency } from '@pancakeswap/sdk'
+import { TokenAmount, Pair, Currency } from '@monsterswap/sdk'
 import { useMemo } from 'react'
 import { abi as IUniswapV2PairABI } from '@uniswap/v2-core/build/IUniswapV2Pair.json'
+// import monsterRouterABI from 'config/abi/monsterRouter.json'
 import { Interface } from '@ethersproject/abi'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 

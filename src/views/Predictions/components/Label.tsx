@@ -66,7 +66,7 @@ const Label = styled(Card)<{ dir: 'left' | 'right' }>`
 
   ${({ theme }) => theme.mediaQueries.lg} {
     align-items: center;
-    border-radius: 16px;
+    border-radius: 10px;
     flex-direction: row;
     padding: ${({ dir }) => (dir === 'right' ? '8px 40px 8px 8px' : '8px 8px 8px 40px')};
   }

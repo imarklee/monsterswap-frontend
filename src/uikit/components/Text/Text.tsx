@@ -20,6 +20,9 @@ const Text = styled.div<TextProps>`
   font-size: ${getFontSize};
   font-weight: ${({ bold }) => (bold ? 600 : 400)};
   line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  ${({ fontFamily }) => fontFamily && `font-family: ${fontFamily};`} 
   ${({ textTransform }) => textTransform && `text-transform: ${textTransform};`}
   ${({ ellipsis }) =>
     ellipsis &&

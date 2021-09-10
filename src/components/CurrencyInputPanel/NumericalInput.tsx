@@ -5,19 +5,20 @@ import { escapeRegExp } from '../../utils'
 
 const StyledInput = styled.input<{ error?: boolean; fontSize?: string; align?: string }>`
   color: ${({ error, theme }) => (error ? theme.colors.failure : theme.colors.text)};
-  width: 0;
+  width: 60%;
   position: relative;
   font-weight: 500;
   outline: none;
   border: none;
-  flex: 1 1 auto;
-  background-color: transparent;
+  // flex: 1 1 auto;
+  background-color: #D6D7E9;
   font-size: 16px;
   text-align: ${({ align }) => align && align};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0px;
+  padding: 18px 10px;
+  border-radius: 10px;
   -webkit-appearance: textfield;
 
   ::-webkit-search-decoration {

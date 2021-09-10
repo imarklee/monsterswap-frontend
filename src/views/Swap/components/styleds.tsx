@@ -10,6 +10,9 @@ export const Wrapper = styled.div`
 
 export const ArrowWrapper = styled.div<{ clickable: boolean }>`
   padding: 2px;
+  position: absolute;
+  left: 2.2rem;
+  z-index: 999;
 
   ${({ clickable }) =>
     clickable
@@ -87,7 +90,7 @@ const SwapCallbackErrorInnerAlertTriangle = styled.div`
   align-items: center;
   justify-content: center;
   margin-right: 12px;
-  border-radius: 12px;
+  border-radius: 10px;
   min-width: 48px;
   height: 48px;
 `
@@ -106,6 +109,6 @@ export function SwapCallbackError({ error }: { error: string }) {
 export const SwapShowAcceptChanges = styled(AutoColumn)`
   background-color: ${({ theme }) => `${theme.colors.warning}33`};
   padding: 0.5rem;
-  border-radius: 12px;
+  border-radius: 10px;
   margin-top: 8px;
 `

@@ -15,7 +15,17 @@ const config: (t: ContextApi['t']) => MenuEntry[] = (t) => [
   {
     label: t('Trade'),
     icon: 'Trade',
-    href: '/trade',
+    items: [
+      {
+        label: t('Exchange'),
+        href: '/swap',
+      },
+      {
+        label: t('Liquidity'),
+        href: '/add',
+      },
+    ]
+    // href: '/swap',
   },
   {
     label: t('Farms'),

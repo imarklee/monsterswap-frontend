@@ -1,4 +1,4 @@
-import { ChainId, Currency, currencyEquals, JSBI, Price, WETH } from '@pancakeswap/sdk'
+import { ChainId, Currency, currencyEquals, JSBI, Price, WETH } from '@monsterswap/sdk'
 import { useMemo } from 'react'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { BUSD, CAKE } from '../config/constants/tokens'
@@ -73,6 +73,7 @@ export default function useBUSDPrice(currency?: Currency): Price | undefined {
 export const useCakeBusdPrice = (): Price | undefined => {
   const { chainId } = useActiveWeb3React()
   const currentChaindId = chainId || ChainId.MAINNET
+  console.log("[cake address]", CAKE[currentChaindId])
   const cakeBusdPrice = useBUSDPrice(CAKE[currentChaindId])
   return cakeBusdPrice
 }

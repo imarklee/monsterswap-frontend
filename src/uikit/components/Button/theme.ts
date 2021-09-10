@@ -18,13 +18,13 @@ export const scaleVariants = {
 
 export const styleVariants = {
   [variants.PRIMARY]: {
-    backgroundColor: 'primary',
+    backgroundColor: '#4E4E9D',
     color: 'white',
   },
   [variants.SECONDARY]: {
     backgroundColor: 'transparent',
     border: '2px solid',
-    borderColor: 'primary',
+    borderColor: '#ACB0D3',
     boxShadow: 'none',
     color: 'primary',
     ':disabled': {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Price } from '@pancakeswap/sdk'
+import { Price } from '@monsterswap/sdk'
 import { Text, AutoRenewIcon } from 'uikit'
 import { StyledBalanceMaxMini } from './styleds'
 
@@ -18,13 +18,10 @@ export default function TradePrice({ price, showInverted, setShowInverted }: Tra
     : `${price?.baseCurrency?.symbol} per ${price?.quoteCurrency?.symbol}`
 
   return (
-    <Text style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }}>
+    <Text style={{ justifyContent: 'center', alignItems: 'center', display: 'flex' }} onClick={() => setShowInverted(!showInverted)}>
       {show ? (
         <>
           {formattedPrice ?? '-'} {label}
-          <StyledBalanceMaxMini onClick={() => setShowInverted(!showInverted)}>
-            <AutoRenewIcon width="14px" />
-          </StyledBalanceMaxMini>
         </>
       ) : (
         '-'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Trade, TradeType } from '@pancakeswap/sdk'
+import { Trade, TradeType } from '@monsterswap/sdk'
 import { Text } from 'uikit'
 import { Field } from 'state/swap/actions'
 import { useUserSlippageTolerance } from 'state/user/hooks'
@@ -17,7 +17,7 @@ function TradeSummary({ trade, allowedSlippage }: { trade: Trade; allowedSlippag
 
   return (
     <AutoColumn style={{ padding: '0 16px' }}>
-      <RowBetween>
+      <RowBetween width="100%">
         <RowFixed>
           <Text fontSize="14px" color="textSubtle">
             {isExactIn ? 'Minimum received' : 'Maximum sold'}
@@ -84,13 +84,13 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
   const showRoute = Boolean(trade && trade.route.path.length > 2)
 
   return (
-    <AutoColumn gap="0px">
+    <AutoColumn gap="0px" style={{ width: "100%" }} >
       {trade && (
         <>
           <TradeSummary trade={trade} allowedSlippage={allowedSlippage} />
           {showRoute && (
             <>
-              <RowBetween style={{ padding: '0 16px' }}>
+              <RowBetween style={{ padding: '0 16px' }} width="100%">
                 <span style={{ display: 'flex', alignItems: 'center' }}>
                   <Text fontSize="14px" color="textSubtle">
                     Route
