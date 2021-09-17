@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { useTable, Button, ChevronUpIcon, ColumnType, useMatchBreakpoints } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
+import { ReactComponent as WhiteArrowDown } from 'assets/images/WhiteArrowDown.svg'
 
 import Row, { RowProps } from './Row'
 
@@ -82,6 +83,16 @@ const ScrollButtonContainer = styled.div`
   padding-bottom: 5px;
 `
 
+const LiquidityHead = styled.div`
+  background: #49468A;
+  border-radius: 70px;
+  padding: 12px 10px;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`
+
 const FarmTable: React.FC<ITableProps> = (props) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null)
   const { isXl } = useMatchBreakpoints()
@@ -105,9 +116,16 @@ const FarmTable: React.FC<ITableProps> = (props) => {
               <tr>
                 <td>HOT</td>
                 {isXl && <td>LP</td>}
-                <td>APR</td>
-                {isXl && <td>Liquidity</td>}
-                <td style={{ textAlign: 'left' }}>Earned</td>
+                <td style={{ paddingRight: '20px' }}>APR</td>
+                {isXl &&
+                  <td>
+                    <LiquidityHead>
+                      Liquidity
+                      <WhiteArrowDown />
+                    </LiquidityHead>
+                  </td>
+                }
+                <td style={{ textAlign: 'right', paddingLeft: '90px' }}>Earned</td>
                 <td />
               </tr>
             </TableHead>

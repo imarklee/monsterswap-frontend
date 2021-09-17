@@ -26,6 +26,7 @@ const HarvestButton: React.FC<HarvestButtonProps> = ({ earnings, pid }) => {
 
   return (
     <Button
+      style={{ padding: "10px", borderRadius: "16px" }}
       disabled={rawEarningsBalance.eq(0) || pendingTx}
       onClick={async () => {
         setPendingTx(true)

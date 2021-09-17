@@ -18,6 +18,7 @@ import { latinise } from 'utils/latinise'
 import SearchInput from 'components/SearchInput'
 import { OptionProps } from 'components/Select/Select'
 import Loading from 'components/Loading'
+import { ReactComponent as WhiteArrowDown } from 'assets/images/WhiteArrowDown.svg'
 // import FarmBanner from 'assets/images/farms/bg-hero-farms.svg'
 import FarmCard, { FarmWithStakedValue } from './components/FarmCard/FarmCard'
 import Table from './components/FarmTable/FarmTable'
@@ -79,6 +80,7 @@ const ToggleWrapper = styled.div`
 const LabelWrapper = styled.div`
   > ${Text} {
     font-size: 12px;
+    font-family: Ubuntu;
   }
   margin-left: 16px;
 
@@ -135,13 +137,21 @@ const ViewControls = styled.div`
 
 const FarmsBanner = styled.div`
   width: 100%;
-  min-height: 213px;
   background-color: #acb0d3;
   background-size: cover;
   background-position: top center;
   > div {
     width: 100%;
     max-width: 100%;
+    @media (max-width: 2560px) {
+      height: 400px;
+    }
+    @media (max-width: 1920px) {
+      height: 270px;
+    }
+    @media (max-width: 1330px) {
+      height: 180px;
+    }
     height: 213px;
     > img {
       width: 100%;
@@ -169,12 +179,12 @@ const FarmHead = styled.div`
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05);
   border-radius: 70px;
   padding: 8px 12px;
-  margin-top: 32px;
+  margin-top: 16px;
   & table {
     width: 100%;
     & td {
-      padding: 0;
-      text-align: left;
+      padding-left: 40px;
+      text-align: center;
       font-size: 14px;
       line-height: 16px;
       letter-spacing: 0.04em;
@@ -502,6 +512,17 @@ const Farms: React.FC = () => {
     setSortOption(option.value)
   }
 
+  const LiquidityHead = styled.div`
+    background: #49468A;
+    border-radius: 70px;
+    padding: 12px 10px;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 130px;
+  `
+
   return (
     <>
       <FarmsBanner>
@@ -528,10 +549,17 @@ const Farms: React.FC = () => {
             <table>
               <thead>
                 <tr>
-                  <td>HOT</td>
+                  <td style={{ padding: '0px' }}>HOT</td>
                   {isXl && <td>LP</td>}
                   <td>APR</td>
-                  {isXl && <td>Liquidity</td>}
+                  {isXl &&
+                    <td>
+                      <LiquidityHead>
+                        Liquidity
+                        <WhiteArrowDown />
+                      </LiquidityHead>
+                    </td>
+                  }
                   <td style={{ textAlign: 'left' }}>Earned</td>
                   <td />
                 </tr>

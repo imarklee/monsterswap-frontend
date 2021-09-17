@@ -81,7 +81,7 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
         addLiquidityUrl={addLiquidityUrl}
       />
     ) : (
-      <Button mt="8px" disabled={requestedApproval} onClick={handleApprove}>
+      <Button mt="8px" disabled={requestedApproval} style={{ borderRadius: '16px' }} onClick={handleApprove}>
         {t('Enable')}
       </Button>
     )
@@ -95,11 +95,12 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
         <Flex flex={1} justifyContent="space-between" alignItems="center">
           {!isApproved && (
             <div style={{ textAlign: 'left' }}>
-              <p>Banana Earned</p>
-              <h2>?</h2>
+              <p>Earned</p>
+              {/* <h2>?</h2> */}
+              <h2 style={{ fontFamily: "Ubuntu" }}>999,999.999</h2>
             </div>
           )}
-          {!account ? <ConnectWalletButton mt="8px" width="100%" /> : renderApprovalOrStakeButton()}
+          {!account ? <ConnectWalletButton scale="sm" btnText="Unlock Wallet" style={{ padding: '12px 16px', borderRadius: '16px', color: 'white', border: '0px' }} /> : renderApprovalOrStakeButton()}
         </Flex>
       )}
       {expanded && isApproved && stakedBalance.gt(0) && renderApprovalOrStakeButton()}

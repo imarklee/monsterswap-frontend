@@ -388,11 +388,11 @@ const Pools: React.FC = () => {
           <ViewControls>
             <ButtonMenu activeIndex={isExact ? 0 : 1} scale="sm" variant="subtle">
               <ButtonMenuItem as={Link} to={`${url}`}>
-                {t('Live')}
+                {t('Active')}
               </ButtonMenuItem>
               <NotificationDot show={hasStakeInFinishedPools}>
                 <ButtonMenuItem as={Link} to={`${url}/history`}>
-                  {t('Finished')}
+                  {t('InActive')}
                 </ButtonMenuItem>
               </NotificationDot>
             </ButtonMenu>

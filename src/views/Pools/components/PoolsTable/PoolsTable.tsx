@@ -52,6 +52,12 @@ const StyledCell = styled.div`
     padding: 0 20px;
   }
 `
+const LiquidityHead = styled.div`
+  background: #49468A;
+  border-radius: 70px;
+  padding: 12px 10px;
+  color: white;
+`
 
 const PoolsTable: React.FC<PoolsTableProps> = ({ pools, userDataLoaded, account }) => {
   const { t } = useTranslation()
@@ -69,7 +75,7 @@ const PoolsTable: React.FC<PoolsTableProps> = ({ pools, userDataLoaded, account 
           <StyledCell style={{ flex: '1 0 130px' }}>HOT</StyledCell>
           {isXl && <StyledCell>LP</StyledCell>}
           <StyledCell style={{ flex: '1 0 80px' }}>APR</StyledCell>
-          {isXl && <StyledCell>Liquidity</StyledCell>}
+          {isXl && <LiquidityHead>Liquidity</LiquidityHead>}
           <StyledCell style={{ textAlign: 'left' }}>Earned</StyledCell>
           <StyledCell />
         </StyledRow>

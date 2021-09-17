@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
-import { Button, useModal, IconButton, AddIcon, MinusIcon, Skeleton } from 'uikit'
+import BigNumber from 'bignumber.js'
+import { Button, useModal, IconButton, AddIcon, MinusIcon, Skeleton, useMatchBreakpoints } from 'uikit'
 import { useLocation } from 'react-router-dom'
-import { BigNumber } from 'bignumber.js'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 // import Balance from 'components/Balance'
 import { useWeb3React } from '@web3-react/core'
@@ -11,24 +11,18 @@ import { fetchFarmUserDataAsync } from 'state/farms'
 import { FarmWithStakedValue } from 'views/Farms/components/FarmCard/FarmCard'
 import { useTranslation } from 'contexts/Localization'
 import { useERC20 } from 'hooks/useContract'
+import { getBalanceAmount } from 'utils/formatBalance'
+import { BIG_ZERO } from 'utils/bigNumber'
 import { BASE_ADD_LIQUIDITY_URL } from 'config'
 import { useAppDispatch } from 'state'
 import { getAddress } from 'utils/addressHelpers'
 import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
-import { getBalanceAmount, getFullDisplayBalance } from 'utils/formatBalance'
 import useUnstakeFarms from '../../../hooks/useUnstakeFarms'
 import DepositModal from '../../DepositModal'
-import WithdrawModal from '../../WithdrawModal'
 import useStakeFarms from '../../../hooks/useStakeFarms'
 import useApproveFarm from '../../../hooks/useApproveFarm'
+import HarvestButton from '../../FarmCard/HarvestButton'
 import { ActionContainer, StakedContent, ActionTitles, ActionContent } from './styles'
-
-const IconButtonWrapper = styled.div`
-  display: flex;
-  & button {
-    width: 40px;
-  }
-`
 
 interface StackedActionProps extends FarmWithStakedValue {
   userDataReady: boolean
@@ -40,6 +34,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   lpAddresses,
   quoteToken,
   token,
+  userData,
   userDataReady,
 }) => {
   const { t } = useTranslation()
@@ -66,28 +61,8 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
     dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
   }
 
-  const handleUnstake = async (amount: string) => {
-
-    await onUnstake(amount)
-    dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
-  }
-
-  const displayBalance = useCallback(() => {
-    const stakedBalanceBigNumber = getBalanceAmount(stakedBalance)
-    if (stakedBalanceBigNumber.gt(0) && stakedBalanceBigNumber.lt(0.0000001)) {
-      return stakedBalanceBigNumber.toFixed(10, BigNumber.ROUND_DOWN)
-    }
-    if (stakedBalanceBigNumber.gt(0) && stakedBalanceBigNumber.lt(0.0001)) {
-      return getFullDisplayBalance(stakedBalance).toLocaleString()
-    }
-    return stakedBalanceBigNumber.toFixed(3, BigNumber.ROUND_DOWN)
-  }, [stakedBalance])
-
   const [onPresentDeposit] = useModal(
     <DepositModal max={tokenBalance} onConfirm={handleStake} tokenName={lpSymbol} addLiquidityUrl={addLiquidityUrl} />,
-  )
-  const [onPresentWithdraw] = useModal(
-    <WithdrawModal max={stakedBalance} onConfirm={handleUnstake} tokenName={lpSymbol} />,
   )
   const lpContract = useERC20(lpAddress)
   const dispatch = useAppDispatch()
@@ -105,84 +80,71 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
     }
   }, [onApprove, dispatch, account, pid])
 
+  const { isXl } = useMatchBreakpoints()
+  const isMobile = !isXl
+  let earnings = BIG_ZERO
+  const earningsBigNumber = new BigNumber(userData.earnings)
+  if (!earningsBigNumber.isZero()) {
+    earnings = getBalanceAmount(earningsBigNumber)
+  }
+
   if (!account) {
     return (
       <ActionContainer>
-        <ActionTitles>
-          <h2>{t('Start Farming')}</h2>
-        </ActionTitles>
         <ActionContent>
-          <ConnectWalletButton width="100%" />
+          <ConnectWalletButton scale="sm" btnText="Unlock Wallet" style={{ padding: '12px 16px', borderRadius: '16px'}} />
         </ActionContent>
       </ActionContainer>
     )
   }
 
-  if (isApproved) {
-    if (stakedBalance.gt(0)) {
-      return (
-        <ActionContainer>
-          <ActionContent>
-            <StakedContent>
-              <p>{t('Staked')}</p>
-              <h1>{displayBalance()}</h1>
-            </StakedContent>
-            <IconButtonWrapper>
-              <IconButton variant="secondary" onClick={onPresentWithdraw} mr="6px">
-                <MinusIcon color="primary" width="14px" />
-              </IconButton>
-              <IconButton
-                variant="secondary"
-                onClick={onPresentDeposit}
-                disabled={['history', 'archived'].some((item) => location.pathname.includes(item))}
-              >
-                <AddIcon color="primary" width="14px" />
-              </IconButton>
-            </IconButtonWrapper>
-          </ActionContent>
-        </ActionContainer>
-      )
-    }
+  // if (isApproved) {
+  //   if (stakedBalance.gt(0)) {
+  //     return (
+  //       <ActionContainer>
+  //         {!isMobile && account && <HarvestButton earnings={earnings} pid={pid} />}
+  //       </ActionContainer>
+  //     )
+  //   }
 
-    return (
-      <ActionContainer>
-        <ActionContent>
-          <Button
-            width="100%"
-            onClick={onPresentDeposit}
-            variant="secondary"
-            disabled={['history', 'archived'].some((item) => location.pathname.includes(item))}
-          >
-            {t('Stake')} {lpSymbol}
-          </Button>
-        </ActionContent>
-      </ActionContainer>
-    )
-  }
+  //   return (
+  //     <ActionContainer>
+  //       <ActionContent>
+  //         <Button
+  //           width="100%"
+  //           onClick={onPresentDeposit}
+  //           variant="secondary"
+  //           disabled={['history', 'archived'].some((item) => location.pathname.includes(item))}
+  //         >
+  //           {t('Stake lp')}
+  //         </Button>
+  //       </ActionContent>
+  //     </ActionContainer>
+  //   )
+  // }
 
-  if (!userDataReady) {
-    return (
-      <ActionContainer>
-        <ActionTitles>
-          <h2>{t('Start Farming')}</h2>
-        </ActionTitles>
-        <ActionContent>
-          <Skeleton width={180} marginBottom={28} marginTop={14} />
-        </ActionContent>
-      </ActionContainer>
-    )
-  }
+  // if (!userDataReady) {
+  //   return (
+  //     <ActionContainer>
+  //       <ActionContent>
+  //         <Skeleton width={180} marginBottom={28} marginTop={14} />
+  //       </ActionContent>
+  //     </ActionContainer>
+  //   )
+  // }
 
+  // return (
+  //   <ActionContainer>
+  //     <ActionContent>
+  //       <Button style={{ borderRadius: "16px" }} width="100%" disabled={requestedApproval} onClick={handleApprove} variant="secondary">
+  //         {t('Enable')}
+  //       </Button>
+  //     </ActionContent>
+  //   </ActionContainer>
+  // )
   return (
     <ActionContainer>
-      <ActionTitles>
-        <h2>{t('Enable Farm')}</h2>
-      </ActionTitles>
-      <ActionContent>
-        <Button width="100%" disabled={requestedApproval} onClick={handleApprove} variant="secondary">
-          {t('Enable')}
-        </Button>
-      </ActionContent>
+      <HarvestButton />
     </ActionContainer>
   )
 }

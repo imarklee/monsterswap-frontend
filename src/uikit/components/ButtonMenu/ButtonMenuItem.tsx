@@ -14,16 +14,18 @@ interface InactiveButtonProps extends BaseButtonProps {
 const ActiveButton: PolymorphicComponent<ActiveButtonProps, 'button'> = styled(Button)<ActiveButtonProps>`
   background-color: #4E4E9D;
   color: white;
-  font-family: 'Ubuntu';
-  border-radius: 10px;
+  font-family: 'Funhouse';
+  font-size: 14px;
+  border-radius: 16px;
   &:hover:not(:disabled):not(:active) {
     background-color: #4E4E9D;
   }
 `
 const InactiveButton: PolymorphicComponent<InactiveButtonProps, 'button'> = styled(Button)<InactiveButtonProps>`
   background-color: transparent;
-  color: #0D1805;
-  font-family: 'Ubuntu';
+  color: #49468A;
+  font-family: 'Funhouse';
+  font-size: 14px;
   &:hover:not(:disabled):not(:active) {
     background-color: transparent;
   }

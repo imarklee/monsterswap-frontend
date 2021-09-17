@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js'
 import styled, { keyframes } from 'styled-components'
 import { Farm } from 'state/types'
 import { getBscScanLink } from 'utils'
+import { NFTImage } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 import { ReactComponent as ArrowDown } from 'assets/images/ArrowDown.svg'
 import { ReactComponent as ArrowUp } from 'assets/images/ArrowUp.svg'
@@ -53,7 +54,6 @@ const FCard = styled.div<{ isPromotedFarm: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 24px;
   position: relative;
   text-align: center;
 `
@@ -68,15 +68,18 @@ const FCard = styled.div<{ isPromotedFarm: boolean }>`
 const ExpandingWrapper = styled.div<{ expanded: boolean }>`
   height: ${(props) => (props.expanded ? '100%' : '0px')};
   overflow: hidden;
+  padding: 0 24px;
 `
 
 const CardTop = styled.div`
   display: flex;
+  max-height: 109px;
 `
 
 const CardInfoContainer = styled.div`
   flex: 1;
   margin-left: 10px;
+  padding: 10px;
   & h1 {
     font-size: 18px;
     color: #4e4e9d;
@@ -124,6 +127,31 @@ const ArrowContainer = styled.div`
   cursor: pointer;
 `
 
+const CellInner = styled.div`
+  border-radius: 10px 0 0 10px;
+  background-color: #FCF5D8;
+  background-image: url('/images/farms/tree.svg');
+  background-repeat: no-repeat;
+  background-position: bottom;
+  min-width: 109px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+`
+
+const ListImageWrapper = styled.div`
+  position: relative;
+`
+
+const NFTImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+  width: 100%;
+`
+
 interface FarmCardProps {
   farm: FarmWithStakedValue
   displayApr: string
@@ -158,19 +186,18 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePric
     <FCard isPromotedFarm={isPromotedFarm}>
       {isPromotedFarm && <StyledCardAccent />}
       <CardTop>
-        <TokenPairImage
-          variant="inverted"
-          primaryToken={farm.token}
-          secondaryToken={farm.quoteToken}
-          width={109}
-          height={109}
-        />
+        <CellInner>
+          <NFTImageWrapper>
+            <NFTImage {...farm} list />
+          </NFTImageWrapper>
+        </CellInner>
         <CardInfoContainer>
           <CardInfoRow>
             <h1>{lpLabel.split(' ')[0]}</h1>
             {!removed && (
               <h2>
-                <span>APR:</span> {displayApr}%
+                {/* <span>APR:</span> {displayApr}% */}
+                <span>APR:</span> <h2 style={{ fontFamily: "Ubuntu" }}>99,999.99%</h2>
                 <ApyButton
                   lpLabel={lpLabel}
                   addLiquidityUrl={addLiquidityUrl}
