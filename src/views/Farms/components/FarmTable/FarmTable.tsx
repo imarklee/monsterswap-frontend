@@ -14,27 +14,36 @@ export interface ITableProps {
 }
 
 const Container = styled.div`
-  width: 100%;
-  margin: 16px 0px;
+  padding: 1px 1px 3px 1px;
+  background-size: 400% 400%;
 `
 
-const TableWrapper = styled.div`
-  overflow: visible;
-
-  &::-webkit-scrollbar {
-    display: none;
+const StyledTable = styled.div`
+  background-color: transparent;
+`
+const StyledRow = styled.div`
+  background-color: transparent;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  border-radius: 60px;
+  background: white;
+  filter: ${({ theme }) => theme.card.dropShadow};
+  @media (max-width: 767.98px) {
+    padding-left: 20px;
   }
 `
-
-const StyledTable = styled.table`
-  border-collapse: collapse;
-  font-size: 14px;
-  border-radius: 4px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+const StyledCell = styled.div`
+  flex: 5;
+  flex-direction: row;
+  padding: 0 4px;
+  color: #464486;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    flex: 1 0 150px;
+    padding: 0 20px;
+  }
 `
-
 const TableHead = styled.thead`
   filter: ${({ theme }) => theme.card.dropShadow};
   border-radius: 10px;
@@ -72,10 +81,6 @@ const TableBody = styled.tbody`
   }
 `
 
-const TableContainer = styled.div`
-  position: relative;
-`
-
 const ScrollButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -84,7 +89,7 @@ const ScrollButtonContainer = styled.div`
 `
 
 const LiquidityHead = styled.div`
-  background: #49468A;
+  background: #49468a;
   border-radius: 70px;
   padding: 12px 10px;
   color: white;
@@ -109,40 +114,32 @@ const FarmTable: React.FC<ITableProps> = (props) => {
 
   return (
     <Container>
-      <TableContainer>
-        <TableWrapper ref={tableWrapperEl}>
-          <StyledTable>
-            <TableHead>
-              <tr>
-                <td>HOT</td>
-                {isXl && <td>LP</td>}
-                <td style={{ paddingRight: '20px' }}>APR</td>
-                {isXl &&
-                  <td>
-                    <LiquidityHead>
-                      Liquidity
-                      <WhiteArrowDown />
-                    </LiquidityHead>
-                  </td>
-                }
-                <td style={{ textAlign: 'right', paddingLeft: '90px' }}>Earned</td>
-                <td />
-              </tr>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => {
-                return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
-              })}
-            </TableBody>
-          </StyledTable>
-        </TableWrapper>
-        <ScrollButtonContainer>
-          <Button variant="text" onClick={scrollToTop}>
-            {t('To Top')}
-            <ChevronUpIcon color="primary" />
-          </Button>
-        </ScrollButtonContainer>
-      </TableContainer>
+      <StyledTable role="table" ref={tableWrapperEl}>
+        <StyledRow>
+          <StyledCell style={{ flex: '1 0 130px' }}>HOT</StyledCell>
+          <StyledCell>LP</StyledCell>
+          {isXl && <StyledCell style={{ flex: '1 0 80px' }}>APR</StyledCell>}
+          {isXl && (
+            <LiquidityHead>
+              Liquidity <WhiteArrowDown />
+            </LiquidityHead>
+          )}
+          <StyledCell style={{ textAlign: 'left' }}>Earned</StyledCell>
+          <StyledCell> </StyledCell>
+        </StyledRow>
+
+        <TableBody>
+          {rows.map((row) => {
+            return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
+          })}
+        </TableBody>
+      </StyledTable>
+      <ScrollButtonContainer>
+        <Button variant="text" onClick={scrollToTop}>
+          {t('To Top')}
+          <ChevronUpIcon color="primary" />
+        </Button>
+      </ScrollButtonContainer>
     </Container>
   )
 }

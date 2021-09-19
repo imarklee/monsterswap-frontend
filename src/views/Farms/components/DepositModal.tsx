@@ -6,6 +6,7 @@ import { ModalActions, ModalInput } from 'components/Modal'
 import { useTranslation } from 'contexts/Localization'
 import { getFullDisplayBalance } from 'utils/formatBalance'
 import useToast from 'hooks/useToast'
+import { padding } from 'styled-system'
 
 interface DepositModalProps {
   max: BigNumber
@@ -28,14 +29,14 @@ const ButtonsWrapper = styled.div`
 const CancelButtonWrapper = styled.div`
   margin-right: 20px;
   & button {
-    color: #524F92;
-    border: 1px solid #49468A;
+    color: #524f92;
+    border: 1px solid #49468a;
   }
 `
 
 const ConfirmButtonWrapper = styled.div`
   & button {
-    background: #49468A;
+    background: #49468a;
   }
 `
 
@@ -108,8 +109,8 @@ const DepositModal: React.FC<DepositModalProps> = ({ max, onConfirm, onDismiss, 
           </ConfirmButtonWrapper>
         </ButtonsWrapper>
       </ModalActions>
-      <Flex justifyContent='center'>
-        <LinkExternal color='#524F9E' href={addLiquidityUrl}>
+      <Flex justifyContent="center">
+        <LinkExternal color="#524F9E" href={addLiquidityUrl}>
           {t('Get %symbol%', { symbol: tokenName })}
         </LinkExternal>
       </Flex>

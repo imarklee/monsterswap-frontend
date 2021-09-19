@@ -34,13 +34,26 @@ const StyledTokenInput = styled.div<InputProps>`
   width: 100%;
   & p {
     font-family: 'Red Hat Text', sans-serif;
-    font-size: 24px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 14px;
+    }
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 24px;
+    }
     line-height: 31px;
     color: #524f9e;
     font-weight: bold;
   }
   & h1 {
-    font-size: 24px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 14px;
+    }
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 24px;
+    }
+
     line-height: 31px;
     color: #524f9e;
   }
@@ -48,7 +61,13 @@ const StyledTokenInput = styled.div<InputProps>`
     background: #49468a;
     box-shadow: none;
     height: 40px;
-    font-size: 14px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 14px;
+    }
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+    }
     border-radius: 10px;
   }
 `
@@ -59,16 +78,18 @@ const StyledInput = styled(Input)`
   margin: 0 8px;
   padding: 0 8px;
   font-family: 'Red Hat Text', sans-serif;
-  font-size: 24px;
+
   border: none;
   background: none;
 
   ${({ theme }) => theme.mediaQueries.xs} {
     width: 80px;
+    font-size: 14px;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
     width: auto;
+    font-size: 24px;
   }
 `
 
@@ -77,7 +98,13 @@ const StyledErrorMessage = styled(Text)`
   bottom: -22px;
   font-family: 'Red Hat Text', sans-serif;
   font-weight: bold;
-  font-size: 18px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 12px;
+  }
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 18px;
+  }
   line-height: 31px;
   color: #ea0000;
   a {
@@ -135,9 +162,8 @@ const ModalInput: React.FC<ModalInputProps> = ({
       </StyledTokenInput>
       {isBalanceZero && (
         <StyledErrorMessage color="failure">
-          {t('No tokens to stake')}:{' '}
           <a href={addLiquidityUrl} target="_blank" rel="noreferrer">
-            {t('Get %symbol%', { symbol })}
+            {t('No tokens to stake')}: {t('Get %symbol%', { symbol })}
           </a>
         </StyledErrorMessage>
       )}

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import {Flex, Card, Image} from 'uikit'
+import { Flex, Card, Image } from 'uikit'
 import { useWeb3React } from '@web3-react/core'
 import useTheme from 'hooks/useTheme'
 import { useTranslation } from 'contexts/Localization'
@@ -198,7 +198,6 @@ const FarmStakingPart = styled.div`
   height: 100%;
 `
 
-
 const TotalLockedPart = styled.div`
   height: 100%;
   display: flex;
@@ -231,7 +230,6 @@ const TotalLockedPart = styled.div`
 const txCount = 44713126
 const addressCount = 2607499
 
-
 const Home: React.FC = () => {
   // const { theme } = useTheme()
   // const { account } = useWeb3React()
@@ -247,7 +245,7 @@ const Home: React.FC = () => {
   const tvlText = t('And those users are now entrusting the platform with over $%tvl% in funds.', { tvl: tvlString })
   const [entrusting, inFunds] = tvlText.split(tvlString)
 
-  console.log("[home-tvlString]", tvlString, data)
+  console.log('[home-tvlString]', tvlString, data)
 
   const sliderSettings = {
     dots: true,
@@ -267,13 +265,18 @@ const Home: React.FC = () => {
     ),
   }
 
+  const CustomImage = styled(Image)`
+    & > img {
+      position: unset;
+    }
+  `
   return (
     <Container>
       <Flex>
         <LeftPart>
           <StyledCard>
             <BannerContainer>
-              <Image src="/images/home/logo-monster-home.svg" alt="Monster Swap" width={225} height={250} />
+              <CustomImage src="/images/home/logo-monster-home.svg" alt="Monster Swap" width={150} height={170} />
               <StyledTitle fontSize="36px">MONSTERSWAP</StyledTitle>
               <StyledText fontSize="14px">The #1 AMM and yield farm on Binance Smart Chain</StyledText>
             </BannerContainer>

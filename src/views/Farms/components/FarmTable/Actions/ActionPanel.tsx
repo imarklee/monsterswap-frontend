@@ -81,7 +81,7 @@ const Container = styled.div<{ expanded }>`
     font-weight: 500;
     font-size: 14px;
     line-height: 20px;
-    color: #4E4E9D;
+    color: #4e4e9d;
   }
 `
 
@@ -97,7 +97,7 @@ const StyledLinkExternal = styled.a`
 
 const InfoContainer = styled.div`
   width: 100%;
-  
+
   ${({ theme }) => theme.mediaQueries.sm} {
     width: 58%;
   }
@@ -163,7 +163,12 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   }
 
   const [onPresentDeposit] = useModal(
-    <DepositModal max={tokenBalance} onConfirm={handleStake} tokenName={farm.lpSymbol} addLiquidityUrl={addLiquidityUrl} />,
+    <DepositModal
+      max={tokenBalance}
+      onConfirm={handleStake}
+      tokenName={farm.lpSymbol}
+      addLiquidityUrl={addLiquidityUrl}
+    />,
   )
 
   const [onPresentWithdraw] = useModal(
@@ -296,32 +301,36 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         </StakedContent>
       )} */}
       <StakedContent>
-        <div style={{ marginLeft: "150px" }}>
+        <div style={{ float: 'left' }}>
           <p>{t('Staked')}</p>
           <p>{displayBalance()}</p>
         </div>
         <IconButtonWrapper>
           <IconButton
-            style={{ background: "#49468A",
-                      borderRadius: "16px",
-                      width: "40px", 
-                      height: "39.13px",
-                      top: "74.34px",
-                      left: "924px",
-                      marginLeft: "50px" }}
-            onClick={onPresentWithdraw} 
+            style={{
+              background: '#49468A',
+              borderRadius: '16px',
+              width: '40px',
+              height: '39.13px',
+              top: '74.34px',
+              float: 'left',
+              marginLeft: '50px',
+            }}
+            onClick={onPresentWithdraw}
             mr="6px"
           >
             <MinusIcon color="#FFFFFF" width="18px" />
           </IconButton>
           <IconButton
             // variant="secondary"
-            style={{ background: "#49468A",
-                      borderRadius: "16px",
-                      width: "40px",
-                      height: "39.13px",
-                      top: "74.34px",
-                      left: "974px" }}
+            style={{
+              background: '#49468A',
+              borderRadius: '16px',
+              width: '40px',
+              height: '39.13px',
+              top: '74.34px',
+              left: '974px',
+            }}
             onClick={onPresentDeposit}
             disabled={['history', 'archived'].some((item) => location.pathname.includes(item))}
           >

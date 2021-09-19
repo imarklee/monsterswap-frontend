@@ -19,7 +19,6 @@ import Liquidity, { LiquidityProps } from './Liquidity'
 import ActionPanel from './Actions/ActionPanel'
 import { DesktopColumnSchema, MobileColumnSchema } from '../types'
 
-
 export interface RowProps {
   apr: AprProps
   farm: FarmProps
@@ -50,7 +49,7 @@ const DetailsTr = styled.tr`
         padding-left: 0;
       }
     }
-  } 
+  }
 `
 
 const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
@@ -69,8 +68,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
     setActionPanelExpanded(hasStakedAmount)
   }, [hasStakedAmount])
 
-  const { isXl, isXs } = useMatchBreakpoints()
-
+  const { isXs, isSm, isMd, isLg, isXl } = useMatchBreakpoints()
   const isMobile = !isXl
   const tableSchema = isMobile ? MobileColumnSchema : DesktopColumnSchema
   const columnNames = tableSchema.map((column) => column.name)
@@ -78,6 +76,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   const TableRow = styled.tr`
     cursor: pointer;
     color: #4e4e9d;
+    width: 100%;
   `
 
   const ItemElement = styled.div`
@@ -87,12 +86,28 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
     min-height: 90px;
     display: flex;
     align-items: center;
+    & > div {
+      display: block;
+    }
+  `
+  const CustomFirstItemElement = styled.div`
+    background-color: #eaf2f7;
+    padding: 24px;
+    margin-top: 12px;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    width: 150px;
+    & > div {
+      display: block;
+    }
   `
 
   const FirstElement = styled.div`
     margin-top: 12px;
     border-radius: 10px 0 0 10px;
-    background-color: #FCF5D8;
+    background-color: #fcf5d8;
     background-image: url('/images/farms/tree.svg');
     background-repeat: no-repeat;
     background-position: bottom;
@@ -106,8 +121,22 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   `
 
   const LastElement = styled(ItemElement)`
-    border-radius: 0 10px 10px 0;
+    padding: 0 24px;
   `
+  const mobileRow = (
+    <TableRow onClick={toggleActionPanel}>
+      <td>
+        <CustomFirstItemElement>{farmLP.label}</CustomFirstItemElement>
+      </td>
+
+      <td>
+        <LastElement>
+          <StakedAction {...details} userDataReady={userDataReady} />
+          <div style={{ marginLeft: '10px' }}>{actionPanelExpanded ? <ArrowUp /> : <ArrowDown />}</div>
+        </LastElement>
+      </td>
+    </TableRow>
+  )
 
   const desktopRow = (
     <TableRow onClick={toggleActionPanel}>
@@ -116,16 +145,16 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
           <NFTImage {...farm} />
         </FirstElement>
       </td>
+
       <td>
-        <ItemElement>
-          {farmLP.label}
-        </ItemElement>
+        <ItemElement>{farmLP.label}</ItemElement>
       </td>
       <td>
         <ItemElement>
           <Apr {...apr} hideButton={isMobile} />
         </ItemElement>
       </td>
+
       <td>
         <ItemElement>
           <Liquidity {...liquidity} />
@@ -139,7 +168,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
       <td>
         <LastElement>
           <StakedAction {...details} userDataReady={userDataReady} />
-          { actionPanelExpanded ? <ArrowUp /> : <ArrowDown /> }
+          {actionPanelExpanded ? <ArrowUp /> : <ArrowDown />}
         </LastElement>
       </td>
     </TableRow>
@@ -147,7 +176,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
 
   return (
     <>
-      {desktopRow}
+      {isMobile ? mobileRow : desktopRow}
       {shouldRenderChild && (
         <DetailsTr>
           {isXl && <td colSpan={2} />}
@@ -158,7 +187,6 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
       )}
     </>
   )
-
 }
 
 export default Row

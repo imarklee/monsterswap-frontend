@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Modal, Text, Flex, Box, LinkExternal } from 'uikit'
+import { Modal, Text, Flex, Box, LinkExternal, useMatchBreakpoints } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 import { tokenEarnedPerThousandDollarsCompounding, getRoi } from 'utils/compoundApyHelpers'
 
@@ -28,14 +28,15 @@ const Grid = styled.div`
 const GridItem = styled.div``
 
 const GridHeaderItem = styled.div`
+  min-width: 150px;
   max-width: 180px;
 `
-const ROIContainer=styled.div`
+const ROIContainer = styled.div`
   & p {
     font-family: 'Red Hat Text', sans-serif;
     font-size: 16px;
     line-height: 28px;
-    color: #524F9E;
+    color: #524f9e;
     font-weight: 700;
   }
 `
@@ -55,6 +56,7 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
 }) => {
   const { t } = useTranslation()
   const oneThousandDollarsWorthOfToken = 1000 / tokenPrice
+  const { isXl } = useMatchBreakpoints()
 
   const tokenEarnedPerThousand1D = tokenEarnedPerThousandDollarsCompounding({
     numberOfDays: 1,
@@ -89,6 +91,7 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
     performanceFee,
   })
 
+  console.log(tokenEarnedPerThousand7D)
   return (
     <Modal title={t('ROI')} onDismiss={onDismiss}>
       {/* {isFarm && (
@@ -114,15 +117,12 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
               {t('Timeframe')}
             </Text>
           </GridHeaderItem>
-          <GridHeaderItem>
-            <Text
-              fontSize="20px"
-              color="textSubtle"
-              textTransform="uppercase"
-            >
+          <GridHeaderItem style={{ minWidth: '50px' }}>
+            <Text fontSize="20px" color="textSubtle" textTransform="uppercase">
               {t('ROI')}
             </Text>
           </GridHeaderItem>
+
           <GridHeaderItem>
             <Text fontSize="20px" color="textSubtle" textTransform="uppercase" mb="12px">
               {t('per $1,000')}
@@ -134,9 +134,10 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
           </GridItem>
           <GridItem>
             <p>
-              {getRoi({ amountEarned: tokenEarnedPerThousand1D, amountInvested: oneThousandDollarsWorthOfToken }).toFixed(
-                roundingDecimals,
-              )}
+              {getRoi({
+                amountEarned: tokenEarnedPerThousand1D,
+                amountInvested: oneThousandDollarsWorthOfToken,
+              }).toFixed(roundingDecimals)}
               %
             </p>
           </GridItem>
@@ -149,9 +150,10 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
           </GridItem>
           <GridItem>
             <p>
-              {getRoi({ amountEarned: tokenEarnedPerThousand7D, amountInvested: oneThousandDollarsWorthOfToken }).toFixed(
-                roundingDecimals,
-              )}
+              {getRoi({
+                amountEarned: tokenEarnedPerThousand7D,
+                amountInvested: oneThousandDollarsWorthOfToken,
+              }).toFixed(roundingDecimals)}
               %
             </p>
           </GridItem>
@@ -192,12 +194,17 @@ const ApyCalculatorModal: React.FC<ApyCalculatorModalProps> = ({
           </GridItem>
         </Grid>
         <Flex justifyContent="center">
-          <Box mb="28px" maxWidth='480px' p="4px">
-            <p>Calculated based on current rates. Compounding once daily. Rates are estimates provided for your convenience only, and by no means represent guaranteed returns.</p>
+          <Box mb="28px" maxWidth="480px" p="4px">
+            <p>
+              Calculated based on current rates. Compounding once daily. Rates are estimates provided for your
+              convenience only, and by no means represent guaranteed returns.
+            </p>
           </Box>
         </Flex>
         <Flex justifyContent="center">
-          <LinkExternal href={linkHref} color='#524F9E'>{linkLabel}</LinkExternal>
+          <LinkExternal href={linkHref} color="#524F9E">
+            {linkLabel}
+          </LinkExternal>
         </Flex>
       </ROIContainer>
     </Modal>

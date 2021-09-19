@@ -221,6 +221,13 @@ const StyledImage = styled(Image)`
   margin-left: auto;
   margin-right: auto;
   margin-top: 58px;
+  max-height: 88px;
+  max-width: 280px;
+  position: relative;
+  width: 100%;
+  & > img {
+    position: unset;
+  }
 `
 const NUMBER_OF_FARMS_VISIBLE = 12
 
@@ -474,6 +481,7 @@ const Farms: React.FC = () => {
               cakePrice={cakePrice}
               account={account}
               removed={false}
+              viewMode={viewMode}
               userDataReady={userDataReady}
             />
           ))}
@@ -486,6 +494,7 @@ const Farms: React.FC = () => {
               displayApr={getDisplayApr(farm.apr, farm.lpRewardsApr)}
               cakePrice={cakePrice}
               account={account}
+              viewMode={viewMode}
               userDataReady={userDataReady}
               removed
             />
@@ -499,6 +508,7 @@ const Farms: React.FC = () => {
               displayApr={getDisplayApr(farm.apr, farm.lpRewardsApr)}
               cakePrice={cakePrice}
               account={account}
+              viewMode={viewMode}
               userDataReady={userDataReady}
               removed
             />
@@ -522,7 +532,6 @@ const Farms: React.FC = () => {
     align-items: center;
     width: 130px;
   `
-
   return (
     <>
       <FarmsBanner>
@@ -549,9 +558,9 @@ const Farms: React.FC = () => {
             <table>
               <thead>
                 <tr>
-                  <td style={{ padding: '0px' }}>HOT</td>
-                  {isXl && <td>LP</td>}
-                  <td>APR</td>
+                <td style={{ padding: '0px' }}>HOT</td>
+                  <td>LP</td>
+                  {isXl &&<td>APR</td>}
                   {isXl &&
                     <td>
                       <LiquidityHead>
@@ -568,6 +577,7 @@ const Farms: React.FC = () => {
           </FarmHead>
         )}
         {renderContent()}
+        
         {account && !userDataLoaded && stakedOnly && (
           <Flex justifyContent="center">
             <Loading />
@@ -576,6 +586,7 @@ const Farms: React.FC = () => {
         <div ref={loadMoreRef} />
         <StyledImage src="/images/decorations/monster-farms.png" alt="Monster Farms" width={280} height={88} />
       </Page>
+      
     </>
   )
 }
