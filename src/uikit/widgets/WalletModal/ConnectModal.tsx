@@ -54,6 +54,10 @@ const ConnectModal: React.FC<Props> = ({ login, onDismiss = () => null, displayC
   const sortedConfig = getPreferredConfig(config)
   const displayListConfig = showMore ? sortedConfig : sortedConfig.slice(0, displayCount)
 
+  const SpanElement = styled.span`
+    font-size: 13px;
+  `
+
   return (
     <ModalContainer minWidth="320px">
       <ModalHeader background={getThemeValue('colors.gradients.bubblegum')(theme)}>
@@ -77,6 +81,7 @@ const ConnectModal: React.FC<Props> = ({ login, onDismiss = () => null, displayC
           <Text textAlign="center" color="textSubtle" as="p" mb="16px">
             Haven&#39;t got a crypto wallet yet?
           </Text>
+
           <Button
             as="a"
             href="https://docs.pancakeswap.finance/get-started/connection-guide"
@@ -84,7 +89,7 @@ const ConnectModal: React.FC<Props> = ({ login, onDismiss = () => null, displayC
             width="100%"
             {...getExternalLinkProps()}
           >
-            Learn How to Connect
+            <SpanElement>Learn How to Connect</SpanElement>
           </Button>
         </Box>
       </ModalBody>
