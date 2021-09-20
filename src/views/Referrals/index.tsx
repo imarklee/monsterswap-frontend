@@ -112,6 +112,11 @@ const CommissionEarned = styled.div`
     background: #49468a;
   }
 `
+const CustomImage = styled(Image)`
+  & > img {
+    position: unset;
+  }
+`
 
 const Referrals: React.FC = () => {
   // const { theme } = useTheme()
@@ -120,7 +125,7 @@ const Referrals: React.FC = () => {
   return (
     <Container>
       <ReferralBanner>
-        <Image src="/images/referral/ic-referral.svg" alt="Referral" width={557} height={140} />
+        <CustomImage src="/images/referral/ic-referral.svg" alt="Referral" width={557} height={140} />
       </ReferralBanner>
       {account ? (
         <ReferralContent>

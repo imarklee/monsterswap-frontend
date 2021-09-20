@@ -97,7 +97,45 @@ const LiquidityHead = styled.div`
   justify-content: space-around;
   align-items: center;
 `
+const FarmHead = styled.div`
+  background: white;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 70px;
+  padding: 8px 12px;
+  margin-top: 16px;
+  & table {
+    width: 100%;
+    & td {
+      
+      text-align: center;
+      line-height: 16px;
+      letter-spacing: 0.04em;
+      color: #464486;
+      ${({ theme }) => theme.mediaQueries.xs} {
+        font-size: 10px;
+        padding-left: 20px;
+      }
+      ${({ theme }) => theme.mediaQueries.sm} {
+        padding-right: 32px;
+        font-size: 14px;
+      }
+    }
+  }
 
+  @media (max-width: 767.98px) {
+    & table {
+      & > div {
+        padding-left: 20px;
+      }
+    }
+  }
+`
+const TdElement = styled.div`
+    background: #49468A;
+    border-radius: 70px;
+    color: white;
+    padding: 12px 10px;
+  `
 const FarmTable: React.FC<ITableProps> = (props) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null)
   const { isXl } = useMatchBreakpoints()
@@ -115,19 +153,29 @@ const FarmTable: React.FC<ITableProps> = (props) => {
   return (
     <Container>
       <StyledTable role="table" ref={tableWrapperEl}>
-        <StyledRow>
-          <StyledCell style={{ flex: '1 0 130px' }}>HOT</StyledCell>
-          <StyledCell>LP</StyledCell>
-          {isXl && <StyledCell style={{ flex: '1 0 80px' }}>APR</StyledCell>}
-          {isXl && (
-            <LiquidityHead>
-              Liquidity <WhiteArrowDown />
-            </LiquidityHead>
-          )}
-          <StyledCell style={{ textAlign: 'left' }}>Earned</StyledCell>
-          <StyledCell> </StyledCell>
-        </StyledRow>
-
+         <FarmHead>
+            <table>
+              <thead>
+                <tr>
+                  <td width="5%"><TdElement>HOT</TdElement></td>
+                    <td width="7%">LP</td>
+                    <td width="12%">APR</td>
+                    {isXl?
+                      <td width="17%">
+                        <LiquidityHead>
+                          Liquidity
+                          <WhiteArrowDown />
+                        </LiquidityHead>
+                      </td>
+                      :
+                      <td width="17%">Liquidity</td>
+                    }
+                    <td width="15%" style={{ textAlign: 'left' }}>Earned</td>
+                    <td  width="15%"/>
+                </tr>
+              </thead>
+            </table>
+          </FarmHead>
         <TableBody>
           {rows.map((row) => {
             return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
