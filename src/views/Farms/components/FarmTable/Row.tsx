@@ -121,7 +121,13 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   `
 
   const LastElement = styled(ItemElement)`
-    padding: 0 24px;
+    padding: 0 12px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      padding: 0 24px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      padding: 0 24px;
+    }
   `
   const mobileRow = (
     <TableRow onClick={toggleActionPanel}>
