@@ -57,7 +57,6 @@ const LPWrapper = styled.div`
   }
   letter-spacing: 0.04em;
   color: #4e4e9d;
-  
 `
 
 const PoolRow: React.FC<PoolRowProps> = ({ pool, account, userDataLoaded }) => {
@@ -81,7 +80,7 @@ const PoolRow: React.FC<PoolRowProps> = ({ pool, account, userDataLoaded }) => {
         onClick={toggleExpanded}
         style={{ borderBottomLeftRadius: expanded ? 0 : 10, borderBottomRightRadius: expanded ? 0 : 10 }}
       >
-        {isXl &&<NameCell pool={pool} />}
+        {isXl && <NameCell pool={pool} />}
         <LPWrapper>
           {pool.stakingToken.symbol} - {pool.earningToken.symbol}
         </LPWrapper>

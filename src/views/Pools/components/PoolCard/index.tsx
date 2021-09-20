@@ -5,6 +5,7 @@ import ConnectWalletButton from 'components/ConnectWalletButton'
 import { useTranslation } from 'contexts/Localization'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { Pool } from 'state/types'
+import styled from 'styled-components'
 import AprRow from './AprRow'
 import { StyledCardContent, StyledCardBody, StyledCard, StyledCardInner } from './StyledCard'
 import ExpandedFooter from './CardFooter/ExpandedFooter'
@@ -18,21 +19,34 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
   // const accountHasStakedBalance = stakedBalance.gt(0)
   const [isExpanded, setIsExpanded] = useState(false)
   const { isXl } = useMatchBreakpoints()
-  return (
+
+  const CustomSpanElement = styled.span`
+    font-size: 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+    }
+  `
+
+   return (
     <StyledCard
       isFinished={isFinished && sousId !== 0}
       ribbon={isFinished && <CardRibbon variantColor="textDisabled" text={t('Finished')} />}
     >
       <StyledCardInner>
         <StyledCardBody>
-          {isXl && <PoolTokenPairImage
-            isAuto={isAutoVault}
-            primaryToken={earningToken}
-            secondaryToken={stakingToken}
-            mr="8px"
-            width={40}
-            height={40}
-          />}
+          {isXl && (
+            <PoolTokenPairImage
+              isAuto={isAutoVault}
+              primaryToken={earningToken}
+              secondaryToken={stakingToken}
+              mr="8px"
+              width={40}
+              height={40}
+            />
+          )}
           <StyledCardContent>
             <AprRow pool={pool} />
             <Flex mt="8px" flexDirection="column">
@@ -47,8 +61,9 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
                 />
               ) : (
                 <>
-                  <p>{t('Start earning')}</p>
-                  <ConnectWalletButton />
+                  <p>
+                    <CustomSpanElement>{t('Start earning')}</CustomSpanElement>
+                  </p>
                 </>
               )}
             </Flex>

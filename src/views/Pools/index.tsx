@@ -244,17 +244,17 @@ const TdElement = styled.div`
   }
 `
 const CustomFailureText = styled(Text)`
-    font-size: 10px;
-    padding-bottom: 10px;
-    ${({ theme }) => theme.mediaQueries.xs} {
-      font-size: 14px;
-      padding-bottom: 15px;
-    }
-    ${({ theme }) => theme.mediaQueries.sm} {
-      font-size: 20px;
-      padding-bottom: 32px;
-    }
-  `
+  font-size: 10px;
+  padding-bottom: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 14px;
+    padding-bottom: 15px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 20px;
+    padding-bottom: 32px;
+  }
+`
 
 const NUMBER_OF_POOLS_VISIBLE = 12
 
@@ -269,10 +269,12 @@ const Pools: React.FC = () => {
   const [numberOfPoolsVisible, setNumberOfPoolsVisible] = useState(NUMBER_OF_POOLS_VISIBLE)
   const [observerIsSet, setObserverIsSet] = useState(false)
   const loadMoreRef = useRef<HTMLDivElement>(null)
-  const [viewMode, setViewMode] = usePersistState(ViewMode.TABLE, { localStorageKey: 'pancake_pool_view' })
+  const [viewMode, setViewMode] = usePersistState(ViewMode.CARD, { localStorageKey: 'pancake_pool_view' })
   const [searchQuery, setSearchQuery] = useState('')
   const [sortOption, setSortOption] = useState('hot')
   const chosenPoolsLength = useRef(0)
+  const [sortState, setSortState] = useState(0)
+
   const {
     userData: { cakeAtLastUserAction, userShares },
     fees: { performanceFee },
@@ -467,14 +469,60 @@ const Pools: React.FC = () => {
             <table>
               <thead>
                 <tr>
-                  <td>
-                    <TdElement>HOT</TdElement>
+                  <td width="10%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(0)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 0 ? <TdElement>HOT</TdElement> : <span>HOT</span>}
+                    </div>
                   </td>
-                  <td>LP</td>
-                  <td>APR</td>
-                  <td>Liquidity</td>
-                  <td style={{ textAlign: 'left' }}>Earned</td>
-                  <td />
+                  <td width="20%">LP</td>
+                  <td width="20%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(2)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 2 ? <TdElement>APR</TdElement> : <span>APR</span>}
+                    </div>
+                  </td>
+                  <td width="20%">
+                    {/* <LiquidityHead>
+                          Liquidity
+                        <WhiteArrowDown /> }
+                    </LiquidityHead>  */}
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(3)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
+                    </div>
+                  </td>
+                  <td width="20%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(4)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
+                    </div>
+                  </td>
+                  <td width="10%" />
                 </tr>
               </thead>
             </table>

@@ -198,12 +198,9 @@ const FarmHead = styled.div`
       font-size: 9px;
       ${({ theme }) => theme.mediaQueries.xs} {
         font-size: 10px;
-        padding-left: 20px;
       }
       ${({ theme }) => theme.mediaQueries.sm} {
-        padding-right: 32px;
         font-size: 18px;
-        padding-left: 40px;
       }
     }
   }
@@ -242,6 +239,21 @@ const StyledImage = styled(Image)`
     position: unset;
   }
 `
+
+const LiquidityHead = styled.div`
+  color: white;
+  background: #49468a;
+  border-radius: 70px;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    padding: 10px 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding: 10px 10px;
+  }
+`
 const NUMBER_OF_FARMS_VISIBLE = 12
 
 const getDisplayApr = (cakeRewardsApr?: number, lpRewardsApr?: number) => {
@@ -262,7 +274,7 @@ const Farms: React.FC = () => {
   const { data: farmsLP, userDataLoaded } = useFarms()
   const cakePrice = usePriceCakeBusd()
   const [query, setQuery] = useState('')
-  const [viewMode, setViewMode] = usePersistState(ViewMode.TABLE, { localStorageKey: 'pancake_farm_view' })
+  const [viewMode, setViewMode] = usePersistState(ViewMode.CARD, { localStorageKey: 'pancake_farm_view' })
   const { account } = useWeb3React()
   const [sortOption, setSortOption] = useState('hot')
   const chosenFarmsLength = useRef(0)
@@ -270,6 +282,7 @@ const Farms: React.FC = () => {
   const isArchived = pathname.includes('archived')
   const isInactive = pathname.includes('history')
   const isActive = !isInactive && !isArchived
+  const [sortState, setSortState] = useState(0)
 
   usePollFarmsData(isArchived)
 
@@ -385,6 +398,10 @@ const Farms: React.FC = () => {
     numberOfFarmsVisible,
   ])
   chosenFarmsLength.current = chosenFarmsMemoized.length
+  
+  useEffect(() => {
+    console.log(sortState);
+  }, [sortState])
 
   useEffect(() => {
     const showMoreFarms = (entries) => {
@@ -414,7 +431,7 @@ const Farms: React.FC = () => {
     const tokenAddress = token.address
     const quoteTokenAddress = quoteToken.address
     const lpLabel = farm.lpSymbol && farm.lpSymbol.split(' ')[0].toUpperCase().replace('PANCAKE', '')
-    console.log('[farmLiquidity]', farm)
+
     const row: RowProps = {
       apr: {
         value: getDisplayApr(farm.apr, farm.lpRewardsApr),
@@ -535,21 +552,11 @@ const Farms: React.FC = () => {
     setSortOption(option.value)
   }
 
-  const LiquidityHead = styled.div`
-    background: #49468a;
-    border-radius: 70px;
-    padding: 12px 10px;
-    color: white;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 130px;
-  `
   const TdElement = styled.div`
     background: #49468a;
     border-radius: 70px;
     color: white;
-    padding: 5px 0px;
+    padding: 5px 5px;
     text-align: center;
     ${({ theme }) => theme.mediaQueries.xs} {
       padding: 10px 10px;
@@ -595,23 +602,60 @@ const Farms: React.FC = () => {
             <table>
               <thead>
                 <tr>
-                  <td>
-                    <TdElement>HOT</TdElement>
+                  <td width="10%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(0)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 0 ? <TdElement>HOT</TdElement> : <span>HOT</span>}
+                    </div>
                   </td>
-                  <td>LP</td>
-                  <td>APR</td>
-                  {isXl ? (
-                    <td>
-                      <LiquidityHead>
-                        Liquidity
-                        <WhiteArrowDown />
-                      </LiquidityHead>
-                    </td>
-                  ) : (
-                    <td>Liquidity</td>
-                  )}
-                  <td style={{ textAlign: 'left' }}>Earned</td>
-                  <td />
+                  <td width="20%">LP</td>
+                  <td width="20%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(2)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 2 ? <TdElement>APR</TdElement> : <span>APR</span>}
+                    </div>
+                  </td>
+                  <td width="20%">
+                    {/* <LiquidityHead>
+                          Liquidity
+                        <WhiteArrowDown /> }
+                    </LiquidityHead>  */}
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(3)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
+                    </div>
+                  </td>
+                  <td width="20%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(4)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
+                    </div>
+                  </td>
+                  <td width="10%" />
                 </tr>
               </thead>
             </table>
