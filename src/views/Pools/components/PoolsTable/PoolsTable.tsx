@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { Button, ChevronUpIcon, useMatchBreakpoints } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
@@ -112,11 +112,14 @@ const PoolsTable: React.FC<PoolsTableProps> = ({ pools, userDataLoaded, account 
   const { t } = useTranslation()
   const { isXl } = useMatchBreakpoints()
   const tableWrapperEl = useRef<HTMLDivElement>(null)
+
+  const [sortState, setSortState] = useState(0)
   const scrollToTop = (): void => {
     tableWrapperEl.current.scrollIntoView({
       behavior: 'smooth',
     })
   }
+  
   return (
     <StyledTableBorder>
       <StyledTable role="table" ref={tableWrapperEl}>
@@ -124,22 +127,60 @@ const PoolsTable: React.FC<PoolsTableProps> = ({ pools, userDataLoaded, account 
           <table>
             <thead>
               <tr>
-                <td width="5%">
-                  <TdElement>HOT</TdElement>
+                <td width="10%">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(0)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 0 ? <TdElement>HOT</TdElement> : <span>HOT</span>}
+                  </div>
                 </td>
-                <td width="7%">LP</td>
-                <td width="12%">APR</td>
-                {isXl ? (
-                  <td width="17%">
-                    <LiquidityHead>Liquidity</LiquidityHead>
-                  </td>
-                ) : (
-                  <td width="17%">Liquidity</td>
-                )}
-                <td width="15%" style={{ textAlign: 'left' }}>
-                  Earned
+                <td width="20%">LP</td>
+                <td width="20%">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(2)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 2 ? <TdElement>APR</TdElement> : <span>APR</span>}
+                  </div>
                 </td>
-                <td width="15%" />
+                <td width="20%">
+                  {/* <LiquidityHead>
+                          Liquidity
+                        <WhiteArrowDown /> }
+                    </LiquidityHead>  */}
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(3)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
+                  </div>
+                </td>
+                <td width="20%">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(4)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
+                  </div>
+                </td>
+                <td width="10%" />
               </tr>
             </thead>
           </table>

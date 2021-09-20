@@ -1,12 +1,22 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Flex, TooltipText, IconButton, useModal, CalculateIcon, Skeleton, useTooltip } from 'uikit'
+import {
+  Flex,
+  TooltipText,
+  IconButton,
+  useModal,
+  CalculateIcon,
+  Skeleton,
+  useTooltip,
+  useMatchBreakpoints,
+} from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 import Balance from 'components/Balance'
 import ApyCalculatorModal from 'components/ApyCalculatorModal'
 import { Pool } from 'state/types'
 import { getAprData } from 'views/Pools/helpers'
 import { getAddress } from 'utils/addressHelpers'
+import ConnectWalletButton from 'components/ConnectWalletButton'
 
 interface AprRowProps {
   pool: Pool
@@ -16,30 +26,58 @@ interface AprRowProps {
 const AprContent = styled.div`
   display: flex;
   align-items: center;
-  & div, & span {
-    font-family: 'Red Hat Text', sans-serif;
+  & div,
+  & span {
     font-weight: 500;
     font-size: 14px;
     line-height: 19px;
     letter-spacing: 0.01em;
-    color: #4E4E9D;
+    color: #4e4e9d;
   }
   & button {
     background: transparent !important;
     & svg {
-      fill: #4E4E9D !important;
+      fill: #4e4e9d !important;
     }
   }
   & span {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 18px;
+    }
     margin-left: 8px;
   }
 `
 
+const CustomSpanElement = styled.span`
+  font-size: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 18px;
+  }
+`
+const CustomConnectWalletButton = styled(ConnectWalletButton)`
+    font-size: 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+      padding: 12px 30px;
+      width: 200px;
+    }
+  `
+  
 const AprRow: React.FC<AprRowProps> = ({ pool, performanceFee = 0 }) => {
   const { t } = useTranslation()
   const { stakingToken, earningToken, isFinished, apr, earningTokenPrice, isAutoVault } = pool
+  const { isXl } = useMatchBreakpoints()
 
   const tooltipContent = isAutoVault
     ? t('APY includes compounding, APR doesn’t. This pool’s CAKE is compounded automatically, so we show APY.')
@@ -65,30 +103,46 @@ const AprRow: React.FC<AprRowProps> = ({ pool, performanceFee = 0 }) => {
   )
 
   return (
-    <Flex alignItems="center" justifyContent="space-between">
-      <h1>{pool.stakingToken.symbol} - {pool.earningToken.symbol}</h1>
-      <AprContent>
-        {tooltipVisible && tooltip}
-        <TooltipText ref={targetRef}>{isAutoVault ? `${t('APY')}:` : `${t('APR')}:`}</TooltipText>
-        {isFinished || !apr ? (
-          <Skeleton width="82px" height="32px" />
+    <>
+      <Flex alignItems="center" justifyContent="space-between">
+        {isXl ? (
+          <h1>
+            {pool.stakingToken.symbol} - {pool.earningToken.symbol}
+          </h1>
         ) : (
-          <Flex alignItems="center">
-            <Balance
-              fontSize="16px"
-              isDisabled={isFinished}
-              value={earningsPercentageToDisplay}
-              decimals={2}
-              unit="%"
-              bold
-            />
-            <IconButton onClick={onPresentApyModal} variant="text" scale="sm">
-              <CalculateIcon color="textSubtle" width="18px" />
-            </IconButton>
-          </Flex>
+          <span style={{ fontSize: '10px' }}>
+            {pool.stakingToken.symbol} - {pool.earningToken.symbol}
+          </span>
         )}
-      </AprContent>
-    </Flex>
+      </Flex>
+      <Flex alignItems="center" justifyContent="space-between">
+        <AprContent>
+          {tooltipVisible && tooltip}
+          <TooltipText ref={targetRef}>
+            <CustomSpanElement>{isAutoVault ? `${t('APY')}:` : `${t('APR')}:`}</CustomSpanElement>
+          </TooltipText>
+          {isFinished || !apr ? (
+            <Skeleton width="82px" height="32px" />
+          ) : (
+            <Flex alignItems="center">
+              <Balance
+                fontSize="16px"
+                isDisabled={isFinished}
+                value={earningsPercentageToDisplay}
+                decimals={2}
+                unit="%"
+                bold
+              />
+              <IconButton onClick={onPresentApyModal} variant="text" scale="sm">
+                <CalculateIcon color="textSubtle" width="18px" />
+              </IconButton>
+            </Flex>
+          )}
+        </AprContent>
+        <CustomConnectWalletButton />
+
+      </Flex>
+    </>
   )
 }
 
