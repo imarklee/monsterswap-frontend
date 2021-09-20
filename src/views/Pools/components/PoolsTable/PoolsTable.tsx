@@ -53,10 +53,59 @@ const StyledCell = styled.div`
   }
 `
 const LiquidityHead = styled.div`
-  background: #49468A;
+  background: #49468a;
   border-radius: 70px;
   padding: 12px 10px;
   color: white;
+`
+
+const PoolHead = styled.div`
+  background: white;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 70px;
+  padding: 8px 12px;
+  margin-top: 16px;
+  & table {
+    width: 100%;
+    & td {
+      text-align: center;
+      line-height: 16px;
+      letter-spacing: 0.04em;
+      color: #464486;
+      font-size: 9px;
+      ${({ theme }) => theme.mediaQueries.xs} {
+        font-size: 10px;
+        padding-left: 20px;
+      }
+      ${({ theme }) => theme.mediaQueries.sm} {
+        padding-right: 32px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    & table {
+      & > div {
+        padding-left: 20px;
+      }
+    }
+  }
+`
+const TdElement = styled.div`
+  background: #49468a;
+  border-radius: 70px;
+  color: white;
+  padding: 12px 10px;
+`
+const CustomButton = styled(Button)`
+  font-size: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 14px;
+  }
 `
 
 const PoolsTable: React.FC<PoolsTableProps> = ({ pools, userDataLoaded, account }) => {
@@ -71,14 +120,30 @@ const PoolsTable: React.FC<PoolsTableProps> = ({ pools, userDataLoaded, account 
   return (
     <StyledTableBorder>
       <StyledTable role="table" ref={tableWrapperEl}>
-        <StyledRow>
-          <StyledCell style={{ flex: '1 0 130px' }}>HOT</StyledCell>
-          {isXl && <StyledCell>LP</StyledCell>}
-          <StyledCell style={{ flex: '1 0 80px' }}>APR</StyledCell>
-          {isXl && <LiquidityHead>Liquidity</LiquidityHead>}
-          <StyledCell style={{ textAlign: 'left' }}>Earned</StyledCell>
-          <StyledCell />
-        </StyledRow>
+        <PoolHead>
+          <table>
+            <thead>
+              <tr>
+                <td width="5%">
+                  <TdElement>HOT</TdElement>
+                </td>
+                <td width="7%">LP</td>
+                <td width="12%">APR</td>
+                {isXl ? (
+                  <td width="17%">
+                    <LiquidityHead>Liquidity</LiquidityHead>
+                  </td>
+                ) : (
+                  <td width="17%">Liquidity</td>
+                )}
+                <td width="15%" style={{ textAlign: 'left' }}>
+                  Earned
+                </td>
+                <td width="15%" />
+              </tr>
+            </thead>
+          </table>
+        </PoolHead>
         {pools.map((pool) => (
           <PoolRow
             key={pool.isAutoVault ? 'auto-cake' : pool.sousId}
@@ -88,10 +153,10 @@ const PoolsTable: React.FC<PoolsTableProps> = ({ pools, userDataLoaded, account 
           />
         ))}
         <ScrollButtonContainer>
-          <Button variant="text" onClick={scrollToTop}>
+          <CustomButton variant="text" onClick={scrollToTop}>
             {t('To Top')}
             <ChevronUpIcon color="primary" />
-          </Button>
+          </CustomButton>
         </ScrollButtonContainer>
       </StyledTable>
     </StyledTableBorder>

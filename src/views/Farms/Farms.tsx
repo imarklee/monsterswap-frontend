@@ -195,7 +195,7 @@ const FarmHead = styled.div`
       line-height: 16px;
       letter-spacing: 0.04em;
       color: #464486;
-      font-size: 8px;
+      font-size: 9px;
       ${({ theme }) => theme.mediaQueries.xs} {
         font-size: 10px;
         padding-left: 20px;
@@ -536,7 +536,7 @@ const Farms: React.FC = () => {
   }
 
   const LiquidityHead = styled.div`
-    background: #49468A;
+    background: #49468a;
     border-radius: 70px;
     padding: 12px 10px;
     color: white;
@@ -546,10 +546,17 @@ const Farms: React.FC = () => {
     width: 130px;
   `
   const TdElement = styled.div`
-    background: #49468A;
+    background: #49468a;
     border-radius: 70px;
     color: white;
-    padding: 12px 10px;
+    padding: 5px 0px;
+    text-align: center;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      padding: 10px 10px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      padding: 10px 10px;
+    }
   `
 
   const CustomText = styled(Text)`
@@ -588,19 +595,21 @@ const Farms: React.FC = () => {
             <table>
               <thead>
                 <tr>
-                <td><TdElement>HOT</TdElement></td>
+                  <td>
+                    <TdElement>HOT</TdElement>
+                  </td>
                   <td>LP</td>
                   <td>APR</td>
-                  {isXl?
+                  {isXl ? (
                     <td>
                       <LiquidityHead>
                         Liquidity
                         <WhiteArrowDown />
                       </LiquidityHead>
                     </td>
-                    :
+                  ) : (
                     <td>Liquidity</td>
-                  }
+                  )}
                   <td style={{ textAlign: 'left' }}>Earned</td>
                   <td />
                 </tr>
@@ -609,7 +618,7 @@ const Farms: React.FC = () => {
           </FarmHead>
         )}
         {renderContent()}
-        
+
         {account && !userDataLoaded && stakedOnly && (
           <Flex justifyContent="center">
             <Loading />
@@ -618,7 +627,6 @@ const Farms: React.FC = () => {
         <div ref={loadMoreRef} />
         <StyledImage src="/images/decorations/monster-farms.png" alt="Monster Farms" width={280} height={88} />
       </Page>
-      
     </>
   )
 }

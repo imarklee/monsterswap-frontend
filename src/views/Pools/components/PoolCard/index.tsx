@@ -1,6 +1,6 @@
 import BigNumber from 'bignumber.js'
 import React, { useState } from 'react'
-import { Flex, CardRibbon } from 'uikit'
+import { Flex, CardRibbon, useMatchBreakpoints } from 'uikit'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import { useTranslation } from 'contexts/Localization'
 import { BIG_ZERO } from 'utils/bigNumber'
@@ -17,7 +17,7 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
   const stakedBalance = userData?.stakedBalance ? new BigNumber(userData.stakedBalance) : BIG_ZERO
   // const accountHasStakedBalance = stakedBalance.gt(0)
   const [isExpanded, setIsExpanded] = useState(false)
-
+  const { isXl } = useMatchBreakpoints()
   return (
     <StyledCard
       isFinished={isFinished && sousId !== 0}
@@ -25,14 +25,14 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
     >
       <StyledCardInner>
         <StyledCardBody>
-          <PoolTokenPairImage
+          {isXl && <PoolTokenPairImage
             isAuto={isAutoVault}
             primaryToken={earningToken}
             secondaryToken={stakingToken}
             mr="8px"
             width={40}
             height={40}
-          />
+          />}
           <StyledCardContent>
             <AprRow pool={pool} />
             <Flex mt="8px" flexDirection="column">

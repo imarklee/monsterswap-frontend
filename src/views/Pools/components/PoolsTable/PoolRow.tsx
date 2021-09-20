@@ -44,10 +44,20 @@ const StyledRow = styled.div`
 const LPWrapper = styled.div`
   display: flex;
   align-items: center;
-  font-size: 18px;
+  font-size: 10px;
+  margin-left: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    margin-left: 10px;
+    font-size: 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 18px;
+    flex: 1 0 150px;
+    margin-left: unset;
+  }
   letter-spacing: 0.04em;
   color: #4e4e9d;
-  flex: 1 0 150px;
+  
 `
 
 const PoolRow: React.FC<PoolRowProps> = ({ pool, account, userDataLoaded }) => {
@@ -71,12 +81,10 @@ const PoolRow: React.FC<PoolRowProps> = ({ pool, account, userDataLoaded }) => {
         onClick={toggleExpanded}
         style={{ borderBottomLeftRadius: expanded ? 0 : 10, borderBottomRightRadius: expanded ? 0 : 10 }}
       >
-        <NameCell pool={pool} />
-        {isXl && (
-          <LPWrapper>
-            {pool.stakingToken.symbol} - {pool.earningToken.symbol}
-          </LPWrapper>
-        )}
+        {isXl &&<NameCell pool={pool} />}
+        <LPWrapper>
+          {pool.stakingToken.symbol} - {pool.earningToken.symbol}
+        </LPWrapper>
         <AprCell pool={pool} performanceFee={performanceFeeAsDecimal} />
         {(isLg || isXl) && <TotalStakedCell pool={pool} />}
         {/* {isXl && <EndsInCell pool={pool} />} */}
