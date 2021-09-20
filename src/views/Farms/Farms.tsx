@@ -183,14 +183,19 @@ const FarmHead = styled.div`
   & table {
     width: 100%;
     & td {
-      padding-left: 40px;
+      
       text-align: center;
-      font-size: 14px;
       line-height: 16px;
       letter-spacing: 0.04em;
       color: #464486;
+      ${({ theme }) => theme.mediaQueries.xs} {
+        font-size: 10px;
+        padding-left: 20px;
+      }
       ${({ theme }) => theme.mediaQueries.sm} {
         padding-right: 32px;
+        font-size: 14px;
+        padding-left: 40px;
       }
     }
   }
@@ -532,6 +537,12 @@ const Farms: React.FC = () => {
     align-items: center;
     width: 130px;
   `
+  const TdElement = styled.div`
+    background: #49468A;
+    border-radius: 70px;
+    color: white;
+    padding: 12px 10px;
+  `
   return (
     <>
       <FarmsBanner>
@@ -558,16 +569,18 @@ const Farms: React.FC = () => {
             <table>
               <thead>
                 <tr>
-                <td style={{ padding: '0px' }}>HOT</td>
+                <td><TdElement>HOT</TdElement></td>
                   <td>LP</td>
-                  {isXl &&<td>APR</td>}
-                  {isXl &&
+                  <td>APR</td>
+                  {isXl?
                     <td>
                       <LiquidityHead>
                         Liquidity
                         <WhiteArrowDown />
                       </LiquidityHead>
                     </td>
+                    :
+                    <td>Liquidity</td>
                   }
                   <td style={{ textAlign: 'left' }}>Earned</td>
                   <td />

@@ -67,7 +67,11 @@ const ComingSoonContentRight = styled.div`
     }
   }
 `
-
+const CustomImage = styled(Image)`
+  & > img {
+    position: unset;
+  }
+`
 interface ComingSoonProps {
   feature: string
 }
@@ -81,7 +85,7 @@ const ComingSoon: React.FC<ComingSoonProps> = ({ feature }) => {
           <p>{feature} features will be available soon</p>
         </ComingSoonContentLeft>
         <ComingSoonContentRight>
-          <Image src="/images/ic-coming-soon.svg" alt="Coming Soon" width={318} height={200} />
+          <CustomImage src="/images/ic-coming-soon.svg" alt="Coming Soon" width={318} height={200} />
         </ComingSoonContentRight>
       </ComingSoonContent>
     </Container>
