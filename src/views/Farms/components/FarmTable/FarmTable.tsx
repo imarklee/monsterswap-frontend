@@ -111,6 +111,7 @@ const FarmHead = styled.div`
       line-height: 16px;
       letter-spacing: 0.04em;
       color: #464486;
+      font-size: 9px;
       ${({ theme }) => theme.mediaQueries.xs} {
         font-size: 10px;
         padding-left: 20px;

@@ -48,7 +48,15 @@ const ControlContainer = styled.div`
   }
 
   @media (max-width: 767.98px) {
-    padding: 20px 30px;
+    padding: 10px 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+      padding: 20px 30px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+      padding: 20px 30px;
+    }
     border-radius: 30px;
     margin-top: -80px;
 
@@ -183,18 +191,18 @@ const FarmHead = styled.div`
   & table {
     width: 100%;
     & td {
-      
       text-align: center;
       line-height: 16px;
       letter-spacing: 0.04em;
       color: #464486;
+      font-size: 8px;
       ${({ theme }) => theme.mediaQueries.xs} {
         font-size: 10px;
         padding-left: 20px;
       }
       ${({ theme }) => theme.mediaQueries.sm} {
         padding-right: 32px;
-        font-size: 14px;
+        font-size: 18px;
         padding-left: 40px;
       }
     }
@@ -543,6 +551,17 @@ const Farms: React.FC = () => {
     color: white;
     padding: 12px 10px;
   `
+
+  const CustomText = styled(Text)`
+    font-size: 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+      padding: 12px 30px;
+    }
+  `
   return (
     <>
       <FarmsBanner>
@@ -560,7 +579,7 @@ const Farms: React.FC = () => {
             <FarmTabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} />
             <ToggleWrapper>
               <Checkbox checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} />
-              <Text color="#49468A"> {t('Staked only')}</Text>
+              <CustomText color="#49468A"> {t('Staked only')}</CustomText>
             </ToggleWrapper>
           </FilterContainer>
         </ControlContainer>

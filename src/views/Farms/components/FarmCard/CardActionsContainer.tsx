@@ -19,7 +19,14 @@ const Action = styled.div`
   & button {
     background: #49468a;
     height: 40px;
-    font-size: 14px;
+    font-size: 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+      padding: 12px 30px;
+    }
     margin-top: 0;
     & svg {
       fill: white;
@@ -93,6 +100,7 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
     color: #4e4e9d;
     letter-spacing: 0.01em;
   `
+  
   return (
     <Action>
       {isApproved && stakedBalance.gt(0) ? (
@@ -113,7 +121,7 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
             <h2 style={{ fontFamily: "Ubuntu" }}>999,999.999</h2>
           </div>
           )}
-          {!account ? <ConnectWalletButton scale="sm" btnText="Unlock Wallet" style={{ padding: '12px 16px', borderRadius: '16px', color: 'white', border: '0px' }} /> : renderApprovalOrStakeButton()}
+          {!account ? <ConnectWalletButton btnText="Unlock Wallet" style={{ padding: '12px 16px', borderRadius: '16px', color: 'white', border: '0px' }} /> : renderApprovalOrStakeButton()}
         </Flex>
       )}
       {expanded && isApproved && stakedBalance.gt(0) && renderApprovalOrStakeButton()}
