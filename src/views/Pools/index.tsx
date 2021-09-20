@@ -51,7 +51,15 @@ const PoolControls = styled.div`
   margin-bottom: 32px;
 
   @media (max-width: 767.98px) {
-    padding: 20px 30px;
+    padding: 10px 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+      padding: 20px 30px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+      padding: 20px 30px;
+    }
     border-radius: 30px;
     margin-top: -80px;
 
@@ -186,13 +194,20 @@ const PoolHead = styled.div`
     width: 100%;
     & td {
       padding: 0;
-      text-align: left;
-      font-size: 14px;
+      text-align: center;
       line-height: 16px;
       letter-spacing: 0.04em;
       color: #464486;
+      font-size: 8px;
+      ${({ theme }) => theme.mediaQueries.xs} {
+        font-size: 10px;
+        padding-left: 20px;
+      }
       ${({ theme }) => theme.mediaQueries.sm} {
         padding-right: 32px;
+        font-size: 18px;
+        padding-left: 40px;
+        text-align: left;
       }
     }
   }
@@ -205,6 +220,41 @@ const PoolHead = styled.div`
     }
   }
 `
+const CustomText = styled(Text)`
+  font-size: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 14px;
+    padding: 12px 30px;
+  }
+`
+const TdElement = styled.div`
+  background: #49468a;
+  border-radius: 70px;
+  color: white;
+  padding: 5px 0px;
+  text-align: center;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    padding: 10px 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding: 10px 10px;
+  }
+`
+const CustomFailureText = styled(Text)`
+    font-size: 10px;
+    padding-bottom: 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 14px;
+      padding-bottom: 15px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 20px;
+      padding-bottom: 32px;
+    }
+  `
 
 const NUMBER_OF_POOLS_VISIBLE = 12
 
@@ -398,14 +448,14 @@ const Pools: React.FC = () => {
             </ButtonMenu>
             <ToggleWrapper>
               <Checkbox checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale="sm" />
-              <Text> {t('Staked only')}</Text>
+              <CustomText> {t('Staked only')}</CustomText>
             </ToggleWrapper>
           </ViewControls>
         </PoolControls>
         {showFinishedPools && (
-          <Text fontSize="20px" color="failure" pb="32px">
+          <CustomFailureText color="failure">
             {t('These pools are no longer distributing rewards. Please unstake your tokens.')}
-          </Text>
+          </CustomFailureText>
         )}
         {account && !userDataLoaded && stakedOnly && (
           <Flex justifyContent="center" mb="4px">
@@ -417,10 +467,12 @@ const Pools: React.FC = () => {
             <table>
               <thead>
                 <tr>
-                  <td>HOT</td>
-                  {isXl && <td>LP</td>}
+                  <td>
+                    <TdElement>HOT</TdElement>
+                  </td>
+                  <td>LP</td>
                   <td>APR</td>
-                  {isXl && <td>Liquidity</td>}
+                  <td>Liquidity</td>
                   <td style={{ textAlign: 'left' }}>Earned</td>
                   <td />
                 </tr>

@@ -106,7 +106,6 @@ const FarmHead = styled.div`
   & table {
     width: 100%;
     & td {
-      
       text-align: center;
       line-height: 16px;
       letter-spacing: 0.04em;
@@ -132,11 +131,20 @@ const FarmHead = styled.div`
   }
 `
 const TdElement = styled.div`
-    background: #49468A;
-    border-radius: 70px;
-    color: white;
-    padding: 12px 10px;
-  `
+  background: #49468a;
+  border-radius: 70px;
+  color: white;
+  padding: 12px 10px;
+`
+const CustomButton = styled(Button)`
+  font-size: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 14px;
+  }
+`
 const FarmTable: React.FC<ITableProps> = (props) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null)
   const { isXl } = useMatchBreakpoints()
@@ -154,29 +162,33 @@ const FarmTable: React.FC<ITableProps> = (props) => {
   return (
     <Container>
       <StyledTable role="table" ref={tableWrapperEl}>
-         <FarmHead>
-            <table>
-              <thead>
-                <tr>
-                  <td width="5%"><TdElement>HOT</TdElement></td>
-                    <td width="7%">LP</td>
-                    <td width="12%">APR</td>
-                    {isXl?
-                      <td width="17%">
-                        <LiquidityHead>
-                          Liquidity
-                          <WhiteArrowDown />
-                        </LiquidityHead>
-                      </td>
-                      :
-                      <td width="17%">Liquidity</td>
-                    }
-                    <td width="15%" style={{ textAlign: 'left' }}>Earned</td>
-                    <td  width="15%"/>
-                </tr>
-              </thead>
-            </table>
-          </FarmHead>
+        <FarmHead>
+          <table>
+            <thead>
+              <tr>
+                <td width="5%">
+                  <TdElement>HOT</TdElement>
+                </td>
+                <td width="7%">LP</td>
+                <td width="12%">APR</td>
+                {isXl ? (
+                  <td width="17%">
+                    <LiquidityHead>
+                      Liquidity
+                      <WhiteArrowDown />
+                    </LiquidityHead>
+                  </td>
+                ) : (
+                  <td width="17%">Liquidity</td>
+                )}
+                <td width="15%" style={{ textAlign: 'left' }}>
+                  Earned
+                </td>
+                <td width="15%" />
+              </tr>
+            </thead>
+          </table>
+        </FarmHead>
         <TableBody>
           {rows.map((row) => {
             return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
@@ -184,10 +196,10 @@ const FarmTable: React.FC<ITableProps> = (props) => {
         </TableBody>
       </StyledTable>
       <ScrollButtonContainer>
-        <Button variant="text" onClick={scrollToTop}>
+        <CustomButton variant="text" onClick={scrollToTop}>
           {t('To Top')}
           <ChevronUpIcon color="primary" />
-        </Button>
+        </CustomButton>
       </ScrollButtonContainer>
     </Container>
   )
