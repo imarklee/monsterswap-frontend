@@ -33,6 +33,28 @@ const ArrowWrapper = styled.div`
   cursor: pointer;
 `
 
+const EarnedText = styled.div`
+  & h2 {
+    font-family: 'Funhouse';
+    font-size: 12px;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-family: 'Ubuntu';
+      font-size: 14px;
+    }
+  }
+
+  & p {
+    font-family: 'Ubuntu';
+    font-size: 12px;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+`
+
 const HarvestActions: React.FC<HarvestActionsProps> = ({
   earnings,
   earningToken,
@@ -68,37 +90,20 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
   )
 
   return (
-    <>
+    <Flex alignItems="center" justifyContent="space-between">
       {isLoading ? (
         <Skeleton width="80px" height="48px" />
       ) : (
         <>
-          <div>
-            <p>{t('Earned')}</p>
-            {hasEarnings ? (
-              <>
-                <Balance decimals={5} value={earningTokenBalance} />
-                {/* {earningTokenPrice > 0 && (
-                <Balance
-                  display="inline"
-                  fontSize="12px"
-                  color="textSubtle"
-                  decimals={2}
-                  prefix="~"
-                  value={earningTokenDollarBalance}
-                  unit=" USD"
-                />
-              )} */}
-              </>
+          <EarnedText>
+            <h2>{t('Earned')}</h2>
+            <p>999, 999, 999</p>
+            {/* {hasEarnings ? (
+              <Balance decimals={5} value={earningTokenBalance} />
             ) : (
-              <>
-                <span>0</span>
-                {/* <Text fontSize="12px" color="textDisabled">
-                0 USD
-              </Text> */}
-              </>
-            )}
-          </div>
+              <h2>0</h2>
+            )} */}
+          </EarnedText>
           <Flex>
             {needsApproval && <ApprovalAction pool={pool} isLoading={isLoading} />}
             {hasEarnings && (
@@ -111,7 +116,7 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
           </Flex>
         </>
       )}
-    </>
+    </Flex>
   )
 }
 

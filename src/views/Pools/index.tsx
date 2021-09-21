@@ -198,16 +198,9 @@ const PoolHead = styled.div`
       line-height: 16px;
       letter-spacing: 0.04em;
       color: #464486;
-      font-size: 8px;
-      ${({ theme }) => theme.mediaQueries.xs} {
-        font-size: 10px;
-        padding-left: 20px;
-      }
-      ${({ theme }) => theme.mediaQueries.sm} {
-        padding-right: 32px;
-        font-size: 18px;
-        padding-left: 40px;
-        text-align: left;
+      font-size: 10px;
+      ${({ theme }) => theme.mediaQueries.md} {
+        font-size: 14px;
       }
     }
   }

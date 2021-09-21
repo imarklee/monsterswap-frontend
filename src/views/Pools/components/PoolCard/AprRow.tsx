@@ -52,17 +52,28 @@ const AprContent = styled.div`
   }
 `
 
-const CustomSpanElement = styled.span`
-  font-size: 10px;
-  ${({ theme }) => theme.mediaQueries.xs} {
-    font-size: 10px;
+const AprText = styled(Flex)`
+  & h2 {
+    font-family: 'Funhouse';
+    font-size: 12px;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-family: 'Ubuntu';
+      font-size: 18px;
+    }
   }
-  ${({ theme }) => theme.mediaQueries.sm} {
-    font-size: 18px;
+
+  & p {
+    font-family: 'Ubuntu';
+    font-size: 12px;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 18px;
+      font-weight: bold;
+    }
   }
 `
 
-  
 const AprRow: React.FC<AprRowProps> = ({ pool, performanceFee = 0 }) => {
   const { t } = useTranslation()
   const { stakingToken, earningToken, isFinished, apr, earningTokenPrice, isAutoVault } = pool
@@ -92,23 +103,28 @@ const AprRow: React.FC<AprRowProps> = ({ pool, performanceFee = 0 }) => {
   )
 
   return (
-    <>
-      <Flex alignItems="center" justifyContent="space-between">
-        {isXl ? (
-          <h1>
-            {pool.stakingToken.symbol} - {pool.earningToken.symbol}
-          </h1>
-        ) : (
-          <span style={{ fontSize: '10px' }}>
-            {pool.stakingToken.symbol} - {pool.earningToken.symbol}
-          </span>
-        )}
-        <AprContent>
-          {tooltipVisible && tooltip}
-          <TooltipText ref={targetRef}>
-            <CustomSpanElement>{isAutoVault ? `${t('APY')}:` : `${t('APR')}:`}</CustomSpanElement>
-          </TooltipText>
-          {isFinished || !apr ? (
+    <Flex alignItems="center" justifyContent="space-between" style={{ marginBottom: '10px' }}>
+      {isXl ? (
+        <h1>
+          {pool.stakingToken.symbol} - {pool.earningToken.symbol}
+        </h1>
+      ) : (
+        <span style={{ fontSize: '10px' }}>
+          {pool.stakingToken.symbol} - {pool.earningToken.symbol}
+        </span>
+      )}
+      <AprContent>
+        {tooltipVisible && tooltip}
+        <TooltipText ref={targetRef}>
+          <AprText>
+            <h2>{isAutoVault ? `${t('APY')}` : `${t('APR')}`}: </h2>
+            <p>&nbsp;99,999.99%</p>
+          </AprText>
+        </TooltipText>
+        <IconButton onClick={onPresentApyModal} variant="text" scale="sm">
+          <CalculateIcon color="textSubtle" width="18px" />
+        </IconButton>
+        {/* {isFinished || !apr ? (
             <Skeleton width="82px" height="32px" />
           ) : (
             <Flex alignItems="center">
@@ -124,11 +140,9 @@ const AprRow: React.FC<AprRowProps> = ({ pool, performanceFee = 0 }) => {
                 <CalculateIcon color="textSubtle" width="18px" />
               </IconButton>
             </Flex>
-          )}
-        </AprContent>
-
-      </Flex>
-    </>
+          )} */}
+      </AprContent>
+    </Flex>
   )
 }
 
