@@ -68,50 +68,50 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
   )
 
   return (
-    <Flex justifyContent="space-between" alignItems="center" mb="16px">
-      <Flex flexDirection="column">
-        {isLoading ? (
-          <Skeleton width="80px" height="48px" />
-        ) : (
-          <>
+    <>
+      {isLoading ? (
+        <Skeleton width="80px" height="48px" />
+      ) : (
+        <>
+          <div>
             <p>{t('Earned')}</p>
             {hasEarnings ? (
               <>
                 <Balance decimals={5} value={earningTokenBalance} />
                 {/* {earningTokenPrice > 0 && (
-                  <Balance
-                    display="inline"
-                    fontSize="12px"
-                    color="textSubtle"
-                    decimals={2}
-                    prefix="~"
-                    value={earningTokenDollarBalance}
-                    unit=" USD"
-                  />
-                )} */}
+                <Balance
+                  display="inline"
+                  fontSize="12px"
+                  color="textSubtle"
+                  decimals={2}
+                  prefix="~"
+                  value={earningTokenDollarBalance}
+                  unit=" USD"
+                />
+              )} */}
               </>
             ) : (
               <>
                 <span>0</span>
                 {/* <Text fontSize="12px" color="textDisabled">
-                  0 USD
-                </Text> */}
+                0 USD
+              </Text> */}
               </>
             )}
-          </>
-        )}
-      </Flex>
-      <Flex>
-        {needsApproval && <ApprovalAction pool={pool} isLoading={isLoading} />}
-        {hasEarnings && (
-          <Button onClick={onPresentCollect}>
-            {/* {isCompoundPool ? t('Collect') : t('Harvest')} */}
-            {t('Compound')}
-          </Button>
-        )}
-        <ArrowWrapper onClick={setExpanded}>{isExpanded ? <ArrowUp /> : <ArrowDown />}</ArrowWrapper>
-      </Flex>
-    </Flex>
+          </div>
+          <Flex>
+            {needsApproval && <ApprovalAction pool={pool} isLoading={isLoading} />}
+            {hasEarnings && (
+              <Button onClick={onPresentCollect}>
+                {/* {isCompoundPool ? t('Collect') : t('Harvest')} */}
+                {t('Compound')}
+              </Button>
+            )}
+            <ArrowWrapper onClick={setExpanded}>{isExpanded ? <ArrowUp /> : <ArrowDown />}</ArrowWrapper>
+          </Flex>
+        </>
+      )}
+    </>
   )
 }
 

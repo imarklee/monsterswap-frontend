@@ -5,12 +5,23 @@ import ConnectWalletButton from 'components/ConnectWalletButton'
 import { useTranslation } from 'contexts/Localization'
 import { BIG_ZERO } from 'utils/bigNumber'
 import { Pool } from 'state/types'
+import { ReactComponent as ArrowDown } from 'assets/images/ArrowDown.svg'
+import { ReactComponent as ArrowUp } from 'assets/images/ArrowUp.svg'
 import styled from 'styled-components'
 import AprRow from './AprRow'
 import { StyledCardContent, StyledCardBody, StyledCard, StyledCardInner } from './StyledCard'
 import ExpandedFooter from './CardFooter/ExpandedFooter'
 import { PoolTokenPairImage } from '../PoolsTable/Cells/PoolTokenPairImage'
 import CardActions from './CardActions'
+
+const ArrowWrapper = styled.div`
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`
 
 const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) => {
   const { sousId, stakingToken, earningToken, isFinished, userData, isAutoVault } = pool
@@ -73,9 +84,10 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
                 <>
                   <Flex alignItems="center" justifyContent="space-between">
                     <CustomSpanElement>{t('Start earning')}</CustomSpanElement>
-                  </Flex>
-                  <Flex alignItems="right" justifyContent="space-between">
                     <CustomConnectWalletButton />
+                    <ArrowWrapper onClick={() => setIsExpanded(!isExpanded)}>
+                      {isExpanded ? <ArrowUp /> : <ArrowDown />}
+                    </ArrowWrapper>
                   </Flex>
                 </>
               )}

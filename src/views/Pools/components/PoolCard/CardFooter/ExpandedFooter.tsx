@@ -20,6 +20,8 @@ interface ExpandedFooterProps {
 }
 
 const ExpandedWrapper = styled(Flex)`
+  font-family: 'Ubuntu';
+  font-weight: 500;
   padding: 16px !important;
   svg {
     height: 14px;
@@ -41,8 +43,6 @@ const FooterRow = styled.div`
   margin-top: 8px;
   & p,
   & span {
-    font-family: 'Red Hat Text', sans-serif;
-    font-weight: 500;
     font-size: 14px;
     line-height: 19px;
     letter-spacing: 0.01em;
