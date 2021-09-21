@@ -28,6 +28,18 @@ interface StackedActionProps extends FarmWithStakedValue {
   userDataReady: boolean
 }
 
+const CustomConnectWalletButton = styled(ConnectWalletButton)`
+  font-size: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 14px;
+    padding: 12px 30px;
+    width: 200px;
+  }
+`
+
 const Staked: React.FunctionComponent<StackedActionProps> = ({
   pid,
   lpSymbol,
@@ -56,7 +68,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
 
   const handleStake = async (amount: string) => {
-    console.log("[handleStake]", amount, [pid])
+    console.log('[handleStake]', amount, [pid])
     await onStake(amount)
     dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
   }
@@ -87,22 +99,12 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   if (!earningsBigNumber.isZero()) {
     earnings = getBalanceAmount(earningsBigNumber)
   }
-  const CustomConnectWalletButton = styled(ConnectWalletButton)`
-    font-size: 10px;
-    ${({ theme }) => theme.mediaQueries.xs} {
-      font-size: 10px;
-    }
-    ${({ theme }) => theme.mediaQueries.sm} {
-      font-size: 14px;
-      padding: 12px 30px;
-      width: 200px;
-    }
-  `
+
   if (!account) {
     return (
       <ActionContainer>
         <ActionContent>
-          <CustomConnectWalletButton btnText="Unlock Wallet" style={{ padding: '12px 16px', borderRadius: '16px'}} />
+          <CustomConnectWalletButton btnText="Unlock Wallet" style={{ padding: '12px 16px', borderRadius: '16px' }} />
         </ActionContent>
       </ActionContainer>
     )

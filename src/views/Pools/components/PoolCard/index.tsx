@@ -23,6 +23,28 @@ const ArrowWrapper = styled.div`
   cursor: pointer;
 `
 
+const EarnedText = styled.div`
+  & h2 {
+    font-family: 'Funhouse';
+    font-size: 12px;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-family: 'Ubuntu';
+      font-size: 14px;
+    }
+  }
+
+  & p {
+    font-family: 'Ubuntu';
+    font-size: 12px;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+`
+
 const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) => {
   const { sousId, stakingToken, earningToken, isFinished, userData, isAutoVault } = pool
   const { t } = useTranslation()
@@ -31,26 +53,6 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
   const [isExpanded, setIsExpanded] = useState(false)
   const { isXl } = useMatchBreakpoints()
 
-  const CustomSpanElement = styled.span`
-    font-size: 10px;
-    ${({ theme }) => theme.mediaQueries.xs} {
-      font-size: 10px;
-    }
-    ${({ theme }) => theme.mediaQueries.sm} {
-      font-size: 14px;
-    }
-  `
-  const CustomConnectWalletButton = styled(ConnectWalletButton)`
-    font-size: 10px;
-    ${({ theme }) => theme.mediaQueries.xs} {
-      font-size: 10px;
-    }
-    ${({ theme }) => theme.mediaQueries.sm} {
-      font-size: 14px;
-      padding: 12px 30px;
-      width: 200px;
-    }
-  `
   return (
     <StyledCard
       isFinished={isFinished && sousId !== 0}
@@ -70,28 +72,29 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
           )}
           <StyledCardContent>
             <AprRow pool={pool} />
-            <Flex alignItems="left" justifyContent="space-between">
-              {account ? (
-                <CardActions
-                  isExpanded={isExpanded}
-                  pool={pool}
-                  stakedBalance={stakedBalance}
-                  setExpanded={() => {
-                    setIsExpanded(!isExpanded)
-                  }}
-                />
-              ) : (
-                <>
-                  <Flex alignItems="center" justifyContent="space-between">
-                    <CustomSpanElement>{t('Start earning')}</CustomSpanElement>
-                    <CustomConnectWalletButton />
-                    <ArrowWrapper onClick={() => setIsExpanded(!isExpanded)}>
-                      {isExpanded ? <ArrowUp /> : <ArrowDown />}
-                    </ArrowWrapper>
-                  </Flex>
-                </>
-              )}
-            </Flex>
+            {account ? (
+              <CardActions
+                isExpanded={isExpanded}
+                pool={pool}
+                stakedBalance={stakedBalance}
+                setExpanded={() => {
+                  setIsExpanded(!isExpanded)
+                }}
+              />
+            ) : (
+              <Flex alignItems="center" justifyContent="space-between">
+                <EarnedText>
+                  <h2>{t('Earned')}</h2>
+                  <p>999, 999, 999</p>
+                </EarnedText>
+                <Flex>
+                  <ConnectWalletButton />
+                  <ArrowWrapper onClick={() => setIsExpanded(!isExpanded)}>
+                    {isExpanded ? <ArrowUp /> : <ArrowDown />}
+                  </ArrowWrapper>
+                </Flex>
+              </Flex>
+            )}
           </StyledCardContent>
         </StyledCardBody>
         {isExpanded && <ExpandedFooter pool={pool} account={account} />}

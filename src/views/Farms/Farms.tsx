@@ -188,20 +188,25 @@ const FarmHead = styled.div`
   border-radius: 70px;
   padding: 8px 12px;
   margin-top: 16px;
+
   & table {
     width: 100%;
     & td {
+      font-size: 10px;
       text-align: center;
       line-height: 16px;
       letter-spacing: 0.04em;
       color: #464486;
-      font-size: 9px;
-      ${({ theme }) => theme.mediaQueries.xs} {
-        font-size: 10px;
+      ${({ theme }) => theme.mediaQueries.md} {
+        font-size: 14px;
       }
-      ${({ theme }) => theme.mediaQueries.sm} {
-        font-size: 18px;
+    }
+
+    & div {
+      ${({ theme }) => theme.mediaQueries.md} {
+        font-size: 14px;
       }
+      font-size: 10px;
     }
   }
 
@@ -398,9 +403,9 @@ const Farms: React.FC = () => {
     numberOfFarmsVisible,
   ])
   chosenFarmsLength.current = chosenFarmsMemoized.length
-  
+
   useEffect(() => {
-    console.log(sortState);
+    console.log(sortState)
   }, [sortState])
 
   useEffect(() => {
