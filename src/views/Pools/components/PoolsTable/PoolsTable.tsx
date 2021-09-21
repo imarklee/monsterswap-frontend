@@ -139,8 +139,8 @@ const PoolsTable: React.FC<PoolsTableProps> = ({ pools, userDataLoaded, account 
                     {sortState === 0 ? <TdElement>HOT</TdElement> : <span>HOT</span>}
                   </div>
                 </td>
-                <td width="20%">LP</td>
-                <td width="20%">
+                <td width="25%">LP</td>
+                <td width="10%">
                   <div
                     tabIndex={0}
                     role="button"
@@ -168,7 +168,7 @@ const PoolsTable: React.FC<PoolsTableProps> = ({ pools, userDataLoaded, account 
                     {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
                   </div>
                 </td>
-                <td width="20%">
+                <td width="15%">
                   <div
                     tabIndex={0}
                     role="button"
@@ -180,7 +180,7 @@ const PoolsTable: React.FC<PoolsTableProps> = ({ pools, userDataLoaded, account 
                     {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
                   </div>
                 </td>
-                <td width="10%" />
+                <td width="30%" />
               </tr>
             </thead>
           </table>
