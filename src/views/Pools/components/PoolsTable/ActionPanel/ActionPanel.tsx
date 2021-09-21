@@ -97,7 +97,7 @@ interface ActionPanelProps {
 
 const ActionValueContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin: -20px 0 20px;
   & > div {
     width: 100%;
@@ -378,22 +378,10 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ pool, expanded }) => {
             <p>Earned Value:</p>
             <p>$0.00</p>
           </div>
-          {/* <Flex mb="8px" justifyContent={['flex-end', 'flex-end', 'flex-start']}>
-            <a href={`https://pancakeswap.info/token/${getAddress(earningToken.address)}`}>{t('See Token Info')}</a>
-          </Flex> */}
-          {/* {isAutoVault ? <CompoundingPoolTag /> : <ManualPoolTag />}
-          {tagTooltipVisible && tagTooltip}
-          <span ref={tagTargetRef}>
-            <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" />
-          </span> */}
-        </InfoSection>
-        <ActionSection>
-          <Flex flexDirection="column" alignItems="center">
+          <div>
             <p>Staked</p>
-            <p>
-              <b>0</b>
-            </p>
-          </Flex>
+            <p>0</p>
+          </div>
           <ActionButtonsContainer>
             <Button>Harvest</Button>
             <IconButton variant="secondary" onClick={onUnstake}>
@@ -415,7 +403,15 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ pool, expanded }) => {
               </IconButton>
             )}
           </ActionButtonsContainer>
-        </ActionSection>
+          {/* <Flex mb="8px" justifyContent={['flex-end', 'flex-end', 'flex-start']}>
+            <a href={`https://pancakeswap.info/token/${getAddress(earningToken.address)}`}>{t('See Token Info')}</a>
+          </Flex> */}
+          {/* {isAutoVault ? <CompoundingPoolTag /> : <ManualPoolTag />}
+          {tagTooltipVisible && tagTooltip}
+          <span ref={tagTargetRef}>
+            <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" />
+          </span> */}
+        </InfoSection>
       </ActionValueContainer>
       {poolContractAddress && (
         <Flex mb="8px" justifyContent="center">

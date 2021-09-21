@@ -29,8 +29,18 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
       font-size: 14px;
     }
   `
-
-   return (
+  const CustomConnectWalletButton = styled(ConnectWalletButton)`
+    font-size: 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+      padding: 12px 30px;
+      width: 200px;
+    }
+  `
+  return (
     <StyledCard
       isFinished={isFinished && sousId !== 0}
       ribbon={isFinished && <CardRibbon variantColor="textDisabled" text={t('Finished')} />}
@@ -49,7 +59,7 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
           )}
           <StyledCardContent>
             <AprRow pool={pool} />
-            <Flex mt="8px" flexDirection="column">
+            <Flex alignItems="left" justifyContent="space-between">
               {account ? (
                 <CardActions
                   isExpanded={isExpanded}
@@ -61,9 +71,12 @@ const PoolCard: React.FC<{ pool: Pool; account: string }> = ({ pool, account }) 
                 />
               ) : (
                 <>
-                  <p>
+                  <Flex alignItems="center" justifyContent="space-between">
                     <CustomSpanElement>{t('Start earning')}</CustomSpanElement>
-                  </p>
+                  </Flex>
+                  <Flex alignItems="right" justifyContent="space-between">
+                    <CustomConnectWalletButton />
+                  </Flex>
                 </>
               )}
             </Flex>

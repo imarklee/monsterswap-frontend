@@ -126,7 +126,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
       padding: 0 24px;
     }
     ${({ theme }) => theme.mediaQueries.sm} {
-      padding: 0 24px;
+      padding: 0 30px;
     }
   `
   const mobileRow = (

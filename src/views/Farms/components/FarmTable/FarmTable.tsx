@@ -180,8 +180,8 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                     {sortState === 0 ? <TdElement>HOT</TdElement> : <span>HOT</span>}
                   </div>
                 </td>
-                <td width="20%">LP</td>
-                <td width="20%">
+                <td width="15%">LP</td>
+                <td width="10%">
                   <div
                     tabIndex={0}
                     role="button"
@@ -193,7 +193,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                     {sortState === 2 ? <TdElement>APR</TdElement> : <span>APR</span>}
                   </div>
                 </td>
-                <td width="20%">
+                <td width="15%">
                   {/* <LiquidityHead>
                           Liquidity
                         <WhiteArrowDown /> }
@@ -209,7 +209,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                     {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
                   </div>
                 </td>
-                <td width="20%">
+                <td width="25%">
                   <div
                     tabIndex={0}
                     role="button"
@@ -221,7 +221,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                     {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
                   </div>
                 </td>
-                <td width="10%" />
+                <td width="25%" />
               </tr>
             </thead>
           </table>
