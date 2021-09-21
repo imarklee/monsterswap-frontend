@@ -16,7 +16,6 @@ import ApyCalculatorModal from 'components/ApyCalculatorModal'
 import { Pool } from 'state/types'
 import { getAprData } from 'views/Pools/helpers'
 import { getAddress } from 'utils/addressHelpers'
-import ConnectWalletButton from 'components/ConnectWalletButton'
 
 interface AprRowProps {
   pool: Pool
@@ -62,17 +61,7 @@ const CustomSpanElement = styled.span`
     font-size: 18px;
   }
 `
-const CustomConnectWalletButton = styled(ConnectWalletButton)`
-    font-size: 10px;
-    ${({ theme }) => theme.mediaQueries.xs} {
-      font-size: 10px;
-    }
-    ${({ theme }) => theme.mediaQueries.sm} {
-      font-size: 14px;
-      padding: 12px 30px;
-      width: 200px;
-    }
-  `
+
   
 const AprRow: React.FC<AprRowProps> = ({ pool, performanceFee = 0 }) => {
   const { t } = useTranslation()
@@ -114,8 +103,6 @@ const AprRow: React.FC<AprRowProps> = ({ pool, performanceFee = 0 }) => {
             {pool.stakingToken.symbol} - {pool.earningToken.symbol}
           </span>
         )}
-      </Flex>
-      <Flex alignItems="center" justifyContent="space-between">
         <AprContent>
           {tooltipVisible && tooltip}
           <TooltipText ref={targetRef}>
@@ -139,7 +126,6 @@ const AprRow: React.FC<AprRowProps> = ({ pool, performanceFee = 0 }) => {
             </Flex>
           )}
         </AprContent>
-        <CustomConnectWalletButton />
 
       </Flex>
     </>
