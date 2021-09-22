@@ -109,40 +109,41 @@ const LabelWrapper = styled.div`
 // `
 
 const PoolsBanner = styled.div`
-  width: 100%;
-  min-height: 211px;
-  > div {
-    width: 100%;
-    max-width: 100%;
-    height: 300px;
-    @media (max-width: 2560px) {
-      height: 635px;
-    }
-    @media (max-width: 1920px) {
-      height: 426px;
-    }
-    @media (max-width: 1330px) {
-      height: 200px;
-    }
-    > img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    &::after {
-      padding-top: 0;
-    }
+  height: 300px;
+  background-image: url(/images/pools/bg-hero-pools.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  @media (max-width: 2560px) {
+    height: 350px;
   }
 
-  @media (max-width: 767.98px) {
-    min-height: 200px;
-    > div {
-      height: 200px;
+  // width: 100%;
+  // min-height: 211px;
+  // > div {
+  //   width: 100%;
+  //   max-width: 100%;
+  //   height: 300px;
+  //   > img {
+  //     width: 100%;
+  //     height: 100%;
+  //     object-fit: cover;
+  //   }
+  //   &::after {
+  //     padding-top: 0;
+  //   }
+  // }
 
-      > img {
-      }
-    }
-  }
+  // @media (max-width: 767.98px) {
+  //   min-height: 200px;
+  //   > div {
+  //     height: 200px;
+
+  //     > img {
+  //     }
+  //   }
+  // }
 `
 
 const ViewControls = styled.div`
@@ -426,7 +427,7 @@ const Pools: React.FC = () => {
   return (
     <>
       <PoolsBanner>
-        <Image src="/images/pools/bg-hero-pools.svg" alt="Monster Pools" width={100} height={300} />
+        {/* <Image src="/images/pools/bg-hero-pools.svg" alt="Monster Pools" width={100} height={300} /> */}
       </PoolsBanner>
       <Page>
         <PoolControls>
