@@ -58,6 +58,12 @@ const EarnedText = styled.div`
 
 const RoundedButton = styled(Button)`
   border-radius: 18px;
+  font-size: 10px !important;
+  padding: 12px 16px;
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 14px !important;
+  }
 `
 
 const HarvestActions: React.FC<HarvestActionsProps> = ({
