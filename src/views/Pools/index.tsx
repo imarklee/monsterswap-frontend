@@ -116,10 +116,10 @@ const PoolsBanner = styled.div`
     max-width: 100%;
     height: 300px;
     @media (max-width: 2560px) {
-      height: 400px;
+      height: 635px;
     }
     @media (max-width: 1920px) {
-      height: 350px;
+      height: 426px;
     }
     @media (max-width: 1330px) {
       height: 200px;
