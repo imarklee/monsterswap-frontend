@@ -68,14 +68,12 @@ const StakedActionArea = styled(Flex)`
 
 const RoundedButton = styled(Button)`
   border-radius: 16px;
-`
+  font-size: 10px !important;
+  padding: 12px 16px;
 
-const StakedAmount = styled.div`
-  text-align: right;
   ${({ theme }) => theme.mediaQueries.sm} {
-    margin-right: 35px;
+    font-size: 14px !important;
   }
-  margin-right: 6px;
 `
 
 const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
@@ -134,10 +132,6 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
   return (
     <ExpandedWrapper flexDirection="column">
       <StakedActionArea alignItems="center" justifyContent="end">
-        <StakedAmount>
-          <p>Staked</p>
-          <p>6,305</p>
-        </StakedAmount>
         <RoundedButton>Harvest</RoundedButton>
         <IconButton>
           <AddIcon color="#FFFFFF" />
