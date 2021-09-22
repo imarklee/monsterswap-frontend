@@ -27,6 +27,7 @@ const EarnedText = styled.div`
   & h2 {
     font-family: 'Funhouse';
     font-size: 12px;
+    font-weight: normal;
 
     ${({ theme }) => theme.mediaQueries.sm} {
       font-family: 'Ubuntu';

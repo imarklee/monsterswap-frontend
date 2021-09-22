@@ -56,6 +56,7 @@ const AprText = styled(Flex)`
   & h2 {
     font-family: 'Funhouse';
     font-size: 12px;
+    font-weight: normal;
 
     ${({ theme }) => theme.mediaQueries.sm} {
       font-family: 'Ubuntu';
@@ -69,7 +70,6 @@ const AprText = styled(Flex)`
 
     ${({ theme }) => theme.mediaQueries.sm} {
       font-size: 18px;
-      font-weight: bold;
     }
   }
 `

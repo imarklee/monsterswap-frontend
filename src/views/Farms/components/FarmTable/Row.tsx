@@ -89,6 +89,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
     & > div {
       display: block;
     }
+    border-radius: 10px;
   `
   const CustomFirstItemElement = styled.div`
     background-color: #eaf2f7;

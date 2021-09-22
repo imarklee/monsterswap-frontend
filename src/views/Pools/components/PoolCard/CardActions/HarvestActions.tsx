@@ -37,6 +37,7 @@ const EarnedText = styled.div`
   & h2 {
     font-family: 'Funhouse';
     font-size: 12px;
+    font-weight: normal;
 
     ${({ theme }) => theme.mediaQueries.sm} {
       font-family: 'Ubuntu';
@@ -53,6 +54,10 @@ const EarnedText = styled.div`
       font-weight: bold;
     }
   }
+`
+
+const RoundedButton = styled(Button)`
+  border-radius: 18px;
 `
 
 const HarvestActions: React.FC<HarvestActionsProps> = ({
@@ -105,16 +110,16 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
             )} */}
           </EarnedText>
           <Flex>
-            {needsApproval && <ApprovalAction pool={pool} isLoading={isLoading} />}
+            {/* {needsApproval && <ApprovalAction pool={pool} isLoading={isLoading} />} */}
             {/* {hasEarnings && (
               <Button onClick={onPresentCollect}>
                 {t('Compound')}
               </Button>
             )} */}
-            <Button onClick={onPresentCollect}>
+            <RoundedButton onClick={onPresentCollect}>
               {/* {isCompoundPool ? t('Collect') : t('Harvest')} */}
               {t('Compound')}
-            </Button>
+            </RoundedButton>
             <ArrowWrapper onClick={setExpanded}>{isExpanded ? <ArrowUp /> : <ArrowDown />}</ArrowWrapper>
           </Flex>
         </>

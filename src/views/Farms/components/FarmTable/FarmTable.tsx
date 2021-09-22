@@ -44,6 +44,11 @@ const StyledCell = styled.div`
     padding: 0 20px;
   }
 `
+
+const FarmBody = styled.table`
+  width: 100%;
+`
+
 const TableHead = styled.thead`
   filter: ${({ theme }) => theme.card.dropShadow};
   border-radius: 10px;
@@ -71,8 +76,8 @@ const TableHead = styled.thead`
 `
 
 const TableBody = styled.tbody`
-  border-radius: 10px;
   & tr {
+    border-radius: 10px;
     border: none;
     td {
       font-size: 16px;
@@ -181,7 +186,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                   </div>
                 </td>
                 <td width="15%">LP</td>
-                <td width="10%">
+                <td width="17%">
                   <div
                     tabIndex={0}
                     role="button"
@@ -193,7 +198,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                     {sortState === 2 ? <TdElement>APR</TdElement> : <span>APR</span>}
                   </div>
                 </td>
-                <td width="15%">
+                <td width="8%">
                   {/* <LiquidityHead>
                           Liquidity
                         <WhiteArrowDown /> }
@@ -209,7 +214,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                     {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
                   </div>
                 </td>
-                <td width="25%">
+                <td width="35%">
                   <div
                     tabIndex={0}
                     role="button"
@@ -221,16 +226,18 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                     {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
                   </div>
                 </td>
-                <td width="25%" />
+                <td width="15%" />
               </tr>
             </thead>
           </table>
         </FarmHead>
-        <TableBody>
-          {rows.map((row) => {
-            return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
-          })}
-        </TableBody>
+        <FarmBody>
+          <TableBody>
+            {rows.map((row) => {
+              return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
+            })}
+          </TableBody>
+        </FarmBody>
       </StyledTable>
       <ScrollButtonContainer>
         <CustomButton variant="text" onClick={scrollToTop}>
