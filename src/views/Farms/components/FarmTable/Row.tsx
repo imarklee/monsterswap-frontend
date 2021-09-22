@@ -89,7 +89,6 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
     & > div {
       display: block;
     }
-    border-radius: 10px;
   `
   const CustomFirstItemElement = styled.div`
     background-color: #eaf2f7;
@@ -129,6 +128,8 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
     ${({ theme }) => theme.mediaQueries.sm} {
       padding: 0 30px;
     }
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
   `
   const mobileRow = (
     <TableRow onClick={toggleActionPanel}>
