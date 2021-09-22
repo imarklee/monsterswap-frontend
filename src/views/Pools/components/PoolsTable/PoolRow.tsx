@@ -93,7 +93,6 @@ const PoolRow: React.FC<PoolRowProps> = ({ pool, account, userDataLoaded }) => {
           pool={pool}
           userDataLoaded={userDataLoaded}
           expanded={expanded}
-          isFullLayout={isMd || isLg || isXl}
         />
       </StyledRow>
       {shouldRenderActionPanel && (

@@ -106,12 +106,15 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
           </EarnedText>
           <Flex>
             {needsApproval && <ApprovalAction pool={pool} isLoading={isLoading} />}
-            {hasEarnings && (
+            {/* {hasEarnings && (
               <Button onClick={onPresentCollect}>
-                {/* {isCompoundPool ? t('Collect') : t('Harvest')} */}
                 {t('Compound')}
               </Button>
-            )}
+            )} */}
+            <Button onClick={onPresentCollect}>
+              {/* {isCompoundPool ? t('Collect') : t('Harvest')} */}
+              {t('Compound')}
+            </Button>
             <ArrowWrapper onClick={setExpanded}>{isExpanded ? <ArrowUp /> : <ArrowDown />}</ArrowWrapper>
           </Flex>
         </>

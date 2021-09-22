@@ -111,13 +111,19 @@ const LabelWrapper = styled.div`
 const PoolsBanner = styled.div`
   width: 100%;
   min-height: 211px;
-  background-color: #acb0d3;
-  background-size: cover;
-  background-position: top center;
   > div {
     width: 100%;
     max-width: 100%;
     height: 300px;
+    @media (max-width: 2560px) {
+      height: 400px;
+    }
+    @media (max-width: 1920px) {
+      height: 350px;
+    }
+    @media (max-width: 1330px) {
+      height: 200px;
+    }
     > img {
       width: 100%;
       height: 100%;
