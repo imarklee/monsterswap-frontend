@@ -301,7 +301,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         </StakedContent>
       )} */}
       <StakedContent>
-        <div style={{ float: 'left' }}>
+        <div>
           <p>{t('Staked')}</p>
           <p>{displayBalance()}</p>
         </div>

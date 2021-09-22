@@ -55,6 +55,12 @@ const Container = styled.div`
   }
 `
 
+const CustomImage = styled(Image)`
+  & > img {
+    position: unset;
+  }
+`
+
 const PortfolioHeader: React.FC = () => {
   return (
     <Container>
@@ -63,7 +69,8 @@ const PortfolioHeader: React.FC = () => {
         <h1>Monster Portfolio</h1>
         <h2>Keep track of your pools and farms</h2>
       </div>
-      <Image src="/images/portfolio/ic-portfolio.svg" alt="Monster Swap" width={490} height={245} />
+      {/* <Image src="/images/portfolio/ic-portfolio.svg" alt="Monster Swap" width={490} height={245} /> */}
+      <CustomImage src="/images/portfolio/ic-portfolio.svg" alt="Referral" width={557} height={140} />
     </Container>
   )
 }

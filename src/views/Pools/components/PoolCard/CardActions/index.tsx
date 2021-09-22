@@ -48,7 +48,7 @@ const CardActions: React.FC<CardActionsProps> = ({ pool, stakedBalance, isExpand
           setExpanded={setExpanded}
         />
       )}
-      {isExpanded && !needsApproval && (
+      {/* {isExpanded && !needsApproval && (
         <StakeActions
           isLoading={isLoading}
           pool={pool}
@@ -57,7 +57,7 @@ const CardActions: React.FC<CardActionsProps> = ({ pool, stakedBalance, isExpand
           isBnbPool={isBnbPool}
           isStaked={isStaked}
         />
-      )}
+      )} */}
     </>
   )
 }
