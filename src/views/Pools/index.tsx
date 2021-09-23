@@ -135,15 +135,9 @@ const PoolsBanner = styled.div`
   //   }
   // }
 
-  // @media (max-width: 767.98px) {
-  //   min-height: 200px;
-  //   > div {
-  //     height: 200px;
-
-  //     > img {
-  //     }
-  //   }
-  // }
+  @media (max-width: 767.98px) {
+    height: 200px;
+  }
 `
 
 const ViewControls = styled.div`
