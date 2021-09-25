@@ -1,5 +1,5 @@
 import React from 'react'
-import { Token } from '@monsterswap/sdk'
+import { Token } from 'monsterswaptestsdk'
 import { Modal, InjectedModalProps } from 'uikit'
 import ImportToken from 'components/SearchModal/ImportToken'
 

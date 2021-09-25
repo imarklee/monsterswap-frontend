@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { CurrencyAmount, JSBI, Token, Trade } from '@monsterswap/sdk'
+import { CurrencyAmount, JSBI, Token, Trade } from 'monsterswaptestsdk'
 import { Button, Text, ArrowDownIcon, SwapSwitch, Box, useModal } from 'uikit'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/UnsupportedCurrencyFooter'

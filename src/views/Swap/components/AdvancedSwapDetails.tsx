@@ -1,5 +1,5 @@
 import React from 'react'
-import { Trade, TradeType } from '@monsterswap/sdk'
+import { Trade, TradeType } from 'monsterswaptestsdk'
 import { Text } from 'uikit'
 import { Field } from 'state/swap/actions'
 import { useUserSlippageTolerance } from 'state/user/hooks'
@@ -84,7 +84,7 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
   const showRoute = Boolean(trade && trade.route.path.length > 2)
 
   return (
-    <AutoColumn gap="0px" style={{ width: "100%" }} >
+    <AutoColumn gap="0px" style={{ width: '100%' }}>
       {trade && (
         <>
           <TradeSummary trade={trade} allowedSlippage={allowedSlippage} />

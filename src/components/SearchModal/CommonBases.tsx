@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChainId, Currency, currencyEquals, ETHER, Token } from '@monsterswap/sdk'
+import { ChainId, Currency, currencyEquals, ETHER, Token } from 'monsterswaptestsdk'
 import { Text } from 'uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'

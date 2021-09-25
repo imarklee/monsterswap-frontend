@@ -52,11 +52,11 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   const { t } = useTranslation()
   const { account } = useWeb3React()
   const [requestedApproval, setRequestedApproval] = useState(false)
+
   const { allowance, tokenBalance, stakedBalance } = useFarmUser(pid)
   const { onStake } = useStakeFarms(pid)
   const { onUnstake } = useUnstakeFarms(pid)
   const location = useLocation()
-  // const lpPrice = useLpTokenPrice(lpSymbol)
 
   const isApproved = account && allowance && allowance.isGreaterThan(0)
 
@@ -110,30 +110,28 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
     )
   }
 
-  // if (isApproved) {
-  //   if (stakedBalance.gt(0)) {
-  //     return (
-  //       <ActionContainer>
-  //         {!isMobile && account && <HarvestButton earnings={earnings} pid={pid} />}
-  //       </ActionContainer>
-  //     )
-  //   }
+  if (isApproved) {
+    if (stakedBalance.gt(0)) {
+      return (
+        <ActionContainer>{!isMobile && account && <HarvestButton earnings={earnings} pid={pid} />}</ActionContainer>
+      )
+    }
 
-  //   return (
-  //     <ActionContainer>
-  //       <ActionContent>
-  //         <Button
-  //           width="100%"
-  //           onClick={onPresentDeposit}
-  //           variant="secondary"
-  //           disabled={['history', 'archived'].some((item) => location.pathname.includes(item))}
-  //         >
-  //           {t('Stake lp')}
-  //         </Button>
-  //       </ActionContent>
-  //     </ActionContainer>
-  //   )
-  // }
+    return (
+      <ActionContainer>
+        <ActionContent>
+          <Button
+            width="100%"
+            onClick={onPresentDeposit}
+            variant="secondary"
+            disabled={['history', 'archived'].some((item) => location.pathname.includes(item))}
+          >
+            {t('Stake lp')}
+          </Button>
+        </ActionContent>
+      </ActionContainer>
+    )
+  }
 
   // if (!userDataReady) {
   //   return (
@@ -145,20 +143,26 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   //   )
   // }
 
-  // return (
-  //   <ActionContainer>
-  //     <ActionContent>
-  //       <Button style={{ borderRadius: "16px" }} width="100%" disabled={requestedApproval} onClick={handleApprove} variant="secondary">
-  //         {t('Enable')}
-  //       </Button>
-  //     </ActionContent>
-  //   </ActionContainer>
-  // )
   return (
     <ActionContainer>
-      <HarvestButton />
+      <ActionContent>
+        <Button
+          style={{ padding: '10px', borderRadius: '16px' }}
+          width="100%"
+          disabled={requestedApproval}
+          onClick={handleApprove}
+          variant="secondary"
+        >
+          {t('Enable')}
+        </Button>
+      </ActionContent>
     </ActionContainer>
   )
+  // return (
+  //   <ActionContainer>
+  //     <HarvestButton />
+  //   </ActionContainer>
+  // )
 }
 
 export default Staked

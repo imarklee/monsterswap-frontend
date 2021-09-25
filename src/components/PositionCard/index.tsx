@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { JSBI, Pair, Percent } from '@monsterswap/sdk'
+import { JSBI, Pair, Percent } from 'monsterswaptestsdk'
 import { Button, Text, ChevronUpIcon, ChevronDownIcon, Card, CardBody, Flex, CardProps, AddIcon } from 'uikit'
 import { Link } from 'react-router-dom'
 import styled, { useTheme } from 'styled-components'
@@ -15,7 +15,7 @@ import { LightCard } from '../Card'
 import { AutoColumn } from '../Layout/Column'
 import CurrencyLogo from '../Logo/CurrencyLogo'
 import { DoubleCurrencyLogo } from '../Logo'
-import { RowBetween, RowFixed,  } from '../Layout/Row'
+import { RowBetween, RowFixed } from '../Layout/Row'
 import { BIG_INT_ZERO } from '../../config/constants'
 import Dots from '../Loader/Dots'
 
@@ -65,8 +65,8 @@ export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCar
       {userPoolBalance && JSBI.greaterThan(userPoolBalance.raw, JSBI.BigInt(0)) ? (
         <Card style={{ background: theme.colors.purpleLight }}>
           <CardBody>
-            <RowBetween style={{ gap: "10px" }}>
-              <AutoColumn gap="4px" style={{ width:"50%" }}>
+            <RowBetween style={{ gap: '10px' }}>
+              <AutoColumn gap="4px" style={{ width: '50%' }}>
                 <FixedHeightRow onClick={() => setShowMore(!showMore)}>
                   <RowFixed>
                     <DoubleCurrencyLogo currency0={currency0} currency1={currency1} margin size={20} />
@@ -78,56 +78,56 @@ export function MinimalPositionCard({ pair, showUnwrapped = false }: PositionCar
                     <Text fontFamily="Ubuntu">{userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}</Text>
                   </RowFixed>
                 </FixedHeightRow>
-                  <FixedHeightRow>
-                    <Text color="textSubtle" small fontFamily="Ubuntu">
-                      {t('Share of Pool')}:
-                    </Text>
-                    <Text fontFamily="Ubuntu">{poolTokenPercentage ? `${poolTokenPercentage.toFixed(6)}%` : '-'}</Text>
-                  </FixedHeightRow>
-                </AutoColumn>
-                <AutoColumn gap="4px" style={{ width:"50%" }}>
-                  <FixedHeightRow>
-                    <Text color="textSubtle" small fontFamily="Ubuntu">
-                      {t('Pooled %asset%', { asset: currency0.symbol })}:
-                    </Text>
-                    {token0Deposited ? (
-                      <RowFixed>
-                        <Text ml="6px" fontFamily="Ubuntu">{token0Deposited?.toSignificant(6)}</Text>
-                      </RowFixed>
-                    ) : (
-                      '-'
-                    )}
-                  </FixedHeightRow>
-                  <FixedHeightRow>
-                    <Text color="textSubtle" small fontFamily="Ubuntu">
-                      {t('Pooled %asset%', { asset: currency1.symbol })}:
-                    </Text>
-                    {token1Deposited ? (
-                      <RowFixed>
-                        <Text ml="6px" fontFamily="Ubuntu">{token1Deposited?.toSignificant(6)}</Text>
-                      </RowFixed>
-                    ) : (
-                      '-'
-                    )}
-                  </FixedHeightRow>
-                </AutoColumn>
+                <FixedHeightRow>
+                  <Text color="textSubtle" small fontFamily="Ubuntu">
+                    {t('Share of Pool')}:
+                  </Text>
+                  <Text fontFamily="Ubuntu">{poolTokenPercentage ? `${poolTokenPercentage.toFixed(6)}%` : '-'}</Text>
+                </FixedHeightRow>
+              </AutoColumn>
+              <AutoColumn gap="4px" style={{ width: '50%' }}>
+                <FixedHeightRow>
+                  <Text color="textSubtle" small fontFamily="Ubuntu">
+                    {t('Pooled %asset%', { asset: currency0.symbol })}:
+                  </Text>
+                  {token0Deposited ? (
+                    <RowFixed>
+                      <Text ml="6px" fontFamily="Ubuntu">
+                        {token0Deposited?.toSignificant(6)}
+                      </Text>
+                    </RowFixed>
+                  ) : (
+                    '-'
+                  )}
+                </FixedHeightRow>
+                <FixedHeightRow>
+                  <Text color="textSubtle" small fontFamily="Ubuntu">
+                    {t('Pooled %asset%', { asset: currency1.symbol })}:
+                  </Text>
+                  {token1Deposited ? (
+                    <RowFixed>
+                      <Text ml="6px" fontFamily="Ubuntu">
+                        {token1Deposited?.toSignificant(6)}
+                      </Text>
+                    </RowFixed>
+                  ) : (
+                    '-'
+                  )}
+                </FixedHeightRow>
+              </AutoColumn>
             </RowBetween>
           </CardBody>
         </Card>
       ) : (
-        <LightCard  style={{ background: theme.colors.purpleLight }}>
-          <Text fontSize="14px" color="#110518" fontFamily="Ubuntu" style={{ textAlign: 'left', display: "inline" }}>
-            <span style={{color: "#F0B90B", fontFamily: "Ubuntu"}}>
-              * 
-            </span>{' '}
-            <span style={{fontFamily: "Ubuntu"}}>
-            {t(
-              " By adding liquidity you'll earn 0.17% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity. ",
-            )}
+        <LightCard style={{ background: theme.colors.purpleLight }}>
+          <Text fontSize="14px" color="#110518" fontFamily="Ubuntu" style={{ textAlign: 'left', display: 'inline' }}>
+            <span style={{ color: '#F0B90B', fontFamily: 'Ubuntu' }}>*</span>{' '}
+            <span style={{ fontFamily: 'Ubuntu' }}>
+              {t(
+                " By adding liquidity you'll earn 0.17% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity. ",
+              )}
             </span>
-            <span style={{color: "#F0B90B", fontFamily: "Ubuntu"}}>
-              {t(" Learn more")}
-            </span>{' '}
+            <span style={{ color: '#F0B90B', fontFamily: 'Ubuntu' }}>{t(' Learn more')}</span>{' '}
           </Text>
         </LightCard>
       )}
@@ -145,7 +145,7 @@ export default function FullPositionCard({ pair, ...props }: PositionCardProps) 
 
   const userPoolBalance = useTokenBalance(account ?? undefined, pair.liquidityToken)
   const totalPoolTokens = useTotalSupply(pair.liquidityToken)
-  console.log("[totalPooltokens]", totalPoolTokens, userPoolBalance.toSignificant(4))
+  console.log('[totalPooltokens]', totalPoolTokens, userPoolBalance.toSignificant(4))
 
   const poolTokenPercentage =
     !!userPoolBalance && !!totalPoolTokens && JSBI.greaterThanOrEqual(totalPoolTokens.raw, userPoolBalance.raw)

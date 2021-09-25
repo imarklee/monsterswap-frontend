@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import { Token } from '@monsterswap/sdk'
+import { Token } from 'monsterswaptestsdk'
 import { Button, Text, CheckmarkCircleIcon } from 'uikit'
 import { AutoRow, RowFixed } from 'components/Layout/Row'
 import { AutoColumn } from 'components/Layout/Column'

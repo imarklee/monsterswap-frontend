@@ -1,4 +1,4 @@
-import { Currency, ETHER, Token } from '@monsterswap/sdk'
+import { Currency, ETHER, Token } from 'monsterswaptestsdk'
 import { BinanceIcon } from 'uikit'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'

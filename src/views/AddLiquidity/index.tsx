@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { BigNumber } from '@ethersproject/bignumber'
 import { TransactionResponse } from '@ethersproject/providers'
-import { Currency, currencyEquals, ETHER, TokenAmount, WETH } from '@monsterswap/sdk'
+import { Currency, currencyEquals, ETHER, TokenAmount, WETH } from 'monsterswaptestsdk'
 import { Button, Text, Flex, AddRoundedIcon, CardBody, InstructionMessage, useModal } from 'uikit'
 import { RouteComponentProps } from 'react-router-dom'
 import AddRemoveSubNav from 'components/Menu/AddRemoveSubNav'
@@ -57,7 +57,6 @@ export const ArrowWrapper = styled.div<{ clickable: boolean }>`
       : null}
 `
 
-
 export default function AddLiquidity({
   match: {
     params: { currencyIdA, currencyIdB },
@@ -72,8 +71,8 @@ export default function AddLiquidity({
 
   const oneCurrencyIsWETH = Boolean(
     chainId &&
-    ((currencyA && currencyEquals(currencyA, WETH[chainId])) ||
-      (currencyB && currencyEquals(currencyB, WETH[chainId]))),
+      ((currencyA && currencyEquals(currencyA, WETH[chainId])) ||
+        (currencyB && currencyEquals(currencyB, WETH[chainId]))),
   )
 
   const expertMode = useIsExpertMode()
@@ -97,7 +96,7 @@ export default function AddLiquidity({
   const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity)
 
   const isValid = !error
-  const criticalError = error && (error.includes("Insufficient") || error.includes("Invalid pair"))
+  const criticalError = error && (error.includes('Insufficient') || error.includes('Invalid pair'))
 
   // modal and loading
   const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
@@ -187,7 +186,7 @@ export default function AddLiquidity({
     }
 
     setAttemptingTxn(true)
-    console.log("[router]", args)
+    console.log('[router]', args)
     await estimate(...args, value ? { value } : {})
       .then((estimatedGasLimit) =>
         method(...args, {
@@ -197,8 +196,9 @@ export default function AddLiquidity({
           setAttemptingTxn(false)
 
           addTransaction(response, {
-            summary: `Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${currencies[Field.CURRENCY_A]?.symbol
-              } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`,
+            summary: `Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
+              currencies[Field.CURRENCY_A]?.symbol
+            } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`,
           })
 
           setTxHash(response.hash)
@@ -208,7 +208,7 @@ export default function AddLiquidity({
         setAttemptingTxn(false)
         // we only care if the error is something _other_ than the user rejected the tx
         if (err?.code !== 4001) {
-          console.error("[error]", err)
+          console.error('[error]', err)
         }
       })
   }
@@ -326,9 +326,7 @@ export default function AddLiquidity({
   return (
     <Page>
       <AppBody>
-        <AppHeader
-          subtitle={t('View Your Liquidity Positions >')}
-        />
+        <AppHeader subtitle={t('View Your Liquidity Positions >')} />
         <CardBody>
           <AutoColumn gap="20px">
             {/* {noLiquidity && (
@@ -347,7 +345,11 @@ export default function AddLiquidity({
             <ColumnCenter>
               <InstructionMessage variant="warning" backColor="purpleLight">
                 <div>
-                  <Text fontFamily="Ubuntu">{t('Tip: When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time.')}</Text>
+                  <Text fontFamily="Ubuntu">
+                    {t(
+                      'Tip: When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time.',
+                    )}
+                  </Text>
                 </div>
               </InstructionMessage>
             </ColumnCenter>
@@ -385,8 +387,8 @@ export default function AddLiquidity({
             >
               {currencies[Field.CURRENCY_A] && currencies[Field.CURRENCY_B] && pairState !== PairState.INVALID && (
                 <>
-                  <Row width="100%" justify="center" padding="0 0 10px 0" >
-                    <LightGreyCard padding="0.5rem" width="90%" borderRadius="10px" style={{ fontFamily: "Ubuntu" }}>
+                  <Row width="100%" justify="center" padding="0 0 10px 0">
+                    <LightGreyCard padding="0.5rem" width="90%" borderRadius="10px" style={{ fontFamily: 'Ubuntu' }}>
                       <PoolPriceBar
                         currencies={currencies}
                         poolTokenPercentage={poolTokenPercentage}
@@ -456,8 +458,18 @@ export default function AddLiquidity({
                   }}
                   disabled={!isValid || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED}
                   style={{
-                    background: (!isValid || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED) ? (criticalError ? "#E25656" : "#E9EAEB") : "#4E4E9D",
-                    color: (!isValid || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED) ? (criticalError ? "#FFF" : "#BDC2C4") : "#FFF"
+                    background:
+                      !isValid || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED
+                        ? criticalError
+                          ? '#E25656'
+                          : '#E9EAEB'
+                        : '#4E4E9D',
+                    color:
+                      !isValid || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED
+                        ? criticalError
+                          ? '#FFF'
+                          : '#BDC2C4'
+                        : '#FFF',
                   }}
                 >
                   {error ?? t('Supply')}

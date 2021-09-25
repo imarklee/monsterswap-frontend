@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { ChainId, Currency, Token } from '@monsterswap/sdk'
+import { ChainId, Currency, Token } from 'monsterswaptestsdk'
 import styled from 'styled-components'
 import {
   Button,
@@ -44,7 +44,9 @@ function ConfirmationPendingContent({ pendingText }: { pendingText: string }) {
         <Spinner />
       </ConfirmedIcon>
       <AutoColumn gap="12px" justify="center">
-        <Text fontFamily="UbuntuBold" fontSize="22px" color="#110518">{t('Waiting For Confirmation')}</Text>
+        <Text fontFamily="UbuntuBold" fontSize="22px" color="#110518">
+          {t('Waiting For Confirmation')}
+        </Text>
         <AutoColumn gap="12px" justify="center">
           <Text bold small textAlign="center" fontFamily="UbuntuBold">
             {pendingText}
@@ -82,9 +84,16 @@ function TransactionSubmittedContent({
           <ArrowUpRoundIcon strokeWidth={0.5} width="90px" color="#EAF2F7" />
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify="center">
-          <Text fontFamily="UbuntuBold" fontSize="20px" color="#110518" >{t('Transaction Submitted')}</Text>
+          <Text fontFamily="UbuntuBold" fontSize="20px" color="#110518">
+            {t('Transaction Submitted')}
+          </Text>
           {chainId && hash && (
-            <a href={getBscScanLink(hash, 'transaction', chainId)} target="_blank" rel="noreferrer" style={{fontFamily: 'Ubuntu', color: '#524F9E'}}>
+            <a
+              href={getBscScanLink(hash, 'transaction', chainId)}
+              target="_blank"
+              rel="noreferrer"
+              style={{ fontFamily: 'Ubuntu', color: '#524F9E' }}
+            >
               {t('View on BscScan')}
             </a>
           )}
@@ -95,7 +104,7 @@ function TransactionSubmittedContent({
               width="fit-content"
               onClick={() => registerToken(token.address, token.symbol, token.decimals)}
             >
-              <RowFixed style={{fontFamily: 'Ubuntu'}} >
+              <RowFixed style={{ fontFamily: 'Ubuntu' }}>
                 {t('Add %asset% to Metamask', { asset: currencyToAdd.symbol })}
                 <MetamaskIcon width="16px" ml="6px" />
               </RowFixed>
