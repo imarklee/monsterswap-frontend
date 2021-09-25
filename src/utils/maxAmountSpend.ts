@@ -1,4 +1,4 @@
-import { CurrencyAmount, ETHER, JSBI } from '@monsterswap/sdk'
+import { CurrencyAmount, ETHER, JSBI } from 'monsterswaptestsdk'
 import { MIN_BNB } from '../config/constants'
 
 /**

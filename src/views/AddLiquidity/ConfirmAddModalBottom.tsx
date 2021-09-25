@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Fraction, Percent } from '@monsterswap/sdk'
+import { Currency, CurrencyAmount, Fraction, Percent } from 'monsterswaptestsdk'
 import React from 'react'
 import { Button, Text } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
@@ -25,21 +25,31 @@ function ConfirmAddModalBottom({
   return (
     <>
       <RowBetween>
-        <Text fontFamily="UbuntuBold" color="#110518">{t('%asset% Deposited', { asset: currencies[Field.CURRENCY_A]?.symbol })}</Text>
+        <Text fontFamily="UbuntuBold" color="#110518">
+          {t('%asset% Deposited', { asset: currencies[Field.CURRENCY_A]?.symbol })}
+        </Text>
         <RowFixed>
           <CurrencyLogo currency={currencies[Field.CURRENCY_A]} style={{ marginRight: '8px' }} />
-          <Text fontFamily="UbuntuBold" color="#110518">{parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)}</Text>
+          <Text fontFamily="UbuntuBold" color="#110518">
+            {parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)}
+          </Text>
         </RowFixed>
       </RowBetween>
       <RowBetween>
-        <Text fontFamily="UbuntuBold" color="#110518">{t('%asset% Deposited', { asset: currencies[Field.CURRENCY_B]?.symbol })}</Text>
+        <Text fontFamily="UbuntuBold" color="#110518">
+          {t('%asset% Deposited', { asset: currencies[Field.CURRENCY_B]?.symbol })}
+        </Text>
         <RowFixed>
           <CurrencyLogo currency={currencies[Field.CURRENCY_B]} style={{ marginRight: '8px' }} />
-          <Text fontFamily="UbuntuBold" color="#110518">{parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)}</Text>
+          <Text fontFamily="UbuntuBold" color="#110518">
+            {parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)}
+          </Text>
         </RowFixed>
       </RowBetween>
       <RowBetween>
-        <Text fontFamily="UbuntuBold" color="#110518">{t('Rates')}</Text>
+        <Text fontFamily="UbuntuBold" color="#110518">
+          {t('Rates')}
+        </Text>
         <Text fontFamily="UbuntuBold" color="#110518">
           {`1 ${currencies[Field.CURRENCY_A]?.symbol} = ${price?.toSignificant(4)} ${
             currencies[Field.CURRENCY_B]?.symbol
@@ -54,8 +64,12 @@ function ConfirmAddModalBottom({
         </Text>
       </RowBetween>
       <RowBetween>
-        <Text fontFamily="UbuntuBold" color="#110518">{t('Share of Pool')}:</Text>
-        <Text fontFamily="UbuntuBold" color="#110518">{noLiquidity ? '100' : poolTokenPercentage?.toSignificant(4)}%</Text>
+        <Text fontFamily="UbuntuBold" color="#110518">
+          {t('Share of Pool')}:
+        </Text>
+        <Text fontFamily="UbuntuBold" color="#110518">
+          {noLiquidity ? '100' : poolTokenPercentage?.toSignificant(4)}%
+        </Text>
       </RowBetween>
       <Button onClick={onAdd} mt="20px" width="100%">
         {noLiquidity ? t('Create Pool & Supply') : t('Confirm Supply')}

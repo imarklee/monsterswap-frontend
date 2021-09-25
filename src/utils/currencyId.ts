@@ -1,4 +1,4 @@
-import { Currency, ETHER, Token } from '@monsterswap/sdk'
+import { Currency, ETHER, Token } from 'monsterswaptestsdk'
 
 export function currencyId(currency: Currency): string {
   if (currency === ETHER) return 'BNB'

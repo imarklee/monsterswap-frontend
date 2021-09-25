@@ -1,8 +1,9 @@
-import { ChainId, JSBI, Percent, Token, WETH } from '@monsterswap/sdk'
+import { ChainId, JSBI, Percent, Token, WETH } from 'monsterswaptestsdk'
 import { BUSD, DAI, USDT, BTCB, CAKE, WBNB, UST, ETH, USDC } from './tokens'
 
 // export const ROUTER_ADDRESS = '0x10ED43C718714eb63d5aA57B78B54704E256024E'
-export const ROUTER_ADDRESS = '0x02D9D19521d47c3B0edeA96300f0Cc808C8DceEA'
+// export const ROUTER_ADDRESS = '0x8Bd727dEFa514d2170b46E7e9299C644cFfd46Bc'
+export const ROUTER_ADDRESS = '0x8Bd727dEFa514d2170b46E7e9299C644cFfd46Bc'
 
 // a list of tokens by chain
 type ChainTokenList = {

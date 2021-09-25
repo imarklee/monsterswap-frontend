@@ -3,7 +3,7 @@ import { Route, useRouteMatch, useLocation, NavLink } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { Image, Checkbox, RowType, Text, Flex, useMatchBreakpoints } from 'uikit'
-import { ChainId } from '@monsterswap/sdk'
+import { ChainId } from 'monsterswaptestsdk'
 import styled from 'styled-components'
 import Page from 'components/Layout/Page'
 import { useFarms, usePollFarmsData, usePriceCakeBusd } from 'state/farms/hooks'
@@ -183,7 +183,6 @@ const FarmHead = styled.div`
   & table {
     width: 100%;
     & td {
-      
       text-align: center;
       line-height: 16px;
       letter-spacing: 0.04em;
@@ -406,7 +405,7 @@ const Farms: React.FC = () => {
     const tokenAddress = token.address
     const quoteTokenAddress = quoteToken.address
     const lpLabel = farm.lpSymbol && farm.lpSymbol.split(' ')[0].toUpperCase().replace('PANCAKE', '')
-    console.log('[farmLiquidity]', farm)
+    // console.log('[farmLiquidity]', farm)
     const row: RowProps = {
       apr: {
         value: getDisplayApr(farm.apr, farm.lpRewardsApr),
@@ -528,7 +527,7 @@ const Farms: React.FC = () => {
   }
 
   const LiquidityHead = styled.div`
-    background: #49468A;
+    background: #49468a;
     border-radius: 70px;
     padding: 12px 10px;
     color: white;
@@ -538,7 +537,7 @@ const Farms: React.FC = () => {
     width: 130px;
   `
   const TdElement = styled.div`
-    background: #49468A;
+    background: #49468a;
     border-radius: 70px;
     color: white;
     padding: 12px 10px;
@@ -569,19 +568,21 @@ const Farms: React.FC = () => {
             <table>
               <thead>
                 <tr>
-                <td><TdElement>HOT</TdElement></td>
+                  <td>
+                    <TdElement>HOT</TdElement>
+                  </td>
                   <td>LP</td>
                   <td>APR</td>
-                  {isXl?
+                  {isXl ? (
                     <td>
                       <LiquidityHead>
                         Liquidity
                         <WhiteArrowDown />
                       </LiquidityHead>
                     </td>
-                    :
+                  ) : (
                     <td>Liquidity</td>
-                  }
+                  )}
                   <td style={{ textAlign: 'left' }}>Earned</td>
                   <td />
                 </tr>
@@ -590,7 +591,7 @@ const Farms: React.FC = () => {
           </FarmHead>
         )}
         {renderContent()}
-        
+
         {account && !userDataLoaded && stakedOnly && (
           <Flex justifyContent="center">
             <Loading />
@@ -599,7 +600,6 @@ const Farms: React.FC = () => {
         <div ref={loadMoreRef} />
         <StyledImage src="/images/decorations/monster-farms.png" alt="Monster Farms" width={280} height={88} />
       </Page>
-      
     </>
   )
 }

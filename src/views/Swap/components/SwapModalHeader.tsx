@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Trade, TradeType } from '@monsterswap/sdk'
+import { Trade, TradeType } from 'monsterswaptestsdk'
 import { Button, Text, ErrorIcon, ArrowDownIcon } from 'uikit'
 import { Field } from 'state/swap/actions'
 import { isAddress, shortenAddress } from 'utils'

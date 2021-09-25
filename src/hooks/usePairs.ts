@@ -1,4 +1,4 @@
-import { TokenAmount, Pair, Currency } from '@monsterswap/sdk'
+import { TokenAmount, Pair, Currency } from 'monsterswaptestsdk'
 import { useMemo } from 'react'
 import { abi as IUniswapV2PairABI } from '@uniswap/v2-core/build/IUniswapV2Pair.json'
 // import monsterRouterABI from 'config/abi/monsterRouter.json'
@@ -36,7 +36,7 @@ export function usePairs(currencies: [Currency | undefined, Currency | undefined
       }),
     [tokens],
   )
-
+  console.error(pairAddresses)
   const results = useMultipleContractSingleData(pairAddresses, PAIR_INTERFACE, 'getReserves')
 
   return useMemo(() => {

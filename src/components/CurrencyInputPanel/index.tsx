@@ -1,5 +1,5 @@
 import React from 'react'
-import { Currency, Pair } from '@monsterswap/sdk'
+import { Currency, Pair } from 'monsterswaptestsdk'
 import { Button, ChevronDownIcon, Text, SupperText, useModal, Flex } from 'uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'
@@ -59,7 +59,7 @@ interface CurrencyInputPanelProps {
   hideInput?: boolean
   otherCurrency?: Currency | null
   id: string
-  showCommonBases?: boolean,
+  showCommonBases?: boolean
   children?: React.ReactNode
 }
 export default function CurrencyInputPanel({
@@ -73,7 +73,7 @@ export default function CurrencyInputPanel({
   currency,
   disableCurrencySelect = false,
   hideBalance = false,
-  showText = "",
+  showText = '',
   pair = null, // used for double token logo
   hideInput = false,
   otherCurrency,
@@ -112,7 +112,7 @@ export default function CurrencyInputPanel({
           </LabelRow>
         )} */}
         <InputRow style={hideInput ? { padding: '0', borderRadius: '8px' } : {}} selected={disableCurrencySelect}>
-          { showText === "" ? (
+          {showText === '' ? (
             <CurrencySelectButton
               selected={!!currency}
               className="open-currency-select-button"
@@ -131,18 +131,14 @@ export default function CurrencyInputPanel({
                 {pair ? (
                   <Text id="pair">
                     {account && currency && showMaxButton && label !== 'To' && (
-                      <SupperText onClick={onMax} >
-                        MAX
-                      </SupperText>
+                      <SupperText onClick={onMax}>MAX</SupperText>
                     )}
                     {pair?.token0.symbol}:{pair?.token1.symbol}
                   </Text>
                 ) : (
                   <Text id="pair" fontFamily="UbuntuBold" fontSize="22px" bold>
                     {account && currency && showMaxButton && label !== 'To' && (
-                      <SupperText onClick={onMax} >
-                        MAX
-                      </SupperText>
+                      <SupperText onClick={onMax}>MAX</SupperText>
                     )}
                     {(currency && currency.symbol && currency.symbol.length > 20
                       ? `${currency.symbol.slice(0, 4)}...${currency.symbol.slice(
@@ -157,32 +153,32 @@ export default function CurrencyInputPanel({
             </CurrencySelectButton>
           ) : (
             <Text id="pair" fontFamily="UbuntuBold" fontSize="22px" bold>
-              { t('Amount to Remove') }
+              {t('Amount to Remove')}
             </Text>
           )}
           {!hideInput && (
             <>
-            { showText === "" ? (
-              <NumericalInput
-              className="token-amount-input"
-              value={value}
-              onUserInput={(val) => {  
-                onUserInput(val)
-              }}
-            />
-          ) : (
-            <NumericalInput
-            className="token-amount-input"
-            value={value}
-            onUserInput={(val) => { 
-              onUserInputNumberValue(Number(val))
-            }}
-          />
-        )}
+              {showText === '' ? (
+                <NumericalInput
+                  className="token-amount-input"
+                  value={value}
+                  onUserInput={(val) => {
+                    onUserInput(val)
+                  }}
+                />
+              ) : (
+                <NumericalInput
+                  className="token-amount-input"
+                  value={value}
+                  onUserInput={(val) => {
+                    onUserInputNumberValue(Number(val))
+                  }}
+                />
+              )}
             </>
           )}
         </InputRow>
-        { children }
+        {children}
       </Container>
     </InputPanel>
   )

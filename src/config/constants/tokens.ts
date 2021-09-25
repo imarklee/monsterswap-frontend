@@ -1,4 +1,4 @@
-import { ChainId, Token } from '@monsterswap/sdk'
+import { ChainId, Token } from 'monsterswaptestsdk'
 
 // export const CAKE: { [chainId: number]: Token } = {
 //   [ChainId.MAINNET]: new Token(
@@ -26,7 +26,7 @@ export const CAKE: { [chainId: number]: Token } = {
   ),
   [ChainId.TESTNET]: new Token(
     ChainId.TESTNET,
-    '0x23040c7b54112a6E6e70559d49114Ed80C41C282',
+    '0xCA327104411fa8e96C2E928e9685b26165C96907',
     18,
     'MONSTER',
     'MonsterSwap Token',
@@ -65,7 +65,6 @@ export const WBNB: { [chainId: number]: Token } = {
     'Wrapped BNB',
   ),
 }
-
 
 // export const WBNB = new Token(ChainId.MAINNET, '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', 18, 'WBNB', 'Wrapped BNB')
 export const DAI = new Token(ChainId.MAINNET, '0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3', 18, 'DAI', 'Dai Stablecoin')
@@ -1857,7 +1856,7 @@ const tokens = {
     symbol: 'MON',
     address: {
       56: '0x0E09FaBB73Bd3Ade0a17ECC321fD13a19e81cE82',
-      97: '0x23040c7b54112a6E6e70559d49114Ed80C41C282',
+      97: '0xCA327104411fa8e96C2E928e9685b26165C96907',
     },
     decimals: 18,
     projectLink: 'https://monsterswap.net/',
@@ -1865,8 +1864,8 @@ const tokens = {
   btse: {
     symbol: 'BTSE',
     address: {
-      56: '0x23040c7b54112a6E6e70559d49114Ed80C41C282',
-      97: '0x23040c7b54112a6E6e70559d49114Ed80C41C282',
+      56: '0xCA327104411fa8e96C2E928e9685b26165C96907',
+      97: '0xCA327104411fa8e96C2E928e9685b26165C96907',
     },
     decimals: 18,
     projectLink: 'https://www.btse.com/',

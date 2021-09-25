@@ -1,4 +1,4 @@
-import { Token, TokenAmount } from '@monsterswap/sdk'
+import { Token, TokenAmount } from 'monsterswaptestsdk'
 import { useMemo } from 'react'
 import { useAllTokenBalances } from '../../state/wallet/hooks'
 

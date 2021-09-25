@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Token, Currency } from '@monsterswap/sdk'
+import { Token, Currency } from 'monsterswaptestsdk'
 import { Button, Text, ErrorIcon, Flex, Message, Checkbox, Tag, Grid } from 'uikit'
 import { AutoColumn } from 'components/Layout/Column'
 import { useAddUserToken } from 'state/user/hooks'
@@ -61,7 +61,9 @@ function ImportToken({ tokens, handleCurrencySelect }: ImportProps) {
               </Tag>
             )}
             <Flex alignItems="center">
-              <Text mr="8px" fontFamily="Ubuntu">{token.name}</Text>
+              <Text mr="8px" fontFamily="Ubuntu">
+                {token.name}
+              </Text>
               <Text fontFamily="Ubuntu">({token.symbol})</Text>
             </Flex>
             {chainId && (

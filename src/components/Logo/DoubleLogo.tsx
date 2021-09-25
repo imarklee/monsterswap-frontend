@@ -1,4 +1,4 @@
-import { Currency } from '@monsterswap/sdk'
+import { Currency } from 'monsterswaptestsdk'
 import React from 'react'
 import styled from 'styled-components'
 import CurrencyLogo from './CurrencyLogo'
