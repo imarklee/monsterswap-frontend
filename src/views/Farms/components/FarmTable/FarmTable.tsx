@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useTable, Button, ChevronUpIcon, ColumnType, useMatchBreakpoints } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
@@ -44,6 +44,11 @@ const StyledCell = styled.div`
     padding: 0 20px;
   }
 `
+
+const FarmBody = styled.table`
+  width: 100%;
+`
+
 const TableHead = styled.thead`
   filter: ${({ theme }) => theme.card.dropShadow};
   border-radius: 10px;
@@ -71,8 +76,8 @@ const TableHead = styled.thead`
 `
 
 const TableBody = styled.tbody`
-  border-radius: 10px;
   & tr {
+    border-radius: 10px;
     border: none;
     td {
       font-size: 16px;
@@ -106,11 +111,11 @@ const FarmHead = styled.div`
   & table {
     width: 100%;
     & td {
-      
       text-align: center;
       line-height: 16px;
       letter-spacing: 0.04em;
       color: #464486;
+      font-size: 9px;
       ${({ theme }) => theme.mediaQueries.xs} {
         font-size: 10px;
         padding-left: 20px;
@@ -131,15 +136,26 @@ const FarmHead = styled.div`
   }
 `
 const TdElement = styled.div`
-    background: #49468A;
-    border-radius: 70px;
-    color: white;
-    padding: 12px 10px;
-  `
+  background: #49468a;
+  border-radius: 70px;
+  color: white;
+  padding: 12px 10px;
+`
+const CustomButton = styled(Button)`
+  font-size: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 14px;
+  }
+`
 const FarmTable: React.FC<ITableProps> = (props) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null)
   const { isXl } = useMatchBreakpoints()
   const { t } = useTranslation()
+
+  const [sortState, setSortState] = useState(0)
   const { data, columns, userDataReady } = props
 
   const { rows } = useTable(columns, data, { sortable: true, sortColumn: 'farm' })
@@ -153,40 +169,81 @@ const FarmTable: React.FC<ITableProps> = (props) => {
   return (
     <Container>
       <StyledTable role="table" ref={tableWrapperEl}>
-         <FarmHead>
-            <table>
-              <thead>
-                <tr>
-                  <td width="5%"><TdElement>HOT</TdElement></td>
-                    <td width="7%">LP</td>
-                    <td width="12%">APR</td>
-                    {isXl?
-                      <td width="17%">
-                        <LiquidityHead>
+        <FarmHead>
+          <table>
+            <thead>
+              <tr>
+                <td width="10%">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(0)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 0 ? <TdElement>HOT</TdElement> : <span>HOT</span>}
+                  </div>
+                </td>
+                <td width="15%">LP</td>
+                <td width="17%">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(2)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 2 ? <TdElement>APR</TdElement> : <span>APR</span>}
+                  </div>
+                </td>
+                <td width="8%">
+                  {/* <LiquidityHead>
                           Liquidity
-                          <WhiteArrowDown />
-                        </LiquidityHead>
-                      </td>
-                      :
-                      <td width="17%">Liquidity</td>
-                    }
-                    <td width="15%" style={{ textAlign: 'left' }}>Earned</td>
-                    <td  width="15%"/>
-                </tr>
-              </thead>
-            </table>
-          </FarmHead>
-        <TableBody>
-          {rows.map((row) => {
-            return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
-          })}
-        </TableBody>
+                        <WhiteArrowDown /> }
+                    </LiquidityHead>  */}
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(3)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
+                  </div>
+                </td>
+                <td width="35%">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(4)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
+                  </div>
+                </td>
+                <td width="15%" />
+              </tr>
+            </thead>
+          </table>
+        </FarmHead>
+        <FarmBody>
+          <TableBody>
+            {rows.map((row) => {
+              return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
+            })}
+          </TableBody>
+        </FarmBody>
       </StyledTable>
       <ScrollButtonContainer>
-        <Button variant="text" onClick={scrollToTop}>
+        <CustomButton variant="text" onClick={scrollToTop}>
           {t('To Top')}
           <ChevronUpIcon color="primary" />
-        </Button>
+        </CustomButton>
       </ScrollButtonContainer>
     </Container>
   )

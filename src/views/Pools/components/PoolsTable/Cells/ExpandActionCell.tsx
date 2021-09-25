@@ -13,7 +13,6 @@ import BaseCell from './BaseCell'
 
 interface ExpandActionCellProps {
   expanded: boolean
-  isFullLayout: boolean
   account: any
   pool: any
   userDataLoaded: boolean
@@ -39,7 +38,7 @@ const StyledCell = styled(BaseCell)`
   }
 `
 
-const TotalStakedCell: React.FC<ExpandActionCellProps> = ({ expanded, account, pool, userDataLoaded, isFullLayout }) => {
+const TotalStakedCell: React.FC<ExpandActionCellProps> = ({ expanded, account, pool, userDataLoaded }) => {
   const { t } = useTranslation()
   const { isVaultApproved } = useCheckVaultApprovalStatus()
   const isBnbPool = pool.poolCategory === PoolCategory.BINANCE
@@ -59,7 +58,7 @@ const TotalStakedCell: React.FC<ExpandActionCellProps> = ({ expanded, account, p
   )
   return (
     <StyledCell role="cell">
-      { isFullLayout && actionButtons()}
+      { actionButtons()}
       { expanded ? <ArrowUp /> : <ArrowDown /> }
     </StyledCell>
   )

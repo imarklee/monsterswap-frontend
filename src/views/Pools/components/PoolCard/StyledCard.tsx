@@ -75,7 +75,7 @@ export const StyledCardBody = styled.div`
     color: #4e4e9d;
   }
   & button {
-    font-family: FunHouse;
+    font-family: 'FunHouse';
     background: #49468a;
     font-size: 14px;
     border: none;

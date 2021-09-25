@@ -33,34 +33,32 @@ const CardActions: React.FC<CardActionsProps> = ({ pool, stakedBalance, isExpand
   const isLoading = !userData
 
   return (
-    <Flex flexDirection="column">
-      <Flex flexDirection="column">
-        {harvest && (
-          <HarvestActions
-            earnings={earnings}
-            earningToken={earningToken}
-            sousId={sousId}
-            earningTokenPrice={earningTokenPrice}
-            isBnbPool={isBnbPool}
-            isLoading={isLoading}
-            needsApproval={needsApproval}
-            pool={pool}
-            isExpanded={isExpanded}
-            setExpanded={setExpanded}
-          />
-        )}
-        {isExpanded && !needsApproval && (
-          <StakeActions
-            isLoading={isLoading}
-            pool={pool}
-            stakingTokenBalance={stakingTokenBalance}
-            stakedBalance={stakedBalance}
-            isBnbPool={isBnbPool}
-            isStaked={isStaked}
-          />
-        )}
-      </Flex>
-    </Flex>
+    <>
+      {harvest && (
+        <HarvestActions
+          earnings={earnings}
+          earningToken={earningToken}
+          sousId={sousId}
+          earningTokenPrice={earningTokenPrice}
+          isBnbPool={isBnbPool}
+          isLoading={isLoading}
+          needsApproval={needsApproval}
+          pool={pool}
+          isExpanded={isExpanded}
+          setExpanded={setExpanded}
+        />
+      )}
+      {/* {isExpanded && !needsApproval && (
+        <StakeActions
+          isLoading={isLoading}
+          pool={pool}
+          stakingTokenBalance={stakingTokenBalance}
+          stakedBalance={stakedBalance}
+          isBnbPool={isBnbPool}
+          isStaked={isStaked}
+        />
+      )} */}
+    </>
   )
 }
 

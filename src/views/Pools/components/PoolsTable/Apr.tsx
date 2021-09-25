@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { Flex, useModal, CalculateIcon, Skeleton, FlexProps, Button } from 'uikit'
 import ApyCalculatorModal from 'components/ApyCalculatorModal'
 import Balance from 'components/Balance'
@@ -12,6 +13,15 @@ interface AprProps extends FlexProps {
   showIcon: boolean
   performanceFee?: number
 }
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: Ubuntu;
+  color: #4e4e9d;
+  font-weight: 700;
+`
 
 const Apr: React.FC<AprProps> = ({ pool, showIcon, performanceFee = 0, ...props }) => {
   const { stakingToken, earningToken, isFinished, earningTokenPrice, apr } = pool
@@ -31,7 +41,7 @@ const Apr: React.FC<AprProps> = ({ pool, showIcon, performanceFee = 0, ...props 
       roundingDecimals={roundingDecimals}
       compoundFrequency={compoundFrequency}
       performanceFee={performanceFee}
-    />,
+    />
   )
 
   const openRoiModal = (event: React.MouseEvent<HTMLElement>) => {
@@ -40,27 +50,30 @@ const Apr: React.FC<AprProps> = ({ pool, showIcon, performanceFee = 0, ...props 
   }
 
   return (
-    <Flex alignItems="center" justifyContent="space-between" {...props}>
-      {earningsPercentageToDisplay || isFinished ? (
-        <>
-          <Balance
-            onClick={openRoiModal}
-            fontSize="16px"
-            isDisabled={isFinished}
-            value={isFinished ? 0 : earningsPercentageToDisplay}
-            decimals={2}
-            unit="%"
-          />
-          {!isFinished && showIcon && (
-            <Button onClick={openRoiModal} variant="text" width="20px" height="20px" padding="0px" marginLeft="4px">
-              <CalculateIcon color="textSubtle" width="20px" />
-            </Button>
-          )}
-        </>
-      ) : (
-        <Skeleton width="80px" height="16px" />
-      )}
-    </Flex>
+    <Wrapper>
+      99,999.99%
+    </Wrapper>
+    // <Flex alignItems="center" justifyContent="space-between" {...props}>
+    //   {earningsPercentageToDisplay || isFinished ? (
+    //     <>
+    //       <Balance
+    //         onClick={openRoiModal}
+    //         fontSize="16px"
+    //         isDisabled={isFinished}
+    //         value={isFinished ? 0 : earningsPercentageToDisplay}
+    //         decimals={2}
+    //         unit="%"
+    //       />
+    //       {!isFinished && showIcon && (
+    //         <Button onClick={openRoiModal} variant="text" width="20px" height="20px" padding="0px" marginLeft="4px">
+    //           <CalculateIcon color="textSubtle" width="20px" />
+    //         </Button>
+    //       )}
+    //     </>
+    //   ) : (
+    //     <Skeleton width="80px" height="16px" />
+    //   )}
+    // </Flex>
   )
 }
 

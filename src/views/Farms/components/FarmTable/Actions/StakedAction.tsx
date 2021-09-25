@@ -28,6 +28,18 @@ interface StackedActionProps extends FarmWithStakedValue {
   userDataReady: boolean
 }
 
+const CustomConnectWalletButton = styled(ConnectWalletButton)`
+  font-size: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 14px;
+    padding: 12px 30px;
+    width: 200px;
+  }
+`
+
 const Staked: React.FunctionComponent<StackedActionProps> = ({
   pid,
   lpSymbol,
@@ -92,11 +104,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
     return (
       <ActionContainer>
         <ActionContent>
-          <ConnectWalletButton
-            scale="sm"
-            btnText="Unlock Wallet"
-            style={{ padding: '12px 16px', borderRadius: '16px' }}
-          />
+          <CustomConnectWalletButton btnText="Unlock Wallet" style={{ padding: '12px 16px', borderRadius: '16px' }} />
         </ActionContent>
       </ActionContainer>
     )

@@ -33,6 +33,39 @@ const ArrowWrapper = styled.div`
   cursor: pointer;
 `
 
+const EarnedText = styled.div`
+  & h2 {
+    font-family: 'Funhouse';
+    font-size: 12px;
+    font-weight: normal;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-family: 'Ubuntu';
+      font-size: 14px;
+    }
+  }
+
+  & p {
+    font-family: 'Ubuntu';
+    font-size: 12px;
+
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+`
+
+const RoundedButton = styled(Button)`
+  border-radius: 18px;
+  font-size: 10px !important;
+  padding: 12px 16px;
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 14px !important;
+  }
+`
+
 const HarvestActions: React.FC<HarvestActionsProps> = ({
   earnings,
   earningToken,
@@ -68,49 +101,35 @@ const HarvestActions: React.FC<HarvestActionsProps> = ({
   )
 
   return (
-    <Flex justifyContent="space-between" alignItems="center" mb="16px">
-      <Flex flexDirection="column">
-        {isLoading ? (
-          <Skeleton width="80px" height="48px" />
-        ) : (
-          <>
-            <p>{t('Earned')}</p>
-            {hasEarnings ? (
-              <>
-                <Balance decimals={5} value={earningTokenBalance} />
-                {/* {earningTokenPrice > 0 && (
-                  <Balance
-                    display="inline"
-                    fontSize="12px"
-                    color="textSubtle"
-                    decimals={2}
-                    prefix="~"
-                    value={earningTokenDollarBalance}
-                    unit=" USD"
-                  />
-                )} */}
-              </>
+    <Flex alignItems="center" justifyContent="space-between">
+      {isLoading ? (
+        <Skeleton width="80px" height="48px" />
+      ) : (
+        <>
+          <EarnedText>
+            <h2>{t('Earned')}</h2>
+            <p>999, 999, 999</p>
+            {/* {hasEarnings ? (
+              <Balance decimals={5} value={earningTokenBalance} />
             ) : (
-              <>
-                <span>0</span>
-                {/* <Text fontSize="12px" color="textDisabled">
-                  0 USD
-                </Text> */}
-              </>
-            )}
-          </>
-        )}
-      </Flex>
-      <Flex>
-        {needsApproval && <ApprovalAction pool={pool} isLoading={isLoading} />}
-        {hasEarnings && (
-          <Button onClick={onPresentCollect}>
-            {/* {isCompoundPool ? t('Collect') : t('Harvest')} */}
-            {t('Compound')}
-          </Button>
-        )}
-        <ArrowWrapper onClick={setExpanded}>{isExpanded ? <ArrowUp /> : <ArrowDown />}</ArrowWrapper>
-      </Flex>
+              <h2>0</h2>
+            )} */}
+          </EarnedText>
+          <Flex>
+            {/* {needsApproval && <ApprovalAction pool={pool} isLoading={isLoading} />} */}
+            {/* {hasEarnings && (
+              <Button onClick={onPresentCollect}>
+                {t('Compound')}
+              </Button>
+            )} */}
+            <RoundedButton onClick={onPresentCollect}>
+              {/* {isCompoundPool ? t('Collect') : t('Harvest')} */}
+              {t('Compound')}
+            </RoundedButton>
+            <ArrowWrapper onClick={setExpanded}>{isExpanded ? <ArrowUp /> : <ArrowDown />}</ArrowWrapper>
+          </Flex>
+        </>
+      )}
     </Flex>
   )
 }

@@ -5,15 +5,15 @@ import { Token } from 'config/constants/types'
 import { getAddress } from 'utils/addressHelpers'
 
 interface NFTImageProps {
-  token: Token,
-  quoteToken: Token,
-  list?: boolean,
+  token: Token
+  quoteToken: Token
+  list?: boolean
 }
 
-const StyledImage = styled.img<{ list: boolean }>`
+const StyledImage = styled.img<{ list: number }>`
   margin-top: 30px;
-  width: ${({ list }) => list ? '38px' : '30px'};
-  height: ${({ list }) => list ? '38px' : '30px'};
+  width: ${({ list }) => (list ? '38px' : '30px')};
+  height: ${({ list }) => (list ? '38px' : '30px')};
 `
 
 const NFTImage: React.FC<NFTImageProps> = (props) => {
@@ -25,8 +25,8 @@ const NFTImage: React.FC<NFTImageProps> = (props) => {
 
   return (
     <>
-      <StyledImage src={getImageUrl(token)} list={list} />
-      <StyledImage src={getImageUrl(quoteToken)} list={list} />
+      <StyledImage src={getImageUrl(token)} list={list ? 1 : 0} />
+      <StyledImage src={getImageUrl(quoteToken)} list={list ? 1 : 0} />
     </>
   )
 }

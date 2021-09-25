@@ -57,6 +57,7 @@ const FCard = styled.div<{ isPromotedFarm: boolean }>`
   justify-content: space-around;
   position: relative;
   text-align: center;
+  background-color: #EAF2F7;
 `
 
 // const Divider = styled.div`
