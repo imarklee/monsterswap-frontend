@@ -9,7 +9,7 @@ export const getAddress = (address: Address): string => {
 }
 
 export const getCakeAddress = () => {
-  return getAddress(tokens.cake.address)
+  return getAddress(tokens.monster.address)
 }
 export const getMonsterAddress = () => {
   return getAddress(tokens.monster.address)
