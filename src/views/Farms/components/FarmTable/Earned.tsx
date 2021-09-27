@@ -37,10 +37,10 @@ const Earned: React.FunctionComponent<EarnedPropsWithLoading> = ({ earnings, use
     </>
   )
 
-  // return userDataReady
-    // ? earnings ? <Wrapper>{earnings.toLocaleString()}</Wrapper> : tooltipElement
-    // : tooltipElement
-    return <Wrapper>999,999.999</Wrapper>
+  return userDataReady
+    ? earnings ? <Wrapper>{earnings.toLocaleString()}</Wrapper> : tooltipElement
+    : tooltipElement
+    // return <Wrapper>999,999.999</Wrapper>
 }
 
 export default Earned

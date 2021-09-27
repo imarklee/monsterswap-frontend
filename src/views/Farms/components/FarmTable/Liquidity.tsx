@@ -15,8 +15,7 @@ const Liquidity: React.FunctionComponent<LiquidityProps> = ({ liquidity }) => {
   const displayLiquidity =
     liquidity && liquidity.gt(0) && `$${Number(liquidity).toLocaleString(undefined, { maximumFractionDigits: 0 })}`
   
-  // return displayLiquidity ? <Wrapper>{displayLiquidity}</Wrapper> : <Wrapper />
-  return <Wrapper>999,999,999</Wrapper>
+  return displayLiquidity ? <Wrapper>{displayLiquidity}</Wrapper> : <Wrapper />  
 }
 
 export default Liquidity

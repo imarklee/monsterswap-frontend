@@ -37,24 +37,10 @@ const Apr: React.FC<AprProps> = ({
   const liquidityUrlPathParts = getLiquidityUrlPathParts({ quoteTokenAddress, tokenAddress })
   const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
 
-  // return originalValue ?
-  //   <Wrapper>
-  //     {originalValue.toFixed(2)}%
-  //     {!hideButton && (
-  //       <ApyButton
-  //         lpLabel={lpLabel}
-  //         cakePrice={cakePrice}
-  //         apr={originalValue}
-  //         displayApr={value}
-  //         addLiquidityUrl={addLiquidityUrl}
-  //       />
-  //     )}
-  //   </Wrapper>
-
-  //   : <Wrapper />
-  return <Wrapper>
-      99,999.99%
-      {/* {!hideButton && (
+  return originalValue ?
+    <Wrapper>
+      {originalValue.toFixed(2)}%
+      {!hideButton && (
         <ApyButton
           lpLabel={lpLabel}
           cakePrice={cakePrice}
@@ -62,7 +48,20 @@ const Apr: React.FC<AprProps> = ({
           displayApr={value}
           addLiquidityUrl={addLiquidityUrl}
         />
-      )} */}
+      )}
+    </Wrapper>
+
+    : <Wrapper />
+  return <Wrapper>  
+      {!hideButton && (
+        <ApyButton
+          lpLabel={lpLabel}
+          cakePrice={cakePrice}
+          apr={originalValue}
+          displayApr={value}
+          addLiquidityUrl={addLiquidityUrl}
+        />
+      )}
     </Wrapper>
 }
 
