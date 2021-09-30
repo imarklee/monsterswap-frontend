@@ -1,4 +1,4 @@
-import { ChainId, Token } from '@monsterswap/sdk'
+import { ChainId, Token } from 'monsterswaptestsdk'
 import { Tags, TokenInfo, TokenList } from '@uniswap/token-lists'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'

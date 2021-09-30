@@ -1,4 +1,4 @@
-import { ChainId } from '@monsterswap/sdk'
+import { ChainId } from 'monsterswaptestsdk'
 import { createStore, Store } from 'redux'
 import { updateBlockNumber } from './actions'
 import reducer, { ApplicationState } from './reducer'

@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { Currency, Token } from '@monsterswap/sdk'
+import { Currency, Token } from 'monsterswaptestsdk'
 import {
   ModalContainer,
   ModalHeader,
@@ -91,7 +91,7 @@ export default function CurrencySearchModal({
       <ModalHeader>
         <ModalTitle>
           {config[modalView].onBack && <ModalBackButton onBack={config[modalView].onBack} />}
-          <Heading fontFamily="UbuntuBold" >{config[modalView].title}</Heading>
+          <Heading fontFamily="UbuntuBold">{config[modalView].title}</Heading>
         </ModalTitle>
         <ModalCloseButton onDismiss={onDismiss} />
       </ModalHeader>
@@ -120,7 +120,7 @@ export default function CurrencySearchModal({
           ''
         )}
         {modalView === CurrencyModalView.search && (
-          <Footer style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <Footer style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <EditIcon width="27px" color="white" />
             <Button
               scale="sm"

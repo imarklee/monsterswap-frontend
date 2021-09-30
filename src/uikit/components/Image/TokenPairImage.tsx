@@ -1,6 +1,6 @@
 import React from 'react'
 import { TokenPairImageProps, variants } from './types'
-import { StyledPrimaryImage, StyledSecondaryImage } from './styles'
+import { StyledTreeImage, StyledPrimaryImage, StyledSecondaryImage } from './styles'
 import Wrapper from './Wrapper'
 
 const TokenPairImage: React.FC<TokenPairImageProps> = ({
@@ -8,6 +8,7 @@ const TokenPairImage: React.FC<TokenPairImageProps> = ({
   secondarySrc,
   width,
   height,
+  list,
   variant = variants.DEFAULT,
   primaryImageProps = {},
   secondaryImageProps = {},
@@ -17,12 +18,26 @@ const TokenPairImage: React.FC<TokenPairImageProps> = ({
 
   return (
     <Wrapper position="relative" width={width} height={height} {...props}>
-      <StyledPrimaryImage variant={variant} src={primarySrc} width={width} height={height} {...primaryImageProps} />
+      {/* <StyledTreeImage 
+        variant={variant} 
+        src="/images/farms/tree.svg"
+        width={width}
+        height={height}
+      /> */}
+      <StyledPrimaryImage 
+        variant={variant} 
+        src={primarySrc}
+        width={width}
+        height={height}
+        list={list}
+        {...primaryImageProps}
+      />
       <StyledSecondaryImage
         variant={variant}
-        src={secondarySrc}
+        src={primarySrc}
         width={secondaryImageSize}
         height={secondaryImageSize}
+        list={list}
         {...secondaryImageProps}
       />
     </Wrapper>

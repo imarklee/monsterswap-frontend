@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { variant as StyledSystemVariant } from 'styled-system'
 import { ImageProps, Variant, variants } from './types'
+import Image from './Image'
 import TokenImage from './TokenImage'
 
 interface StyledImageProps extends ImageProps {
@@ -8,50 +9,23 @@ interface StyledImageProps extends ImageProps {
 }
 
 export const StyledPrimaryImage = styled(TokenImage)<StyledImageProps>`
-  position: absolute;
-  width: ${({ variant }) =>
-    variant === variants.DEFAULT ? '92%' : '82%'}; // 92, 82 are arbitrary numbers to fit the variant
-
-  ${StyledSystemVariant({
-    variants: {
-      [variants.DEFAULT]: {
-        bottom: 'auto',
-        left: 0,
-        right: 'auto',
-        top: 0,
-        zIndex: 5,
-      },
-      [variants.INVERTED]: {
-        bottom: 0,
-        left: 'auto',
-        right: 0,
-        top: 'auto',
-        zIndex: 6,
-      },
-    },
-  })}
+  width: ${({ list }) => list ? '35px' : '25px'};
+  height: ${({ list }) => list ? '35px' : '25px'};
 `
 
 export const StyledSecondaryImage = styled(TokenImage)<StyledImageProps>`
-  position: absolute;
-  width: 50%;
+  width: ${({ list }) => list ? '35px' : '25px'};
+  height: ${({ list }) => list ? '35px' : '25px'};
+`
 
-  ${StyledSystemVariant({
-    variants: {
-      [variants.DEFAULT]: {
-        bottom: 0,
-        left: 'auto',
-        right: 0,
-        top: 'auto',
-        zIndex: 6,
-      },
-      [variants.INVERTED]: {
-        bottom: 'auto',
-        left: 0,
-        right: 'auto',
-        top: 0,
-        zIndex: 5,
-      },
-    },
-  })}
+export const ListPrimaryImage = styled(TokenImage)<StyledImageProps>``
+
+export const ListSecondaryImage = styled(TokenImage)<StyledImageProps>``
+
+
+const TreeImage = styled(Image)``
+
+export const StyledTreeImage = styled(TreeImage)<StyledImageProps>`
+  position: absolute;
+  width: 100%;
 `

@@ -1,4 +1,4 @@
-import { Token } from '@monsterswap/sdk'
+import { Token } from 'monsterswaptestsdk'
 import { SerializedToken } from '../actions'
 
 export function serializeToken(token: Token): SerializedToken {

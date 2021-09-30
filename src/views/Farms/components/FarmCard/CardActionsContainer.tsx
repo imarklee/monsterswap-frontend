@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import BigNumber from 'bignumber.js'
-import { Button, Flex } from 'uikit'
+import { Button, Flex, useMatchBreakpoints } from 'uikit'
 import { getAddress } from 'utils/addressHelpers'
 import { useAppDispatch } from 'state'
 import { fetchFarmUserDataAsync } from 'state/farms'
@@ -19,7 +19,14 @@ const Action = styled.div`
   & button {
     background: #49468a;
     height: 40px;
-    font-size: 14px;
+    font-size: 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+      padding: 12px 30px;
+    }
     margin-top: 0;
     & svg {
       fill: white;
@@ -41,7 +48,8 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
   const { t } = useTranslation()
   const [requestedApproval, setRequestedApproval] = useState(false)
   const { pid, lpAddresses } = farm
-
+  const { isXs, isSm, isMd, isLg, isXl } = useMatchBreakpoints()
+  const isMobile = !isXl
   const {
     allowance: allowanceAsString = 0,
     tokenBalance: tokenBalanceAsString = 0,
@@ -81,12 +89,18 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
         addLiquidityUrl={addLiquidityUrl}
       />
     ) : (
-      <Button mt="8px" disabled={requestedApproval} onClick={handleApprove}>
+      <Button mt="8px" disabled={requestedApproval} style={{ borderRadius: '16px' }} onClick={handleApprove}>
         {t('Enable')}
       </Button>
     )
   }
 
+  const SpanElement = styled.span`
+    font-size: 12px;
+    color: #4e4e9d;
+    letter-spacing: 0.01em;
+  `
+  
   return (
     <Action>
       {isApproved && stakedBalance.gt(0) ? (
@@ -94,12 +108,20 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
       ) : (
         <Flex flex={1} justifyContent="space-between" alignItems="center">
           {!isApproved && (
+            isMobile?
             <div style={{ textAlign: 'left' }}>
-              <p>Banana Earned</p>
-              <h2>?</h2>
+              <p><SpanElement>Earned</SpanElement></p>
+              {/* <h2>?</h2> */}
+              <SpanElement style={{ fontFamily: "Ubuntu" }}>999,999.999</SpanElement>
             </div>
+            : 
+            <div style={{ textAlign: 'left' }}>
+            <p>Earned</p>
+            {/* <h2>?</h2> */}
+            <h2 style={{ fontFamily: "Ubuntu" }}>999,999.999</h2>
+          </div>
           )}
-          {!account ? <ConnectWalletButton mt="8px" width="100%" /> : renderApprovalOrStakeButton()}
+          {!account ? <ConnectWalletButton btnText="Unlock Wallet" style={{ padding: '12px 16px', borderRadius: '16px', color: 'white', border: '0px' }} /> : renderApprovalOrStakeButton()}
         </Flex>
       )}
       {expanded && isApproved && stakedBalance.gt(0) && renderApprovalOrStakeButton()}

@@ -1,4 +1,4 @@
-import { ChainId } from '@monsterswap/sdk'
+import { ChainId } from 'monsterswaptestsdk'
 import { createStore, Store } from 'redux'
 import { addTransaction, checkedTransaction, clearAllTransactions, finalizeTransaction } from './actions'
 import reducer, { initialState, TransactionState } from './reducer'

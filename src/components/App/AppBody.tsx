@@ -5,7 +5,10 @@ import { Card } from 'uikit'
 export const BodyWrapper = styled(Card)`
   border-radius: 10px;
   // max-width: 436px;
-  max-width: 40%;
+  // max-width: 40%;
+  @media (min-width: 768px) {
+    max-width: 40%;
+  }
   width: 100%;
   z-index: 1;
   background: ${({ theme }) => theme.colors.gradients.bubblegum};

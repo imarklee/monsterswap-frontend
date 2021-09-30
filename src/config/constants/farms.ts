@@ -9,7 +9,7 @@ const farms: FarmConfig[] = [
     pid: 0,
     lpSymbol: 'MONSTER',
     lpAddresses: {
-      97: '0x23040c7b54112a6E6e70559d49114Ed80C41C282',
+      97: '0xCA327104411fa8e96C2E928e9685b26165C96907',
       56: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82',
     },
     token: tokens.monster,
@@ -19,7 +19,7 @@ const farms: FarmConfig[] = [
     pid: 1,
     lpSymbol: 'Monster-BUSD LP',
     lpAddresses: {
-      97: '0xeCb3A8276980C10a8cFb178144deccC1fa9aD7C1',
+      97: '0x148c5968c707158dce0f716481411cf780598708',
       56: '0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82',
     },
     token: tokens.monster,
@@ -27,24 +27,25 @@ const farms: FarmConfig[] = [
   },
   {
     pid: 2,
-    lpSymbol: 'BUSD-BNB LP',
-    lpAddresses: {
-      97: '0x4adf9d6DE81E200d438ADE75cdafD176B394C9e8',
-      56: '0x0eD7e52944161450477ee417DE9Cd3a859b14fD0',
-    },
-    token: tokens.busd,
-    quoteToken: tokens.wbnb,
-  },
-  {
-    pid: 3,
     lpSymbol: 'Monster-BNB LP',
     lpAddresses: {
-      97: '0xf585151B448b4dae58C301e7aD877fA8Dd2E2295',
+      97: '0x0bad251e99d5114bf7149987de8bef396b3eba6b',
       56: '0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16',
     },
     token: tokens.monster,
     quoteToken: tokens.wbnb,
   },
+  {
+    pid: 3,
+    lpSymbol: 'BUSD-BNB LP',
+    lpAddresses: {
+      97: '0x15c84ef6c93e67806637400f6adf24ed10b7ed9d',
+      56: '0x0eD7e52944161450477ee417DE9Cd3a859b14fD0',
+    },
+    token: tokens.busd,
+    quoteToken: tokens.wbnb,
+  },
+
   // {
   //   pid: 251,
   //   lpSymbol: 'CAKE-BNB LP',
@@ -118,7 +119,7 @@ const farms: FarmConfig[] = [
   //   },
   //   token: tokens.if,
   //   quoteToken: tokens.busd,
-  // }, 
+  // },
 ]
 
 export default farms

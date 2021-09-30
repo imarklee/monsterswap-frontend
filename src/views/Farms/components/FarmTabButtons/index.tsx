@@ -55,6 +55,7 @@ const Wrapper = styled.div`
   a {
     padding-left: 12px;
     padding-right: 12px;
+    border-radius: 16px;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {

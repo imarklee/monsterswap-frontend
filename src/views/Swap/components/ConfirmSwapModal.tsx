@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react'
-import { currencyEquals, Trade } from '@monsterswap/sdk'
+import { currencyEquals, Trade } from 'monsterswaptestsdk'
 import { InjectedModalProps } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 import TransactionConfirmationModal, {

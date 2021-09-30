@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Token } from '@monsterswap/sdk'
+import { Token } from 'monsterswaptestsdk'
 import { ButtonMenu, ButtonMenuItem, ModalBody } from 'uikit'
 import styled from 'styled-components'
 import { TokenList } from '@uniswap/token-lists'
@@ -37,8 +37,12 @@ export default function Manage({
         variant="subtle"
         mb="32px"
       >
-        <ButtonMenuItem width="50%" height="50px">{t('Lists')}</ButtonMenuItem>
-        <ButtonMenuItem width="50%" height="50px">{t('Tokens')}</ButtonMenuItem>
+        <ButtonMenuItem width="50%" height="50px">
+          {t('Lists')}
+        </ButtonMenuItem>
+        <ButtonMenuItem width="50%" height="50px">
+          {t('Tokens')}
+        </ButtonMenuItem>
       </StyledButtonMenu>
       {showLists ? (
         <ManageLists setModalView={setModalView} setImportList={setImportList} setListUrl={setListUrl} />

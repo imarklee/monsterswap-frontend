@@ -1,5 +1,5 @@
 import React, { useRef, RefObject, useCallback, useState, useMemo } from 'react'
-import { Token } from '@monsterswap/sdk'
+import { Token } from 'monsterswaptestsdk'
 import { Text, Button, CloseIcon, IconButton, Input } from 'uikit'
 import styled from 'styled-components'
 import Row, { RowBetween, RowFixed } from 'components/Layout/Row'
@@ -91,7 +91,7 @@ export default function ManageTokens({
   const isAddressValid = searchQuery === '' || isAddress(searchQuery)
 
   return (
-    <Wrapper style={{minHeight: "450px"}}>
+    <Wrapper style={{ minHeight: '450px' }}>
       <Column style={{ width: '100%', flex: '1 1' }}>
         <AutoColumn gap="14px">
           <Row>
@@ -107,7 +107,11 @@ export default function ManageTokens({
               fontFamily="Ubuntu"
             />
           </Row>
-          {!isAddressValid && <Text color="failure" fontFamily="Ubuntu">{t('Enter valid token address')}</Text>}
+          {!isAddressValid && (
+            <Text color="failure" fontFamily="Ubuntu">
+              {t('Enter valid token address')}
+            </Text>
+          )}
           {searchToken && (
             <ImportRow
               token={searchToken}

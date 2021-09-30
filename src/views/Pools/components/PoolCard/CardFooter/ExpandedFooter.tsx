@@ -3,7 +3,7 @@ import BigNumber from 'bignumber.js'
 import styled from 'styled-components'
 import { getBalanceNumber, getFullDisplayBalance } from 'utils/formatBalance'
 import { useTranslation } from 'contexts/Localization'
-import { Flex, Text, TooltipText, TimerIcon, Skeleton, useTooltip } from 'uikit'
+import { Flex, Text, TooltipText, TimerIcon, Skeleton, useTooltip, Button, AddIcon, MinusIcon, IconButton } from 'uikit'
 // import { BASE_BSC_SCAN_URL } from 'config'
 import { useBlock } from 'state/block/hooks'
 import { useCakeVault } from 'state/pools/hooks'
@@ -32,6 +32,11 @@ const ExpandedWrapper = styled(Flex)`
     text-decoration: underline;
     margin-top: 8px;
   }
+
+  & p {
+    font-family: UbuntuBold;
+    font-weight: 500;
+  }
 `
 
 const FooterRow = styled.div`
@@ -41,12 +46,33 @@ const FooterRow = styled.div`
   margin-top: 8px;
   & p,
   & span {
-    font-family: 'Red Hat Text', sans-serif;
-    font-weight: 500;
     font-size: 14px;
     line-height: 19px;
     letter-spacing: 0.01em;
     color: #4e4e9d;
+  }
+`
+
+const StakedActionArea = styled(Flex)`
+  gap: 5px;
+  & p {
+    color: #4e4e9d;
+    font-family: Ubuntu;
+    font-weight: 700;
+  }
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    gap: 15px;
+  }
+`
+
+const RoundedButton = styled(Button)`
+  border-radius: 16px;
+  font-size: 10px !important;
+  padding: 12px 16px;
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 14px !important;
   }
 `
 
@@ -105,6 +131,15 @@ const ExpandedFooter: React.FC<ExpandedFooterProps> = ({ pool, account }) => {
 
   return (
     <ExpandedWrapper flexDirection="column">
+      <StakedActionArea alignItems="center" justifyContent="end">
+        <RoundedButton>Harvest</RoundedButton>
+        <IconButton>
+          <AddIcon color="#FFFFFF" />
+        </IconButton>
+        <IconButton>
+          <MinusIcon color="#FFFFFF" />
+        </IconButton>
+      </StakedActionArea>
       <FooterRow>
         <p>{t('Total staked')}:</p>
         <Flex alignItems="flex-start">

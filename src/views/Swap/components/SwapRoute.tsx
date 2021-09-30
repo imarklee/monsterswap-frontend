@@ -1,5 +1,5 @@
 import React, { Fragment, memo } from 'react'
-import { Trade } from '@monsterswap/sdk'
+import { Trade } from 'monsterswaptestsdk'
 import { Text, Flex, ChevronRightIcon } from 'uikit'
 import { unwrappedToken } from 'utils/wrappedCurrency'
 

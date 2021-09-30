@@ -12,7 +12,8 @@ const Wrapper = styled(Page)`
 const PageLoader: React.FC = () => {
   return (
     <Wrapper>
-      <Spinner />
+      <img src="/images/monster-running.gif" alt="loading monster" width="200" height="200" />
+      {/* <Spinner /> */}
     </Wrapper>
   )
 }

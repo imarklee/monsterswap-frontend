@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Currency, ETHER, JSBI, TokenAmount } from '@monsterswap/sdk'
+import { Currency, ETHER, JSBI, TokenAmount } from 'monsterswaptestsdk'
 import { Button, ChevronDownIcon, Text, AddIcon, useModal } from 'uikit'
 import styled from 'styled-components'
 import { useTranslation } from 'contexts/Localization'

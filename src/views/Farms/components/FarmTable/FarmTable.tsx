@@ -1,7 +1,8 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useTable, Button, ChevronUpIcon, ColumnType, useMatchBreakpoints } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
+import { ReactComponent as WhiteArrowDown } from 'assets/images/WhiteArrowDown.svg'
 
 import Row, { RowProps } from './Row'
 
@@ -13,24 +14,38 @@ export interface ITableProps {
 }
 
 const Container = styled.div`
-  width: 100%;
-  margin: 16px 0px;
+  padding: 1px 1px 3px 1px;
+  background-size: 400% 400%;
 `
 
-const TableWrapper = styled.div`
-  overflow: visible;
-
-  &::-webkit-scrollbar {
-    display: none;
+const StyledTable = styled.div`
+  background-color: transparent;
+`
+const StyledRow = styled.div`
+  background-color: transparent;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  border-radius: 60px;
+  background: white;
+  filter: ${({ theme }) => theme.card.dropShadow};
+  @media (max-width: 767.98px) {
+    padding-left: 20px;
+  }
+`
+const StyledCell = styled.div`
+  flex: 5;
+  flex-direction: row;
+  padding: 0 4px;
+  color: #464486;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    flex: 1 0 150px;
+    padding: 0 20px;
   }
 `
 
-const StyledTable = styled.table`
-  border-collapse: collapse;
-  font-size: 14px;
-  border-radius: 4px;
-  margin-left: auto;
-  margin-right: auto;
+const FarmBody = styled.table`
   width: 100%;
 `
 
@@ -61,18 +76,14 @@ const TableHead = styled.thead`
 `
 
 const TableBody = styled.tbody`
-  border-radius: 10px;
   & tr {
+    border-radius: 10px;
     border: none;
     td {
       font-size: 16px;
       vertical-align: middle;
     }
   }
-`
-
-const TableContainer = styled.div`
-  position: relative;
 `
 
 const ScrollButtonContainer = styled.div`
@@ -82,10 +93,69 @@ const ScrollButtonContainer = styled.div`
   padding-bottom: 5px;
 `
 
+const LiquidityHead = styled.div`
+  background: #49468a;
+  border-radius: 70px;
+  padding: 12px 10px;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`
+const FarmHead = styled.div`
+  background: white;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 70px;
+  padding: 8px 12px;
+  margin-top: 16px;
+  & table {
+    width: 100%;
+    & td {
+      text-align: center;
+      line-height: 16px;
+      letter-spacing: 0.04em;
+      color: #464486;
+      font-size: 9px;
+      ${({ theme }) => theme.mediaQueries.xs} {
+        font-size: 10px;
+        padding-left: 20px;
+      }
+      ${({ theme }) => theme.mediaQueries.sm} {
+        padding-right: 32px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    & table {
+      & > div {
+        padding-left: 20px;
+      }
+    }
+  }
+`
+const TdElement = styled.div`
+  background: #49468a;
+  border-radius: 70px;
+  color: white;
+  padding: 12px 10px;
+`
+const CustomButton = styled(Button)`
+  font-size: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 14px;
+  }
+`
 const FarmTable: React.FC<ITableProps> = (props) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null)
   const { isXl } = useMatchBreakpoints()
   const { t } = useTranslation()
+
+  const [sortState, setSortState] = useState(0)
   const { data, columns, userDataReady } = props
 
   const { rows } = useTable(columns, data, { sortable: true, sortColumn: 'farm' })
@@ -98,33 +168,83 @@ const FarmTable: React.FC<ITableProps> = (props) => {
 
   return (
     <Container>
-      <TableContainer>
-        <TableWrapper ref={tableWrapperEl}>
-          <StyledTable>
-            <TableHead>
+      <StyledTable role="table" ref={tableWrapperEl}>
+        <FarmHead>
+          <table>
+            <thead>
               <tr>
-                <td>HOT</td>
-                {isXl && <td>LP</td>}
-                <td>APR</td>
-                {isXl && <td>Liquidity</td>}
-                <td style={{ textAlign: 'left' }}>Earned</td>
-                <td />
+                <td width="10%">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(0)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 0 ? <TdElement>HOT</TdElement> : <span>HOT</span>}
+                  </div>
+                </td>
+                <td width="15%">LP</td>
+                <td width="17%">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(2)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 2 ? <TdElement>APR</TdElement> : <span>APR</span>}
+                  </div>
+                </td>
+                <td width="8%">
+                  {/* <LiquidityHead>
+                          Liquidity
+                        <WhiteArrowDown /> }
+                    </LiquidityHead>  */}
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(3)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
+                  </div>
+                </td>
+                <td width="35%">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    onClick={() => setSortState(4)}
+                    onKeyDown={() => {
+                      console.log()
+                    }}
+                  >
+                    {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
+                  </div>
+                </td>
+                <td width="15%" />
               </tr>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => {
-                return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
-              })}
-            </TableBody>
-          </StyledTable>
-        </TableWrapper>
-        <ScrollButtonContainer>
-          <Button variant="text" onClick={scrollToTop}>
-            {t('To Top')}
-            <ChevronUpIcon color="primary" />
-          </Button>
-        </ScrollButtonContainer>
-      </TableContainer>
+            </thead>
+          </table>
+        </FarmHead>
+        <FarmBody>
+          <TableBody>
+            {rows.map((row) => {
+              return <Row {...row.original} userDataReady={userDataReady} key={`table-row-${row.id}`} />
+            })}
+          </TableBody>
+        </FarmBody>
+      </StyledTable>
+      <ScrollButtonContainer>
+        <CustomButton variant="text" onClick={scrollToTop}>
+          {t('To Top')}
+          <ChevronUpIcon color="primary" />
+        </CustomButton>
+      </ScrollButtonContainer>
     </Container>
   )
 }

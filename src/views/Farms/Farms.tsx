@@ -3,7 +3,7 @@ import { Route, useRouteMatch, useLocation, NavLink } from 'react-router-dom'
 import BigNumber from 'bignumber.js'
 import { useWeb3React } from '@web3-react/core'
 import { Image, Checkbox, RowType, Text, Flex, useMatchBreakpoints } from 'uikit'
-import { ChainId } from '@monsterswap/sdk'
+import { ChainId } from 'monsterswaptestsdk'
 import styled from 'styled-components'
 import Page from 'components/Layout/Page'
 import { useFarms, usePollFarmsData, usePriceCakeBusd } from 'state/farms/hooks'
@@ -18,6 +18,7 @@ import { latinise } from 'utils/latinise'
 import SearchInput from 'components/SearchInput'
 import { OptionProps } from 'components/Select/Select'
 import Loading from 'components/Loading'
+import { ReactComponent as WhiteArrowDown } from 'assets/images/WhiteArrowDown.svg'
 // import FarmBanner from 'assets/images/farms/bg-hero-farms.svg'
 import FarmCard, { FarmWithStakedValue } from './components/FarmCard/FarmCard'
 import Table from './components/FarmTable/FarmTable'
@@ -47,7 +48,15 @@ const ControlContainer = styled.div`
   }
 
   @media (max-width: 767.98px) {
-    padding: 20px 30px;
+    padding: 10px 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+      padding: 20px 30px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+      padding: 20px 30px;
+    }
     border-radius: 30px;
     margin-top: -80px;
 
@@ -79,6 +88,7 @@ const ToggleWrapper = styled.div`
 const LabelWrapper = styled.div`
   > ${Text} {
     font-size: 12px;
+    font-family: Ubuntu;
   }
   margin-left: 16px;
 
@@ -135,13 +145,21 @@ const ViewControls = styled.div`
 
 const FarmsBanner = styled.div`
   width: 100%;
-  min-height: 213px;
   background-color: #acb0d3;
   background-size: cover;
   background-position: top center;
   > div {
     width: 100%;
     max-width: 100%;
+    @media (max-width: 2560px) {
+      height: 400px;
+    }
+    @media (max-width: 1920px) {
+      height: 270px;
+    }
+    @media (max-width: 1330px) {
+      height: 180px;
+    }
     height: 213px;
     > img {
       width: 100%;
@@ -169,19 +187,26 @@ const FarmHead = styled.div`
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.05);
   border-radius: 70px;
   padding: 8px 12px;
-  margin-top: 32px;
+  margin-top: 16px;
+
   & table {
     width: 100%;
     & td {
-      padding: 0;
-      text-align: left;
-      font-size: 14px;
+      font-size: 10px;
+      text-align: center;
       line-height: 16px;
       letter-spacing: 0.04em;
       color: #464486;
-      ${({ theme }) => theme.mediaQueries.sm} {
-        padding-right: 32px;
+      ${({ theme }) => theme.mediaQueries.md} {
+        font-size: 14px;
       }
+    }
+
+    & div {
+      ${({ theme }) => theme.mediaQueries.md} {
+        font-size: 14px;
+      }
+      font-size: 10px;
     }
   }
 
@@ -211,6 +236,28 @@ const StyledImage = styled(Image)`
   margin-left: auto;
   margin-right: auto;
   margin-top: 58px;
+  max-height: 88px;
+  max-width: 280px;
+  position: relative;
+  width: 100%;
+  & > img {
+    position: unset;
+  }
+`
+
+const LiquidityHead = styled.div`
+  color: white;
+  background: #49468a;
+  border-radius: 70px;
+  color: white;
+  padding: 5px 5px;
+  text-align: center;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    padding: 10px 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding: 10px 10px;
+  }
 `
 const NUMBER_OF_FARMS_VISIBLE = 12
 
@@ -232,7 +279,7 @@ const Farms: React.FC = () => {
   const { data: farmsLP, userDataLoaded } = useFarms()
   const cakePrice = usePriceCakeBusd()
   const [query, setQuery] = useState('')
-  const [viewMode, setViewMode] = usePersistState(ViewMode.TABLE, { localStorageKey: 'pancake_farm_view' })
+  const [viewMode, setViewMode] = usePersistState(ViewMode.CARD, { localStorageKey: 'pancake_farm_view' })
   const { account } = useWeb3React()
   const [sortOption, setSortOption] = useState('hot')
   const chosenFarmsLength = useRef(0)
@@ -240,6 +287,7 @@ const Farms: React.FC = () => {
   const isArchived = pathname.includes('archived')
   const isInactive = pathname.includes('history')
   const isActive = !isInactive && !isArchived
+  const [sortState, setSortState] = useState(0)
 
   usePollFarmsData(isArchived)
 
@@ -357,6 +405,10 @@ const Farms: React.FC = () => {
   chosenFarmsLength.current = chosenFarmsMemoized.length
 
   useEffect(() => {
+    console.log(sortState)
+  }, [sortState])
+
+  useEffect(() => {
     const showMoreFarms = (entries) => {
       const [entry] = entries
       if (entry.isIntersecting) {
@@ -384,7 +436,6 @@ const Farms: React.FC = () => {
     const tokenAddress = token.address
     const quoteTokenAddress = quoteToken.address
     const lpLabel = farm.lpSymbol && farm.lpSymbol.split(' ')[0].toUpperCase().replace('PANCAKE', '')
-    console.log('[farmLiquidity]', farm)
     const row: RowProps = {
       apr: {
         value: getDisplayApr(farm.apr, farm.lpRewardsApr),
@@ -464,6 +515,7 @@ const Farms: React.FC = () => {
               cakePrice={cakePrice}
               account={account}
               removed={false}
+              viewMode={viewMode}
               userDataReady={userDataReady}
             />
           ))}
@@ -476,6 +528,7 @@ const Farms: React.FC = () => {
               displayApr={getDisplayApr(farm.apr, farm.lpRewardsApr)}
               cakePrice={cakePrice}
               account={account}
+              viewMode={viewMode}
               userDataReady={userDataReady}
               removed
             />
@@ -489,6 +542,7 @@ const Farms: React.FC = () => {
               displayApr={getDisplayApr(farm.apr, farm.lpRewardsApr)}
               cakePrice={cakePrice}
               account={account}
+              viewMode={viewMode}
               userDataReady={userDataReady}
               removed
             />
@@ -502,6 +556,30 @@ const Farms: React.FC = () => {
     setSortOption(option.value)
   }
 
+  const TdElement = styled.div`
+    background: #49468a;
+    border-radius: 70px;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      padding: 10px 10px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      padding: 10px 10px;
+    }
+  `
+
+  const CustomText = styled(Text)`
+    font-size: 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+      padding: 12px 30px;
+    }
+  `
   return (
     <>
       <FarmsBanner>
@@ -519,7 +597,7 @@ const Farms: React.FC = () => {
             <FarmTabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} />
             <ToggleWrapper>
               <Checkbox checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} />
-              <Text color="#49468A"> {t('Staked only')}</Text>
+              <CustomText color="#49468A"> {t('Staked only')}</CustomText>
             </ToggleWrapper>
           </FilterContainer>
         </ControlContainer>
@@ -528,18 +606,67 @@ const Farms: React.FC = () => {
             <table>
               <thead>
                 <tr>
-                  <td>HOT</td>
-                  {isXl && <td>LP</td>}
-                  <td>APR</td>
-                  {isXl && <td>Liquidity</td>}
-                  <td style={{ textAlign: 'left' }}>Earned</td>
-                  <td />
+                  <td width="10%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(0)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 0 ? <TdElement>HOT</TdElement> : <span>HOT</span>}
+                    </div>
+                  </td>
+                  <td width="20%">LP</td>
+                  <td width="20%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(2)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 2 ? <TdElement>APR</TdElement> : <span>APR</span>}
+                    </div>
+                  </td>
+                  <td width="20%">
+                    {/* <LiquidityHead>
+                          Liquidity
+                        <WhiteArrowDown /> }
+                    </LiquidityHead>  */}
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(3)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
+                    </div>
+                  </td>
+                  <td width="20%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(4)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
+                    </div>
+                  </td>
+                  <td width="10%" />
                 </tr>
               </thead>
             </table>
           </FarmHead>
         )}
         {renderContent()}
+
         {account && !userDataLoaded && stakedOnly && (
           <Flex justifyContent="center">
             <Loading />

@@ -10,6 +10,7 @@ export interface WrapperProps extends SpaceProps, HTMLAttributes<HTMLDivElement>
 export interface ImageProps extends ImgHTMLAttributes<HTMLImageElement>, SpaceProps {
   width: number
   height: number
+  list?: boolean
   wrapperProps?: WrapperProps
 }
 
@@ -26,6 +27,7 @@ export interface TokenPairImageProps extends BoxProps {
   variant?: Variant
   height: number
   width: number
+  list?: boolean
   primaryImageProps?: Omit<ImageProps, 'width' | 'height'>
   secondaryImageProps?: Omit<ImageProps, 'width' | 'height'>
 }

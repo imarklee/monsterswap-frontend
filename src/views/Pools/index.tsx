@@ -51,7 +51,15 @@ const PoolControls = styled.div`
   margin-bottom: 32px;
 
   @media (max-width: 767.98px) {
-    padding: 20px 30px;
+    padding: 10px 10px;
+    ${({ theme }) => theme.mediaQueries.xs} {
+      font-size: 10px;
+      padding: 20px 30px;
+    }
+    ${({ theme }) => theme.mediaQueries.sm} {
+      font-size: 14px;
+      padding: 20px 30px;
+    }
     border-radius: 30px;
     margin-top: -80px;
 
@@ -101,33 +109,34 @@ const LabelWrapper = styled.div`
 // `
 
 const PoolsBanner = styled.div`
-  width: 100%;
-  min-height: 211px;
-  background-color: #acb0d3;
+  height: 300px;
+  background-image: url(/images/pools/bg-hero-pools.svg);
+  background-repeat: no-repeat;
+  background-position: center;
   background-size: cover;
-  background-position: top center;
-  > div {
-    width: 100%;
-    max-width: 100%;
-    height: 300px;
-    > img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    &::after {
-      padding-top: 0;
-    }
+
+  @media (max-width: 2560px) {
+    height: 350px;
   }
 
-  @media (max-width: 767.98px) {
-    min-height: 200px;
-    > div {
-      height: 200px;
+  // width: 100%;
+  // min-height: 211px;
+  // > div {
+  //   width: 100%;
+  //   max-width: 100%;
+  //   height: 300px;
+  //   > img {
+  //     width: 100%;
+  //     height: 100%;
+  //     object-fit: cover;
+  //   }
+  //   &::after {
+  //     padding-top: 0;
+  //   }
+  // }
 
-      > img {
-      }
-    }
+  @media (max-width: 767.98px) {
+    height: 200px;
   }
 `
 
@@ -186,13 +195,13 @@ const PoolHead = styled.div`
     width: 100%;
     & td {
       padding: 0;
-      text-align: left;
-      font-size: 14px;
+      text-align: center;
       line-height: 16px;
       letter-spacing: 0.04em;
       color: #464486;
-      ${({ theme }) => theme.mediaQueries.sm} {
-        padding-right: 32px;
+      font-size: 10px;
+      ${({ theme }) => theme.mediaQueries.md} {
+        font-size: 14px;
       }
     }
   }
@@ -203,6 +212,41 @@ const PoolHead = styled.div`
         padding-left: 20px;
       }
     }
+  }
+`
+const CustomText = styled(Text)`
+  font-size: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 14px;
+    padding: 12px 30px;
+  }
+`
+const TdElement = styled.div`
+  background: #49468a;
+  border-radius: 70px;
+  color: white;
+  padding: 5px 0px;
+  text-align: center;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    padding: 10px 10px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding: 10px 10px;
+  }
+`
+const CustomFailureText = styled(Text)`
+  font-size: 10px;
+  padding-bottom: 10px;
+  ${({ theme }) => theme.mediaQueries.xs} {
+    font-size: 14px;
+    padding-bottom: 15px;
+  }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 20px;
+    padding-bottom: 32px;
   }
 `
 
@@ -219,10 +263,12 @@ const Pools: React.FC = () => {
   const [numberOfPoolsVisible, setNumberOfPoolsVisible] = useState(NUMBER_OF_POOLS_VISIBLE)
   const [observerIsSet, setObserverIsSet] = useState(false)
   const loadMoreRef = useRef<HTMLDivElement>(null)
-  const [viewMode, setViewMode] = usePersistState(ViewMode.TABLE, { localStorageKey: 'pancake_pool_view' })
+  const [viewMode, setViewMode] = usePersistState(ViewMode.CARD, { localStorageKey: 'pancake_pool_view' })
   const [searchQuery, setSearchQuery] = useState('')
   const [sortOption, setSortOption] = useState('hot')
   const chosenPoolsLength = useRef(0)
+  const [sortState, setSortState] = useState(0)
+
   const {
     userData: { cakeAtLastUserAction, userShares },
     fees: { performanceFee },
@@ -375,7 +421,7 @@ const Pools: React.FC = () => {
   return (
     <>
       <PoolsBanner>
-        <Image src="/images/pools/bg-hero-pools.svg" alt="Monster Pools" width={100} height={300} />
+        {/* <Image src="/images/pools/bg-hero-pools.svg" alt="Monster Pools" width={100} height={300} /> */}
       </PoolsBanner>
       <Page>
         <PoolControls>
@@ -388,24 +434,24 @@ const Pools: React.FC = () => {
           <ViewControls>
             <ButtonMenu activeIndex={isExact ? 0 : 1} scale="sm" variant="subtle">
               <ButtonMenuItem as={Link} to={`${url}`}>
-                {t('Live')}
+                {t('Active')}
               </ButtonMenuItem>
               <NotificationDot show={hasStakeInFinishedPools}>
                 <ButtonMenuItem as={Link} to={`${url}/history`}>
-                  {t('Finished')}
+                  {t('InActive')}
                 </ButtonMenuItem>
               </NotificationDot>
             </ButtonMenu>
             <ToggleWrapper>
               <Checkbox checked={stakedOnly} onChange={() => setStakedOnly(!stakedOnly)} scale="sm" />
-              <Text> {t('Staked only')}</Text>
+              <CustomText> {t('Staked only')}</CustomText>
             </ToggleWrapper>
           </ViewControls>
         </PoolControls>
         {showFinishedPools && (
-          <Text fontSize="20px" color="failure" pb="32px">
+          <CustomFailureText color="failure">
             {t('These pools are no longer distributing rewards. Please unstake your tokens.')}
-          </Text>
+          </CustomFailureText>
         )}
         {account && !userDataLoaded && stakedOnly && (
           <Flex justifyContent="center" mb="4px">
@@ -417,12 +463,60 @@ const Pools: React.FC = () => {
             <table>
               <thead>
                 <tr>
-                  <td>HOT</td>
-                  {isXl && <td>LP</td>}
-                  <td>APR</td>
-                  {isXl && <td>Liquidity</td>}
-                  <td style={{ textAlign: 'left' }}>Earned</td>
-                  <td />
+                  <td width="10%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(0)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 0 ? <TdElement>HOT</TdElement> : <span>HOT</span>}
+                    </div>
+                  </td>
+                  <td width="20%">LP</td>
+                  <td width="20%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(2)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 2 ? <TdElement>APR</TdElement> : <span>APR</span>}
+                    </div>
+                  </td>
+                  <td width="20%">
+                    {/* <LiquidityHead>
+                          Liquidity
+                        <WhiteArrowDown /> }
+                    </LiquidityHead>  */}
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(3)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
+                    </div>
+                  </td>
+                  <td width="20%">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      onClick={() => setSortState(4)}
+                      onKeyDown={() => {
+                        console.log()
+                      }}
+                    >
+                      {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
+                    </div>
+                  </td>
+                  <td width="10%" />
                 </tr>
               </thead>
             </table>

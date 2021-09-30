@@ -17,7 +17,7 @@ export interface ExpandableSectionProps {
 }
 
 const Wrapper = styled.div`
-  margin-top: 24px;
+  margin: 24px;
 `
 
 const StyledLinkExternal = styled.a`
@@ -35,7 +35,7 @@ const InfoRow = styled.div`
   justify-content: space-between;
   margin-top: 4px;
   & p, & span {
-    font-family: 'Red Hat Text', sans-serif;
+    font-family: UbuntuBold;
     font-size: 14px;
     font-weight: 500;
     line-height: 19px;
@@ -60,7 +60,7 @@ const DetailsSection: React.FC<ExpandableSectionProps> = ({
   return (
     <Wrapper>
       <InfoRow>
-        <p>{t('Total Liquidity')}</p>
+        <p>{t('Total Staked Value')}</p>
         {totalValueFormatted ? <p>{totalValueFormatted}</p> : <Skeleton width={75} height={25} />}
       </InfoRow>
       <InfoRow>
@@ -101,9 +101,9 @@ const DetailsSection: React.FC<ExpandableSectionProps> = ({
       <Flex justifyContent='center'>
         <StyledLinkExternal href={bscScanAddress} target='_blank'>{t('View on BSCSCAN')}</StyledLinkExternal>
       </Flex>
-      <Flex justifyContent='center'>
+      {/* <Flex justifyContent='center'>
         <StyledLinkExternal href='' target='_blank'>{t('View Project Site')}</StyledLinkExternal>
-      </Flex>
+      </Flex> */}
     </Wrapper>
   )
 }

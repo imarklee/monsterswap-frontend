@@ -1,4 +1,4 @@
-import { Currency, Percent, Price } from '@monsterswap/sdk'
+import { Currency, Percent, Price } from 'monsterswaptestsdk'
 import React from 'react'
 import { Text } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
@@ -22,7 +22,7 @@ function PoolPriceBar({
   return (
     <AutoColumn gap="md">
       <AutoRow justify="space-around" gap="4px">
-        <Text fontFamily="Ubuntu"> { t('Current Rate')} </Text>
+        <Text fontFamily="Ubuntu"> {t('Current Rate')} </Text>
         <AutoRow width="50%" justify="flex-end">
           <Text fontFamily="Ubuntu">{price?.toSignificant(6) ?? '-'} &nbsp;</Text>
           <Text fontSize="14px" fontFamily="Ubuntu" pt={1}>

@@ -3,6 +3,7 @@ import BigNumber from 'bignumber.js'
 import styled, { keyframes } from 'styled-components'
 import { Farm } from 'state/types'
 import { getBscScanLink } from 'utils'
+import { NFTImage, useMatchBreakpoints } from 'uikit'
 import { useTranslation } from 'contexts/Localization'
 import { ReactComponent as ArrowDown } from 'assets/images/ArrowDown.svg'
 import { ReactComponent as ArrowUp } from 'assets/images/ArrowUp.svg'
@@ -13,6 +14,7 @@ import getLiquidityUrlPathParts from 'utils/getLiquidityUrlPathParts'
 import DetailsSection from './DetailsSection'
 import CardActionsContainer from './CardActionsContainer'
 import ApyButton from './ApyButton'
+import { ViewMode } from '../types'
 
 export interface FarmWithStakedValue extends Farm {
   apr?: number
@@ -53,9 +55,9 @@ const FCard = styled.div<{ isPromotedFarm: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding: 24px;
   position: relative;
   text-align: center;
+  background-color: #EAF2F7;
 `
 
 // const Divider = styled.div`
@@ -68,15 +70,18 @@ const FCard = styled.div<{ isPromotedFarm: boolean }>`
 const ExpandingWrapper = styled.div<{ expanded: boolean }>`
   height: ${(props) => (props.expanded ? '100%' : '0px')};
   overflow: hidden;
+  padding: 0 24px;
 `
 
 const CardTop = styled.div`
   display: flex;
+  max-height: 109px;
 `
 
 const CardInfoContainer = styled.div`
   flex: 1;
   margin-left: 10px;
+  padding: 10px;
   & h1 {
     font-size: 18px;
     color: #4e4e9d;
@@ -114,6 +119,7 @@ const CardInfoRow = styled.div`
   align-items: center;
   justify-content: space-between;
   position: relative;
+  font-size: 10px;
 `
 
 const ArrowContainer = styled.div`
@@ -124,18 +130,49 @@ const ArrowContainer = styled.div`
   cursor: pointer;
 `
 
+const CellInner = styled.div`
+  border-radius: 10px 0 0 10px;
+  background-color: #FCF5D8;
+  background-image: url('/images/farms/tree.svg');
+  background-repeat: no-repeat;
+  background-position: bottom;
+  min-width: 109px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+`
+
+const ListImageWrapper = styled.div`
+  position: relative;
+`
+
+const NFTImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+  width: 100%;
+`
+const SpanElement = styled.span`
+  font-size: 12px;
+  color: #4e4e9d;
+  letter-spacing: 0.01em;
+`
 interface FarmCardProps {
   farm: FarmWithStakedValue
   displayApr: string
   removed: boolean
   cakePrice?: BigNumber
   account?: string
+  viewMode?: string
   userDataReady: boolean
 }
 
-const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePrice, account, userDataReady }) => {
+const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePrice, account, userDataReady, viewMode }) => {
   const { t } = useTranslation()
-
+  const { isXs, isSm, isMd, isLg, isXl } = useMatchBreakpoints()
+  const isMobile = !isXl
   const [showExpandableSection, setShowExpandableSection] = useState(false)
 
   const totalValueFormatted =
@@ -158,19 +195,22 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePric
     <FCard isPromotedFarm={isPromotedFarm}>
       {isPromotedFarm && <StyledCardAccent />}
       <CardTop>
-        <TokenPairImage
-          variant="inverted"
-          primaryToken={farm.token}
-          secondaryToken={farm.quoteToken}
-          width={109}
-          height={109}
-        />
+        {!isMobile?
+        <CellInner>
+          <NFTImageWrapper>
+            <NFTImage {...farm} list />
+          </NFTImageWrapper>
+        </CellInner>
+        : null }
         <CardInfoContainer>
           <CardInfoRow>
-            <h1>{lpLabel.split(' ')[0]}</h1>
+          {isMobile? 
+          <>
+            <SpanElement>{lpLabel.split(' ')[0]}</SpanElement>
             {!removed && (
-              <h2>
-                <span>APR:</span> {displayApr}%
+              <SpanElement>
+                {/* <span>APR:</span> {displayApr}% */}
+                <SpanElement>APR:</SpanElement> <SpanElement style={{ fontFamily: "Ubuntu" }}>99,999.99%</SpanElement>
                 <ApyButton
                   lpLabel={lpLabel}
                   addLiquidityUrl={addLiquidityUrl}
@@ -178,8 +218,28 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePric
                   apr={farm.apr}
                   displayApr={displayApr}
                 />
-              </h2>
+              </SpanElement>
             )}
+            </>
+            : 
+            <>
+              <h1>{lpLabel.split(' ')[0]}</h1> 
+              {!removed && (
+                <h2>
+                  {/* <span>APR:</span> {displayApr}% */}
+                  <span>APR:</span> <h2 style={{ fontFamily: "Ubuntu" }}>99,999.99%</h2>
+                  <ApyButton
+                    lpLabel={lpLabel}
+                    addLiquidityUrl={addLiquidityUrl}
+                    cakePrice={cakePrice}
+                    apr={farm.apr}
+                    displayApr={displayApr}
+                  />
+                </h2>
+              )}
+            </>
+            }
+            
           </CardInfoRow>
           <CardInfoRow>
             <div style={{ paddingRight: 32, width: '100%' }}>

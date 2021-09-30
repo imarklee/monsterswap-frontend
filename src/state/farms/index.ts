@@ -58,10 +58,10 @@ export const fetchFarmUserDataAsync = createAsyncThunk<FarmUserDataResponse[], {
   async ({ account, pids }) => {
     const farmsToFetch = farmsConfig.filter((farmConfig) => pids.includes(farmConfig.pid))
     const userFarmAllowances = await fetchFarmUserAllowances(account, farmsToFetch)
+    // console.error(userFarmAllowances)
     const userFarmTokenBalances = await fetchFarmUserTokenBalances(account, farmsToFetch)
     const userStakedBalances = await fetchFarmUserStakedBalances(account, farmsToFetch)
     const userFarmEarnings = await fetchFarmUserEarnings(account, farmsToFetch)
-
     return userFarmAllowances.map((farmAllowance, index) => {
       return {
         pid: farmsToFetch[index].pid,

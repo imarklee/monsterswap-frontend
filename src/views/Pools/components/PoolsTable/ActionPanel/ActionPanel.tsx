@@ -20,24 +20,6 @@ import StakeModal from '../../PoolCard/Modals/StakeModal'
 import VaultStakeModal from '../../CakeVaultCard/VaultStakeModal'
 // import Apr from '../Apr'
 
-const expandAnimation = keyframes`
-  from {
-    max-height: 0px;
-  }
-  to {
-    max-height: 700px;
-  }
-`
-
-const collapseAnimation = keyframes`
-  from {
-    max-height: 700px;
-  }
-  to {
-    max-height: 0px;
-  }
-`
-
 const StyledActionPanel = styled.div<{ expanded: boolean }>`
   animation: ${({ expanded }) =>
     expanded
@@ -95,88 +77,93 @@ interface ActionPanelProps {
   breakpoints: MediaBreakpoints
 }
 
-const ActionValueContainer = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  margin: -20px 0 20px;
-  & > div {
-    width: 100%;
-    padding: 0px 8px;
+const expandAnimation = keyframes`
+  from {
+    max-height: 0px;
   }
+  to {
+    max-height: 500px;
+  }
+`
+
+const collapseAnimation = keyframes`
+  from {
+    max-height: 500px;
+  }
+  to {
+    max-height: 0px;
+  }
+`
+
+const Container = styled.div<{ expanded }>`
+  animation: ${({ expanded }) =>
+    expanded
+      ? css`
+          ${expandAnimation} 300ms linear forwards
+        `
+      : css`
+          ${collapseAnimation} 300ms linear forwards
+        `};
+  overflow: hidden;
+  background: ${({ theme }) => theme.colors.background};
+  display: flex;
+  width: 100%;
+  flex-direction: column-reverse;
+  padding: 24px;
+  background-color: #EAF2F7;
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    flex-direction: row;
+    padding: 16px 32px;
+  }
+  flex-wrap: wrap;
   & p,
-  & b,
   & span {
-    font-size: 14px;
+    font-family: UbuntuBold;
+    font-style: normal;
     font-weight: 500;
-    line-height: 19px;
-    font-family: 'Red Hat Text', sans-serif;
-    letter-spacing: 0.01em;
+    font-size: 14px;
+    line-height: 20px;
     color: #4e4e9d;
   }
-  & p b {
-    font-weight: bold;
-  }
-  ${({ theme }) => theme.mediaQueries.sm} {
-    & > div {
-      width: 33.33%;
-      padding: 0 20px;
-    }
-  }
-  @media (max-width: 767.87px) {
-    flex-direction: column;
-    margin: 0 0 20px;
-
-    & > div:nth-child(2) {
-      display: flex;
-      flex-direction: column;
-    }
-    & > div:nth-child(2) > div:nth-child(1) {
-      display: flex;
-      flex-direction: row !important;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-    & > div:nth-child(2) > div:nth-child(2) {
-      margin-left: 0 !important;
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-    }
-  }
 `
 
-const InfoSection = styled.div`
-  & > div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 8px;
-  }
-`
-
-const ActionSection = styled.div`
-  width: 33.33%;
-  display: flex;
+const StyledLinkExternal = styled.a`
+  font-weight: 400;
+  color: #4e4e9d;
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.01em;
+  text-decoration: underline;
   margin-top: 8px;
-  justify-content: flex-end;
 `
 
-const ActionButtonsContainer = styled.div`
+const InfoContainer = styled.div`
+  width: 100%;
+  flex: 1 0;
+`
+
+const BlankSection = styled.div`
+  flex: 1 0;
+`
+
+const InfoRow = styled.div`
   display: flex;
-  margin-left: 12px;
+  justify-content: space-between;
+  margin-bottom: 5px;
+`
+
+const StakedContent = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex: 1 0;
+`
+
+const IconButtonWrapper = styled.div`
+  display: flex;
   & button {
-    height: 40px;
-    font-size: 14px;
-    background: #49468a;
-    border: none;
-    margin-right: 8px;
-    &:last-child {
-      margin-right: 0;
-    }
-    & svg {
-      fill: white;
-    }
+    width: 40px;
   }
 `
 
@@ -252,10 +239,10 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ pool, expanded }) => {
   })
 
   const maxStakeRow = stakingLimit.gt(0) ? (
-    <Flex mb="8px" justifyContent="space-between">
-      <Text>{t('Max. stake per user')}:</Text>
-      <Text>{`${getFullDisplayBalance(stakingLimit, stakingToken.decimals, 0)} ${stakingToken.symbol}`}</Text>
-    </Flex>
+    <>
+      <p>{t('Max. stake per user')}:</p>
+      <p>{`${getFullDisplayBalance(stakingLimit, stakingToken.decimals, 0)} ${stakingToken.symbol}`}</p>
+    </>
   ) : null
 
   const {
@@ -271,9 +258,9 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ pool, expanded }) => {
 
   const blocksRow =
     blocksRemaining || blocksUntilStart ? (
-      <Flex mb="8px" justifyContent="space-between">
-        <Text>{hasPoolStarted ? t('Ends in') : t('Starts in')}:</Text>
-        <Flex>
+      <>
+        <p>{hasPoolStarted ? t('Ends in') : t('Starts in')}:</p>
+        <p>
           <a
             href={getBscScanLink(hasPoolStarted ? endBlock : startBlock, 'countdown')}
             target="_blank"
@@ -285,8 +272,8 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ pool, expanded }) => {
             </Text>
             <TimerIcon ml="4px" color="primary" />
           </a>
-        </Flex>
-      </Flex>
+        </p>
+      </>
     ) : (
       <Skeleton width="56px" height="16px" />
     )
@@ -299,15 +286,17 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ pool, expanded }) => {
   // )
 
   const totalStakedRow = (
-    <div>
+    <>
       <p>{t('Total staked:')}</p>
       {totalStaked && totalStaked.gte(0) ? (
-        <Balance value={getTotalStakedBalance()} decimals={0} unit={` ${stakingToken.symbol}`} />
+        <p>
+          <Balance value={getTotalStakedBalance()} decimals={0} unit={` ${stakingToken.symbol}`} />
+        </p>
       ) : (
         <Skeleton width="56px" height="16px" />
       )}
       {/* {totalStakedTooltipVisible && totalStakedTooltip} */}
-    </div>
+    </>
   )
 
   const [onPresentStake] = useModal(
@@ -352,32 +341,105 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ pool, expanded }) => {
   }
 
   return (
-    <StyledActionPanel expanded={expanded}>
-      <ActionValueContainer>
-        <InfoSection>
+    <Container expanded={expanded}>
+      <BlankSection />
+      <InfoContainer>
+        <InfoRow>
           {maxStakeRow}
+        </InfoRow>
+        <InfoRow>
           {totalStakedRow}
+        </InfoRow>
+        <InfoRow>
           {shouldShowBlockCountdown && blocksRow}
-          <div>
-            <p>Stake:</p>
-            <p>{stakingToken.symbol}</p>
-          </div>
-          <div>
-            <p>Deposit Fees:</p>
-            <p>0%</p>
-          </div>
-          <div>
-            <p>Harvest Fees:</p>
-            <p>0%</p>
-          </div>
-          <div>
-            <p>Staked Value:</p>
-            <p>$9.12</p>
-          </div>
-          <div>
-            <p>Earned Value:</p>
-            <p>$0.00</p>
-          </div>
+        </InfoRow>
+        <InfoRow>
+          <p>Stake:</p>
+          <p>{stakingToken.symbol}</p>
+        </InfoRow>
+        <InfoRow>
+          <p>Deposit Fees:</p>
+          <p>0%</p>
+        </InfoRow>
+        <InfoRow>
+          <p>Harvest Fees:</p>
+          <p>0%</p>
+        </InfoRow>
+        <InfoRow>
+          <p>Staked Value:</p>
+          <p>$9.12</p>
+        </InfoRow>
+        <InfoRow>
+          <p>Earned Value:</p>
+          <p>$0.00</p>
+        </InfoRow>
+        <InfoRow>
+          <p>Staked</p>
+          <p>0</p>
+        </InfoRow>
+
+        {poolContractAddress && (
+          <Flex justifyContent="center">
+            <StyledLinkExternal href={`${BASE_BSC_SCAN_URL}/address/${isAutoVault ? cakeVaultContractAddress : poolContractAddress}`} target="_blank" rel="noreferrer">
+              {t('View on BSCSCAN')}
+            </StyledLinkExternal>
+          </Flex>
+        )}
+        <Flex justifyContent="center">
+          <StyledLinkExternal href={earningToken.projectLink} target="_blank" rel="noreferrer">
+          {t('View Project Site')}
+          </StyledLinkExternal>
+        </Flex>
+      </InfoContainer>
+      <StakedContent>
+        <div>
+          <p>{t('Staked')}</p>
+          <p>0</p>
+        </div>
+        <IconButtonWrapper>
+          <IconButton
+            style={{
+              background: '#49468A',
+              borderRadius: '16px',
+              width: '40px',
+              height: '39.13px',
+              top: '74.34px',
+              float: 'left',
+              marginLeft: '50px',
+            }}
+            onClick={onUnstake}
+            mr="6px"
+          >
+            <MinusIcon color="#FFFFFF" width="14px" />
+          </IconButton>
+
+          {reachStakingLimit ? (
+            <span ref={targetRef}>
+              <IconButton
+                variant="secondary"
+                disabled
+              >
+              <AddIcon color="#FFFFFF" fontSize="18px" />
+            </IconButton>
+            </span>
+          ) : (
+            <IconButton
+              style={{
+                background: '#49468A',
+                borderRadius: '16px',
+                width: '40px',
+                height: '39.13px',
+                top: '74.34px',
+                left: '974px',
+              }}
+              onClick={stakingTokenBalance.gt(0) ? onStake : onPresentTokenRequired}
+              disabled={pool.isFinished}
+            >
+              <AddIcon color="#FFFFFF" fontSize="18px" />
+            </IconButton>
+          )}
+        </IconButtonWrapper>
+      </StakedContent>
           {/* <Flex mb="8px" justifyContent={['flex-end', 'flex-end', 'flex-start']}>
             <a href={`https://pancakeswap.info/token/${getAddress(earningToken.address)}`}>{t('See Token Info')}</a>
           </Flex> */}
@@ -386,53 +448,6 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ pool, expanded }) => {
           <span ref={tagTargetRef}>
             <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" />
           </span> */}
-        </InfoSection>
-        <ActionSection>
-          <Flex flexDirection="column" alignItems="center">
-            <p>Staked</p>
-            <p>
-              <b>0</b>
-            </p>
-          </Flex>
-          <ActionButtonsContainer>
-            <Button>Harvest</Button>
-            <IconButton variant="secondary" onClick={onUnstake}>
-              <MinusIcon color="primary" width="14px" />
-            </IconButton>
-            {reachStakingLimit ? (
-              <span ref={targetRef}>
-                <IconButton variant="secondary" disabled>
-                  <AddIcon />
-                </IconButton>
-              </span>
-            ) : (
-              <IconButton
-                variant="secondary"
-                onClick={stakingTokenBalance.gt(0) ? onStake : onPresentTokenRequired}
-                disabled={pool.isFinished}
-              >
-                <AddIcon />
-              </IconButton>
-            )}
-          </ActionButtonsContainer>
-        </ActionSection>
-      </ActionValueContainer>
-      {poolContractAddress && (
-        <Flex mb="8px" justifyContent="center">
-          <a
-            href={`${BASE_BSC_SCAN_URL}/address/${isAutoVault ? cakeVaultContractAddress : poolContractAddress}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {t('View on BSCscan')}
-          </a>
-        </Flex>
-      )}
-      <Flex mb="8px" justifyContent="center">
-        <a href={earningToken.projectLink} target="_blank" rel="noreferrer">
-          {t('View Project Site')}
-        </a>
-      </Flex>
       {/* {account && isMetaMaskInScope && tokenAddress && (
         <Flex mb="8px" justifyContent={['flex-end', 'flex-end', 'flex-start']}>
           <Button
@@ -455,7 +470,7 @@ const ActionPanel: React.FC<ActionPanelProps> = ({ pool, expanded }) => {
         <Harvest {...pool} userDataLoaded={userDataLoaded} />
         <Stake pool={pool} userDataLoaded={userDataLoaded} />
       </ActionContainer> */}
-    </StyledActionPanel>
+    </Container>
   )
 }
 

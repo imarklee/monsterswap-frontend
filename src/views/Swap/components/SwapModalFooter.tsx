@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import styled from 'styled-components'
-import { Trade, TradeType } from '@monsterswap/sdk'
+import { Trade, TradeType } from 'monsterswaptestsdk'
 import { Button, Text, AutoRenewIcon } from 'uikit'
 import { Field } from 'state/swap/actions'
 import {

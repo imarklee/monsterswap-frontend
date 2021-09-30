@@ -31,6 +31,15 @@ const StyledCell = styled(BaseCell)`
   }
 `
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: Ubuntu;
+  color: #4e4e9d;
+  font-weight: 700;
+`
+
 const TotalStakedCell: React.FC<TotalStakedCellProps> = ({ pool }) => {
   // const { t } = useTranslation()
   const { sousId, stakingToken, totalStaked, isAutoVault } = pool
@@ -50,15 +59,23 @@ const TotalStakedCell: React.FC<TotalStakedCellProps> = ({ pool }) => {
   }, [isAutoVault, totalCakeInVault, isManualCakePool, totalStaked, stakingToken.decimals])
 
   return (
+    // <StyledCell role="cell">
+    //   <CellContent>
+    //     {totalStaked && totalStaked.gte(0) ? (
+    //       <Flex height="20px" alignItems="center">
+    //         {/* <Balance fontSize="16px" value={totalStakedBalance} decimals={0} unit={` ${stakingToken.symbol}`} /> */}
+    //         <Balance fontSize="16px" value={totalStakedBalance} decimals={0} unit={` ${stakingToken.symbol}`} />
+    //       </Flex>
+    //     ) : (
+    //       <Skeleton width="80px" height="16px" />
+    //     )}
+    //   </CellContent>
+    // </StyledCell>
     <StyledCell role="cell">
       <CellContent>
-        {totalStaked && totalStaked.gte(0) ? (
-          <Flex height="20px" alignItems="center">
-            <Balance fontSize="16px" value={totalStakedBalance} decimals={0} unit={` ${stakingToken.symbol}`} />
-          </Flex>
-        ) : (
-          <Skeleton width="80px" height="16px" />
-        )}
+        <Wrapper>
+          999,999,999
+        </Wrapper>
       </CellContent>
     </StyledCell>
   )
