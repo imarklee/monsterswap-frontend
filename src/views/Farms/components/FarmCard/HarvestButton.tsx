@@ -31,12 +31,14 @@ const HarvestButton: React.FC<HarvestButtonProps> = ({ earnings, pid }) => {
       onClick={async () => {
         setPendingTx(true)
         try {
+          console.log("TestPid", pid)
           await onReward()
           toastSuccess(
             `${t('Harvested')}!`,
             t('Your %symbol% earnings have been sent to your wallet!', { symbol: 'CAKE' }),
           )
         } catch (e) {
+          console.log("error=============>",e);
           toastError(
             t('Error'),
             t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Flex, Card, Image } from 'uikit'
 import { useWeb3React } from '@web3-react/core'
@@ -40,7 +40,7 @@ const StyledText = styled.p<{ fontSize: string }>`
   color: rgba(17, 5, 24, 0.6);
 `
 
-const StyledCard = styled(Card)<{ bgColor?: string }>`
+const StyledCard = styled(Card) <{ bgColor?: string }>`
   padding: 20px;
   box-shadow: 0 2px 0 rgba(25, 19, 38, 0.1);
   background-color: ${(props) => props.bgColor};
@@ -230,7 +230,7 @@ const TotalLockedPart = styled.div`
 const txCount = 44713126
 const addressCount = 2607499
 
-const Home: React.FC = () => {
+const Home: React.FC = (props) => {
   // const { theme } = useTheme()
   // const { account } = useWeb3React()
 
@@ -246,6 +246,16 @@ const Home: React.FC = () => {
   const [entrusting, inFunds] = tvlText.split(tvlString)
 
   console.log('[home-tvlString]', tvlString, data)
+
+  useEffect(() => {
+    const appUrl = window.location.href
+    if (appUrl.indexOf("ref=") >= 0) {
+      const referralUrlVale = appUrl.split("ref=")[1]
+      localStorage.setItem('referralUrlVale', referralUrlVale);
+    } else {
+      console.log("homeProps===------", appUrl)
+    }
+  }, [])
 
   const sliderSettings = {
     dots: true,

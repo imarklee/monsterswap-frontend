@@ -5,40 +5,72 @@ const options = {
   gasLimit: DEFAULT_GAS_LIMIT,
 }
 
+const refConst = "0x0000000000000000000000000000000000000000"
+
+const getReferralValue = () => {
+  let referralUrlVale1 = ""
+  if (localStorage.getItem('referralUrlVale') !== undefined && localStorage.getItem('referralUrlVale') !== null && localStorage.getItem('referralUrlVale') !== "") {
+    referralUrlVale1 = localStorage.getItem('referralUrlVale')
+    return referralUrlVale1
+  }
+  referralUrlVale1 = refConst
+  return referralUrlVale1
+}
+
 export const stakeFarm = async (masterChefContract, pid, amount) => {
+  let referralUrlVale = getReferralValue();
+  console.log("referralUrlVale----", referralUrlVale);
   const value = new BigNumber(amount).times(DEFAULT_TOKEN_DECIMAL).toString()
   if (pid === 0) {
-    const tx = await masterChefContract.enterStaking(value, options)
+    const tx = await masterChefContract.deposit(value, referralUrlVale, options)
     const receipt = await tx.wait()
+    localStorage.removeItem('referralUrlVale')
+    referralUrlVale=refConst
     return receipt.status
   }
 
-  const tx = await masterChefContract.deposit(pid, value, '0x0000000000000000000000000000000000000000', options)
+  const tx = await masterChefContract.deposit(pid, value, referralUrlVale, options)
   const receipt = await tx.wait()
+  localStorage.removeItem('referralUrlVale')
+  referralUrlVale=refConst
   return receipt.status
 }
 
 export const unstakeFarm = async (masterChefContract, pid, amount) => {
+  let referralUrlVale = getReferralValue();
+  console.log("referralUrlVale----", referralUrlVale);
   const value = new BigNumber(amount).times(DEFAULT_TOKEN_DECIMAL).toString()
   if (pid === 0) {
-    const tx = await masterChefContract.leaveStaking(value, options)
+    const tx = await masterChefContract.deposit(value, referralUrlVale, options)
     const receipt = await tx.wait()
+    localStorage.removeItem('referralUrlVale')
+    referralUrlVale=refConst
     return receipt.status
   }
 
   const tx = await masterChefContract.withdraw(pid, value, options)
   const receipt = await tx.wait()
+  localStorage.removeItem('referralUrlVale')
+  referralUrlVale=refConst
   return receipt.status
 }
 
 export const harvestFarm = async (masterChefContract, pid) => {
+  let referralUrlVale = getReferralValue();
+  console.log("referralUrlVale----", referralUrlVale);
   if (pid === 0) {
-    const tx = await await masterChefContract.leaveStaking('0', options)
+    console.log("212312313123123");
+    const tx = await await masterChefContract.deposit('0', referralUrlVale, options)
     const receipt = await tx.wait()
+    localStorage.removeItem('referralUrlVale')
+    referralUrlVale=refConst
     return receipt.status
   }
-
-  const tx = await masterChefContract.deposit(pid, '0', options)
+  console.log("asdadasdadasd");
+  const tx = await masterChefContract.deposit(pid, '0', referralUrlVale, options)
   const receipt = await tx.wait()
+  console.log("receipt----", receipt);
+  localStorage.removeItem('referralUrlVale')
+  referralUrlVale=refConst
   return receipt.status
 }

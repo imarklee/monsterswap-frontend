@@ -271,7 +271,8 @@ const getDisplayApr = (cakeRewardsApr?: number, lpRewardsApr?: number) => {
   return null
 }
 
-const Farms: React.FC = () => {
+const Farms: React.FC = (props) => {
+  console.log("farmProps===",window.location.href )
   const { path } = useRouteMatch()
   const { isXl } = useMatchBreakpoints()
   const { pathname } = useLocation()
