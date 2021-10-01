@@ -207,11 +207,11 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         </InfoRow>
         <InfoRow>
           <p>Deposit Fees:</p>
-          <p>{ details.depositFeeBP }</p>
+          <p>{details.depositFeeBP}</p>
         </InfoRow>
         <InfoRow>
           <p>Harvest Fees:</p>
-          <p>{ details.harvestFeeBP }</p>
+          <p>{details.harvestFeeBP}</p>
         </InfoRow>
         <InfoRow>
           <p>Staked Value:</p>
@@ -319,11 +319,11 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         </StakedContent>
       )} */}
       <StakedContent>
-        <div>
-          <p>{t('Staked')}</p>
-          <p>{displayBalance()}</p>
-        </div>
-        {isApproved && <IconButtonWrapper>
+        {isApproved && stakedBalance.gt(0) &&  <IconButtonWrapper>
+          <div>
+            <p>{t('Staked')}</p>
+            <p>{displayBalance()}</p>
+          </div>
           <IconButton
             style={{
               background: '#49468A',

@@ -101,7 +101,7 @@ const StakeAction: React.FC<FarmCardActionsProps> = ({
   return (
     <Flex flex={1} justifyContent="space-between" alignItems="center">
       <Flex flexDirection="column" alignItems="flex-start">
-        <p>{stakedBalance.eq(0) && t('Banana Earned')}</p>
+        <p>{stakedBalance.eq(0) && t('Monster Earned')}</p>
         <p>{stakedBalance.gt(0) && t('Staked')}</p>
         <Heading>{displayBalance()}</Heading>
       </Flex>
