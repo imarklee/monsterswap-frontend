@@ -11,6 +11,7 @@ export interface ITableProps {
   columns: ColumnType<RowProps>[]
   userDataReady: boolean
   sortColumn?: string
+  handleSortOptionChange: (option: number) => void
 }
 
 const Container = styled.div`
@@ -154,9 +155,8 @@ const FarmTable: React.FC<ITableProps> = (props) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null)
   const { isXl } = useMatchBreakpoints()
   const { t } = useTranslation()
-
   const [sortState, setSortState] = useState(0)
-  const { data, columns, userDataReady } = props
+  const { data, columns, userDataReady, handleSortOptionChange} = props
 
   const { rows } = useTable(columns, data, { sortable: true, sortColumn: 'farm' })
 
@@ -164,6 +164,11 @@ const FarmTable: React.FC<ITableProps> = (props) => {
     tableWrapperEl.current.scrollIntoView({
       behavior: 'smooth',
     })
+  }
+
+  const sortOptionChange = (option: number): void => {
+    setSortState(option)
+    handleSortOptionChange(option)
   }
 
   return (
@@ -177,7 +182,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                   <div
                     tabIndex={0}
                     role="button"
-                    onClick={() => setSortState(0)}
+                    onClick={() => sortOptionChange(0)}
                     onKeyDown={() => {
                       console.log()
                     }}
@@ -190,7 +195,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                   <div
                     tabIndex={0}
                     role="button"
-                    onClick={() => setSortState(2)}
+                    onClick={() => sortOptionChange(2)}
                     onKeyDown={() => {
                       console.log()
                     }}
@@ -206,7 +211,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                   <div
                     tabIndex={0}
                     role="button"
-                    onClick={() => setSortState(3)}
+                    onClick={() => sortOptionChange(3)}
                     onKeyDown={() => {
                       console.log()
                     }}
@@ -218,7 +223,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                   <div
                     tabIndex={0}
                     role="button"
-                    onClick={() => setSortState(4)}
+                    onClick={() => sortOptionChange(4)}
                     onKeyDown={() => {
                       console.log()
                     }}

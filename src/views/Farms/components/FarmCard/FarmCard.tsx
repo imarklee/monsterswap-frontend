@@ -210,7 +210,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePric
             {!removed && (
               <SpanElement>
                 {/* <span>APR:</span> {displayApr}% */}
-                <SpanElement>APR:</SpanElement> <SpanElement style={{ fontFamily: "Ubuntu" }}>99,999.99%</SpanElement>
+                <SpanElement>APR:</SpanElement> <SpanElement style={{ fontFamily: "Ubuntu" }}>{displayApr}%</SpanElement>
                 <ApyButton
                   lpLabel={lpLabel}
                   addLiquidityUrl={addLiquidityUrl}
@@ -227,7 +227,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePric
               {!removed && (
                 <h2>
                   {/* <span>APR:</span> {displayApr}% */}
-                  <span>APR:</span> <h2 style={{ fontFamily: "Ubuntu" }}>99,999.99%</h2>
+                  <span>APR:</span> <h2 style={{ fontFamily: "Ubuntu" }}>{displayApr}%</h2>
                   <ApyButton
                     lpLabel={lpLabel}
                     addLiquidityUrl={addLiquidityUrl}
@@ -292,7 +292,7 @@ const FarmCard: React.FC<FarmCardProps> = ({ farm, displayApr, removed, cakePric
         <DetailsSection
           removed={removed}
           bscScanAddress={getBscScanLink(lpAddress, 'address')}
-          infoAddress={`https://pancakeswap.info/pool/${lpAddress}`}
+          infoAddress={`https://monsterswap.info/pool/${lpAddress}`}
           totalValueFormatted={totalValueFormatted}
           lpLabel={lpLabel}
           addLiquidityUrl={addLiquidityUrl}

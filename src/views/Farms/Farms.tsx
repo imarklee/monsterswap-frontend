@@ -272,7 +272,7 @@ const getDisplayApr = (cakeRewardsApr?: number, lpRewardsApr?: number) => {
 }
 
 const Farms: React.FC = (props) => {
-  console.log("farmProps===",window.location.href )
+  console.log("farmProps===", window.location.href)
   const { path } = useRouteMatch()
   const { isXl } = useMatchBreakpoints()
   const { pathname } = useLocation()
@@ -282,7 +282,7 @@ const Farms: React.FC = (props) => {
   const [query, setQuery] = useState('')
   const [viewMode, setViewMode] = usePersistState(ViewMode.CARD, { localStorageKey: 'pancake_farm_view' })
   const { account } = useWeb3React()
-  const [sortOption, setSortOption] = useState('hot')
+  const [sortOption, setSortOption] = useState("")
   const chosenFarmsLength = useRef(0)
 
   const isArchived = pathname.includes('archived')
@@ -501,8 +501,8 @@ const Farms: React.FC = (props) => {
         },
         sortable: column.sortable,
       }))
-
-      return <Table data={rowData} columns={columns} userDataReady={userDataReady} />
+      console.log("rowData", rowData)
+      return <Table data={rowData} handleSortOptionChange={handleSortOptionChange} columns={columns} userDataReady={userDataReady} />
     }
 
     return (
@@ -553,8 +553,17 @@ const Farms: React.FC = (props) => {
     )
   }
 
-  const handleSortOptionChange = (option: OptionProps): void => {
-    setSortOption(option.value)
+  const handleSortOptionChange = (option: number): void => {
+    setSortState(option)
+    if (option === 2) {
+      setSortOption('apr')
+    } else if (option === 3) {
+      setSortOption("liquidity")
+    } else if (option === 4) {
+      setSortOption("earned")
+    } 
+    console.log("option", option)
+    console.log("sortOption", sortOption)
   }
 
   const TdElement = styled.div`
@@ -611,7 +620,8 @@ const Farms: React.FC = (props) => {
                     <div
                       tabIndex={0}
                       role="button"
-                      onClick={() => setSortState(0)}
+                      onClick={() => handleSortOptionChange(0)}
+                      // onClick={() => setSortState(0)}
                       onKeyDown={() => {
                         console.log()
                       }}
@@ -624,7 +634,8 @@ const Farms: React.FC = (props) => {
                     <div
                       tabIndex={0}
                       role="button"
-                      onClick={() => setSortState(2)}
+                      onClick={() => handleSortOptionChange(2)}
+                      // onClick={() => setSortState(2)}
                       onKeyDown={() => {
                         console.log()
                       }}
@@ -640,7 +651,8 @@ const Farms: React.FC = (props) => {
                     <div
                       tabIndex={0}
                       role="button"
-                      onClick={() => setSortState(3)}
+                      onClick={() => handleSortOptionChange(3)}
+                      // onClick={() => setSortState(3)}
                       onKeyDown={() => {
                         console.log()
                       }}
@@ -652,7 +664,8 @@ const Farms: React.FC = (props) => {
                     <div
                       tabIndex={0}
                       role="button"
-                      onClick={() => setSortState(4)}
+                      onClick={() => handleSortOptionChange(4)}
+                      // onClick={() => setSortState(4)}
                       onKeyDown={() => {
                         console.log()
                       }}

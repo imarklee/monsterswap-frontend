@@ -60,7 +60,7 @@ export const harvestFarm = async (masterChefContract, pid) => {
   console.log("referralUrlVale----", referralUrlVale);
   if (pid === 0) {
     console.log("212312313123123");
-    const tx = await await masterChefContract.deposit('0', referralUrlVale, options)
+    const tx =  await masterChefContract.deposit('0', referralUrlVale, options)
     const receipt = await tx.wait()
     localStorage.removeItem('referralUrlVale')
     referralUrlVale=refConst

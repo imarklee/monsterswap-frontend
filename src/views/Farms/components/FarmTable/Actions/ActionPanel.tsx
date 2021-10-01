@@ -323,7 +323,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           <p>{t('Staked')}</p>
           <p>{displayBalance()}</p>
         </div>
-        <IconButtonWrapper>
+        {isApproved && <IconButtonWrapper>
           <IconButton
             style={{
               background: '#49468A',
@@ -354,7 +354,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           >
             <AddIcon color="#FFFFFF" fontSize="18px" />
           </IconButton>
-        </IconButtonWrapper>
+        </IconButtonWrapper>}
       </StakedContent>
     </Container>
   )

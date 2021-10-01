@@ -18,6 +18,7 @@ export interface ExpandableSectionProps {
 
 const Wrapper = styled.div`
   margin: 24px;
+  margin-top: 50px;
 `
 
 const StyledLinkExternal = styled.a`
@@ -54,7 +55,7 @@ const DetailsSection: React.FC<ExpandableSectionProps> = ({
   details
 }) => {
   const { t } = useTranslation()
-  const { stakedBalance } = useFarmUser(details.pid)
+  const {  allowance, tokenBalance, stakedBalance, earnings } = useFarmUser(details.pid)
   const lpPrice = useLpTokenPrice(details.lpSymbol)
 
   return (
@@ -73,11 +74,11 @@ const DetailsSection: React.FC<ExpandableSectionProps> = ({
       </InfoRow>
       <InfoRow>
         <p>Deposit Fees:</p>
-        <p>0%</p>
+        <p>{ details.depositFeeBP }</p>
       </InfoRow>
       <InfoRow>
         <p>Harvest Fees:</p>
-        <p>0%</p>
+        <p>{ details.harvestFeeBP }</p>
       </InfoRow>
       <InfoRow>
         <p>Staked Value:</p>
@@ -96,7 +97,18 @@ const DetailsSection: React.FC<ExpandableSectionProps> = ({
       </InfoRow>
       <InfoRow>
         <p>Earned Value:</p>
-        <p>0 USD</p>
+        {earnings.gt(0) && lpPrice.gt(0) ? (
+            <Balance
+              fontSize="12px"
+              color="textSubtle"
+              decimals={2}
+              value={getBalanceNumber(lpPrice.times(earnings))}
+              unit=" USD"
+              prefix="~"
+            />
+          ) : (
+            <p>0 USD</p>
+          )}
       </InfoRow>
       <Flex justifyContent='center'>
         <StyledLinkExternal href={bscScanAddress} target='_blank'>{t('View on BSCSCAN')}</StyledLinkExternal>
