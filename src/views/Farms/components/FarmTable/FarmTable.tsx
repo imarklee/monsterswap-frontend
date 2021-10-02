@@ -6,11 +6,15 @@ import { ReactComponent as WhiteArrowDown } from 'assets/images/WhiteArrowDown.s
 
 import Row, { RowProps } from './Row'
 
+const orderDec = "/images/arrowImage.png";
+const orderAsc = "/images/anti-arrow.png";
+
 export interface ITableProps {
   data: RowProps[]
   columns: ColumnType<RowProps>[]
   userDataReady: boolean
   sortColumn?: string
+  handleSortOptionChange: (option: number, sortFlag: boolean) => void
 }
 
 const Container = styled.div`
@@ -139,7 +143,11 @@ const TdElement = styled.div`
   background: #49468a;
   border-radius: 70px;
   color: white;
-  padding: 12px 10px;
+  padding: 12px 15px;
+  display: flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:center;
 `
 const CustomButton = styled(Button)`
   font-size: 10px;
@@ -149,14 +157,15 @@ const CustomButton = styled(Button)`
   ${({ theme }) => theme.mediaQueries.sm} {
     font-size: 14px;
   }
-`
+  `
+let sortFlag = true
+
 const FarmTable: React.FC<ITableProps> = (props) => {
   const tableWrapperEl = useRef<HTMLDivElement>(null)
   const { isXl } = useMatchBreakpoints()
   const { t } = useTranslation()
-
   const [sortState, setSortState] = useState(0)
-  const { data, columns, userDataReady } = props
+  const { data, columns, userDataReady, handleSortOptionChange } = props
 
   const { rows } = useTable(columns, data, { sortable: true, sortColumn: 'farm' })
 
@@ -164,6 +173,13 @@ const FarmTable: React.FC<ITableProps> = (props) => {
     tableWrapperEl.current.scrollIntoView({
       behavior: 'smooth',
     })
+  }
+
+
+  const sortOptionChange = (option: number): void => {
+    sortFlag = !sortFlag;
+    setSortState(option)
+    handleSortOptionChange(option, sortFlag)
   }
 
   return (
@@ -177,7 +193,7 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                   <div
                     tabIndex={0}
                     role="button"
-                    onClick={() => setSortState(0)}
+                    onClick={() => sortOptionChange(0)}
                     onKeyDown={() => {
                       console.log()
                     }}
@@ -190,12 +206,16 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                   <div
                     tabIndex={0}
                     role="button"
-                    onClick={() => setSortState(2)}
+                    onClick={() => sortOptionChange(2)}
                     onKeyDown={() => {
                       console.log()
                     }}
                   >
-                    {sortState === 2 ? <TdElement>APR</TdElement> : <span>APR</span>}
+                    {sortState === 2 ? <TdElement>
+                      APR
+                      <img src={sortFlag? orderAsc:orderDec} alt="ifo bunny" width="10x" height="6px" />
+                    </TdElement>
+                      : <span>APR</span>}
                   </div>
                 </td>
                 <td width="8%">
@@ -206,24 +226,30 @@ const FarmTable: React.FC<ITableProps> = (props) => {
                   <div
                     tabIndex={0}
                     role="button"
-                    onClick={() => setSortState(3)}
+                    onClick={() => sortOptionChange(3)}
                     onKeyDown={() => {
                       console.log()
                     }}
                   >
-                    {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
+                    {sortState === 3 ? <TdElement>
+                      Liquidity
+                      <img src={sortFlag? orderAsc:orderDec} alt="ifo bunny" width="10x" height="6px" />
+                    </TdElement> : <span>Liquidity</span>}
                   </div>
                 </td>
                 <td width="35%">
                   <div
                     tabIndex={0}
                     role="button"
-                    onClick={() => setSortState(4)}
+                    onClick={() => sortOptionChange(4)}
                     onKeyDown={() => {
                       console.log()
                     }}
                   >
-                    {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
+                    {sortState === 4 ? <TdElement>
+                      Earned
+                      <img src={sortFlag? orderAsc:orderDec} alt="ifo bunny" width="10x" height="6px" />
+                    </TdElement> : <span>Earned</span>}
                   </div>
                 </td>
                 <td width="15%" />

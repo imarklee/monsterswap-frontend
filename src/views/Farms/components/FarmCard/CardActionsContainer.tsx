@@ -112,13 +112,13 @@ const CardActions: React.FC<FarmCardActionsProps> = ({ farm, account, addLiquidi
             <div style={{ textAlign: 'left' }}>
               <p><SpanElement>Earned</SpanElement></p>
               {/* <h2>?</h2> */}
-              <SpanElement style={{ fontFamily: "Ubuntu" }}>999,999.999</SpanElement>
+              <SpanElement style={{ fontFamily: "Ubuntu" }}>0.000</SpanElement>
             </div>
             : 
             <div style={{ textAlign: 'left' }}>
             <p>Earned</p>
             {/* <h2>?</h2> */}
-            <h2 style={{ fontFamily: "Ubuntu" }}>999,999.999</h2>
+            <h2 style={{ fontFamily: "Ubuntu" }}>0.000</h2>
           </div>
           )}
           {!account ? <ConnectWalletButton btnText="Unlock Wallet" style={{ padding: '12px 16px', borderRadius: '16px', color: 'white', border: '0px' }} /> : renderApprovalOrStakeButton()}

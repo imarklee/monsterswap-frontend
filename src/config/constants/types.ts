@@ -58,6 +58,8 @@ export interface FarmConfig {
   token: Token
   quoteToken: Token
   multiplier?: string
+  depositFeeBP?: string
+  harvestFeeBP?: string
   isCommunity?: boolean
   dual?: {
     rewardPerBlock: number

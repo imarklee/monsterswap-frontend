@@ -57,7 +57,7 @@ const ToggleView: React.FunctionComponent<ToggleViewProps> = ({ viewMode, onTogg
         </IconButton>
       )}
       <IconButton
-        className={isXl || viewMode === ViewMode.CARD ? 'active' : ''}
+        className={viewMode === ViewMode.CARD ? 'active' : ''}
         variant="text"
         scale="sm"
         id="clickPoolTableView"

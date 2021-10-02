@@ -65,7 +65,7 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   }
 
   useEffect(() => {
-    setActionPanelExpanded(hasStakedAmount)
+    // setActionPanelExpanded(hasStakedAmount)
   }, [hasStakedAmount])
 
   const { isXs, isSm, isMd, isLg, isXl } = useMatchBreakpoints()

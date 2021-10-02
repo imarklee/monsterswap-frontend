@@ -27,6 +27,9 @@ import { RowProps } from './components/FarmTable/Row'
 import ToggleView from './components/ToggleView/ToggleView'
 import { DesktopColumnSchema, ViewMode } from './components/types'
 
+const orderDec = "/images/arrowImage.png";
+const orderAsc = "/images/anti-arrow.png";
+
 const ControlContainer = styled.div`
   display: flex;
   width: 100%;
@@ -271,7 +274,10 @@ const getDisplayApr = (cakeRewardsApr?: number, lpRewardsApr?: number) => {
   return null
 }
 
-const Farms: React.FC = () => {
+let orderFlag = true
+
+const Farms: React.FC = (props) => {
+  console.log("farmProps===", window.location.href)
   const { path } = useRouteMatch()
   const { isXl } = useMatchBreakpoints()
   const { pathname } = useLocation()
@@ -281,7 +287,8 @@ const Farms: React.FC = () => {
   const [query, setQuery] = useState('')
   const [viewMode, setViewMode] = usePersistState(ViewMode.CARD, { localStorageKey: 'pancake_farm_view' })
   const { account } = useWeb3React()
-  const [sortOption, setSortOption] = useState('hot')
+  const [sortOption, setSortOption] = useState("")
+  const [sortFlag, setSortFlag] = useState(true)
   const chosenFarmsLength = useRef(0)
 
   const isArchived = pathname.includes('archived')
@@ -356,21 +363,41 @@ const Farms: React.FC = () => {
     const sortFarms = (farms: FarmWithStakedValue[]): FarmWithStakedValue[] => {
       switch (sortOption) {
         case 'apr':
-          return orderBy(farms, (farm: FarmWithStakedValue) => farm.apr + farm.lpRewardsApr, 'desc')
+          if (sortFlag) {
+            return orderBy(farms, (farm: FarmWithStakedValue) => farm.apr + farm.lpRewardsApr, 'desc')
+          }
+          return orderBy(farms, (farm: FarmWithStakedValue) => farm.apr + farm.lpRewardsApr, 'asc')
         case 'multiplier':
+          if (sortFlag) {
+            return orderBy(
+              farms,
+              (farm: FarmWithStakedValue) => (farm.multiplier ? Number(farm.multiplier.slice(0, -1)) : 0),
+              'desc',
+            )
+          }
           return orderBy(
             farms,
             (farm: FarmWithStakedValue) => (farm.multiplier ? Number(farm.multiplier.slice(0, -1)) : 0),
-            'desc',
+            'asc',
           )
         case 'earned':
+          if (sortFlag) {
+            return orderBy(
+              farms,
+              (farm: FarmWithStakedValue) => (farm.userData ? Number(farm.userData.earnings) : 0),
+              'desc',
+            )
+          }
           return orderBy(
             farms,
             (farm: FarmWithStakedValue) => (farm.userData ? Number(farm.userData.earnings) : 0),
-            'desc',
+            'asc',
           )
         case 'liquidity':
-          return orderBy(farms, (farm: FarmWithStakedValue) => Number(farm.liquidity), 'desc')
+          if (sortFlag) {
+            return orderBy(farms, (farm: FarmWithStakedValue) => Number(farm.liquidity), 'desc')
+          }
+          return orderBy(farms, (farm: FarmWithStakedValue) => Number(farm.liquidity), 'asc')
         default:
           return farms
       }
@@ -389,6 +416,7 @@ const Farms: React.FC = () => {
     return sortFarms(chosenFarms).slice(0, numberOfFarmsVisible)
   }, [
     sortOption,
+    sortFlag,
     activeFarms,
     farmsList,
     inactiveFarms,
@@ -500,8 +528,8 @@ const Farms: React.FC = () => {
         },
         sortable: column.sortable,
       }))
-
-      return <Table data={rowData} columns={columns} userDataReady={userDataReady} />
+      console.log("rowData", rowData)
+      return <Table data={rowData} handleSortOptionChange={handleSortOptionChange} columns={columns} userDataReady={userDataReady} />
     }
 
     return (
@@ -552,8 +580,18 @@ const Farms: React.FC = () => {
     )
   }
 
-  const handleSortOptionChange = (option: OptionProps): void => {
-    setSortOption(option.value)
+  const handleSortOptionChange = (option: number, flag: boolean): void => {
+    setSortState(option)
+    setSortFlag(flag)
+    if (option === 2) {
+      setSortOption('apr')
+    } else if (option === 3) {
+      setSortOption("liquidity")
+    } else if (option === 4) {
+      setSortOption("earned")
+    }
+    console.log("option", option)
+    console.log("flag", flag)
   }
 
   const TdElement = styled.div`
@@ -562,11 +600,16 @@ const Farms: React.FC = () => {
     color: white;
     padding: 5px 5px;
     text-align: center;
+    display: flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    padding: 10px 15px;
     ${({ theme }) => theme.mediaQueries.xs} {
-      padding: 10px 10px;
+      padding: 10px 15px;
     }
     ${({ theme }) => theme.mediaQueries.sm} {
-      padding: 10px 10px;
+      padding: 10px 15px;
     }
   `
 
@@ -610,7 +653,11 @@ const Farms: React.FC = () => {
                     <div
                       tabIndex={0}
                       role="button"
-                      onClick={() => setSortState(0)}
+                      onClick={() => {
+                        orderFlag = !orderFlag
+                        handleSortOptionChange(0, orderFlag)
+                      }}
+                      // onClick={() => setSortState(0)}
                       onKeyDown={() => {
                         console.log()
                       }}
@@ -623,12 +670,20 @@ const Farms: React.FC = () => {
                     <div
                       tabIndex={0}
                       role="button"
-                      onClick={() => setSortState(2)}
+                      onClick={() => {
+                        orderFlag = !orderFlag
+                        handleSortOptionChange(2, orderFlag)
+                      }}
+                      // onClick={() => setSortState(2)}
                       onKeyDown={() => {
                         console.log()
                       }}
                     >
-                      {sortState === 2 ? <TdElement>APR</TdElement> : <span>APR</span>}
+                      {sortState === 2 ? <TdElement>
+                        APR
+                        <img src={orderFlag ? orderAsc : orderDec} alt="ifo bunny" width="10x" height="6px" />
+                      </TdElement>
+                        : <span>APR</span>}
                     </div>
                   </td>
                   <td width="20%">
@@ -639,24 +694,38 @@ const Farms: React.FC = () => {
                     <div
                       tabIndex={0}
                       role="button"
-                      onClick={() => setSortState(3)}
+                      onClick={() => {
+                        orderFlag = !orderFlag
+                        handleSortOptionChange(3, orderFlag)
+                      }}
+                      // onClick={() => setSortState(3)}
                       onKeyDown={() => {
                         console.log()
                       }}
                     >
-                      {sortState === 3 ? <TdElement>Liquidity</TdElement> : <span>Liquidity</span>}
+                      {sortState === 3 ? <TdElement>
+                        Liquidity
+                        <img src={orderFlag ? orderAsc : orderDec} alt="ifo bunny" width="10x" height="6px" />
+                      </TdElement> : <span>Liquidity</span>}
                     </div>
                   </td>
                   <td width="20%">
                     <div
                       tabIndex={0}
                       role="button"
-                      onClick={() => setSortState(4)}
+                      onClick={() => {
+                        orderFlag = !orderFlag
+                        handleSortOptionChange(4, orderFlag)
+                      }}
+                      // onClick={() => setSortState(4)}
                       onKeyDown={() => {
                         console.log()
                       }}
                     >
-                      {sortState === 4 ? <TdElement>Earned</TdElement> : <span>Earned</span>}
+                      {sortState === 4 ? <TdElement>
+                        Earned
+                        <img src={orderFlag ? orderAsc : orderDec} alt="ifo bunny" width="10x" height="6px" />
+                      </TdElement> : <span>Earned</span>}
                     </div>
                   </td>
                   <td width="10%" />

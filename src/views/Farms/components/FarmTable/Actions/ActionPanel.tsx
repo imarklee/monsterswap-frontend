@@ -132,6 +132,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
 }) => {
   const farm = details
 
+
   const { t } = useTranslation()
   const isActive = farm.multiplier !== '0X'
   const { quoteToken, token } = farm
@@ -142,7 +143,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   })
   const { account } = useWeb3React()
   const addLiquidityUrl = `${BASE_ADD_LIQUIDITY_URL}/${liquidityUrlPathParts}`
-  const { allowance, tokenBalance, stakedBalance } = useFarmUser(farm.pid)
+  const { allowance, tokenBalance, stakedBalance, earnings } = useFarmUser(farm.pid)
   const isApproved = account && allowance && allowance.isGreaterThan(0)
   const lpPrice = useLpTokenPrice(farm.lpSymbol)
   const lpAddress = getAddress(farm.lpAddresses)
@@ -151,6 +152,12 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const { onUnstake } = useUnstakeFarms(farm.pid)
   const dispatch = useAppDispatch()
   const location = useLocation()
+
+  console.log("details------------>", details)
+  console.log("apr------------>", apr)
+  console.log("multiplier------------>", multiplier)
+  console.log("liquidity------------>", liquidity)
+  console.log("userDataReady------------>", userDataReady)
 
   const handleStake = async (amount: string) => {
     await onStake(amount)
@@ -200,11 +207,11 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         </InfoRow>
         <InfoRow>
           <p>Deposit Fees:</p>
-          <p>0%</p>
+          <p>{details.depositFeeBP}</p>
         </InfoRow>
         <InfoRow>
           <p>Harvest Fees:</p>
-          <p>0%</p>
+          <p>{details.harvestFeeBP}</p>
         </InfoRow>
         <InfoRow>
           <p>Staked Value:</p>
@@ -223,7 +230,18 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         </InfoRow>
         <InfoRow>
           <p>Earned Value:</p>
-          <p>0 USD</p>
+          {earnings.gt(0) && lpPrice.gt(0) ? (
+            <Balance
+              fontSize="12px"
+              color="textSubtle"
+              decimals={2}
+              value={getBalanceNumber(lpPrice.times(earnings))}
+              unit=" USD"
+              prefix="~"
+            />
+          ) : (
+            <p>0 USD</p>
+          )}
         </InfoRow>
         {/* {isActive && (
           <StakeContainer>
@@ -301,11 +319,11 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
         </StakedContent>
       )} */}
       <StakedContent>
-        <div>
-          <p>{t('Staked')}</p>
-          <p>{displayBalance()}</p>
-        </div>
-        <IconButtonWrapper>
+        {isApproved && stakedBalance.gt(0) &&  <IconButtonWrapper>
+          <div>
+            <p>{t('Staked')}</p>
+            <p>{displayBalance()}</p>
+          </div>
           <IconButton
             style={{
               background: '#49468A',
@@ -336,7 +354,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           >
             <AddIcon color="#FFFFFF" fontSize="18px" />
           </IconButton>
-        </IconButtonWrapper>
+        </IconButtonWrapper>}
       </StakedContent>
     </Container>
   )

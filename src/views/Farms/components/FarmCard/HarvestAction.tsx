@@ -25,7 +25,7 @@ const HarvestAction: React.FC<FarmCardActionsProps> = ({ earnings, pid }) => {
   return (
     <Flex mb="8px" justifyContent="space-between" alignItems="center">
       <Flex flexDirection="column" alignItems="flex-start">
-        <p>{t('Banana Earned')}</p>
+        <p>{t('Monster Earned')}</p>
         <Heading color={rawEarningsBalance.eq(0) ? 'textDisabled' : 'text'}>{displayBalance}</Heading>
         {/* {earningsBusd > 0 && (
           <Balance fontSize="12px" color="textSubtle" decimals={2} value={earningsBusd} unit=" USD" prefix="~" />
