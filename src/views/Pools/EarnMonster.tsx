@@ -22,6 +22,7 @@ import CakeVaultCard from './components/CakeVaultCard'
 import PoolsTable from './components/PoolsTable/PoolsTable'
 import ToggleView, { ViewMode } from './components/ToggleView/ToggleView'
 import { getAprData, getCakeVaultEarnings } from './helpers'
+import { PoolsHeader, AppBody } from '../../components/App'
 
 const orderDec = "/images/arrowImage.png";
 const orderAsc = "/images/anti-arrow.png";
@@ -483,6 +484,7 @@ const Pools: React.FC = () => {
         {/* <Image src="/images/pools/bg-hero-pools.svg" alt="Monster Pools" width={100} height={300} /> */}
       </PoolsBanner>
       <Page>
+        <PoolsHeader />
         <PoolControls>
           <ViewControls>
             <ToggleView viewMode={viewMode} onToggle={(mode: ViewMode) => setViewMode(mode)} />
