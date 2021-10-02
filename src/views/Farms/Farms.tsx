@@ -277,7 +277,6 @@ const getDisplayApr = (cakeRewardsApr?: number, lpRewardsApr?: number) => {
 let orderFlag = true
 
 const Farms: React.FC = (props) => {
-  console.log("farmProps===", window.location.href)
   const { path } = useRouteMatch()
   const { isXl } = useMatchBreakpoints()
   const { pathname } = useLocation()
@@ -433,10 +432,6 @@ const Farms: React.FC = (props) => {
   chosenFarmsLength.current = chosenFarmsMemoized.length
 
   useEffect(() => {
-    console.log(sortState)
-  }, [sortState])
-
-  useEffect(() => {
     const showMoreFarms = (entries) => {
       const [entry] = entries
       if (entry.isIntersecting) {
@@ -528,7 +523,6 @@ const Farms: React.FC = (props) => {
         },
         sortable: column.sortable,
       }))
-      console.log("rowData", rowData)
       return <Table data={rowData} handleSortOptionChange={handleSortOptionChange} columns={columns} userDataReady={userDataReady} />
     }
 
@@ -590,8 +584,6 @@ const Farms: React.FC = (props) => {
     } else if (option === 4) {
       setSortOption("earned")
     }
-    console.log("option", option)
-    console.log("flag", flag)
   }
 
   const TdElement = styled.div`

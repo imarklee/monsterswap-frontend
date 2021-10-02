@@ -36,7 +36,6 @@ const MonsterDataRow: React.FC = () => {
     const cakeSupply = totalSupply ? getBalanceNumber(totalSupply) - burnedBalance : 0
     const cakePriceBusd = usePriceCakeBusd()
     const mcap = cakePriceBusd.times(cakeSupply)
-    console.log("[monster address]", cakePriceBusd);
     const mcapString = formatLocalisedCompactNumber(mcap.toNumber())
   
     return (

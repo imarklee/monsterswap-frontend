@@ -60,7 +60,6 @@ const Row: React.FunctionComponent<RowPropsWithLoading> = (props) => {
   const { t } = useTranslation()
 
   const toggleActionPanel = () => {
-    console.log('twet')
     setActionPanelExpanded(!actionPanelExpanded)
   }
 

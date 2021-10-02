@@ -113,6 +113,7 @@ const StakedContent = styled.div`
   display: flex;
   justify-content: space-around;
   width: 100%;
+  flex: 1 0;
 `
 
 const IconButtonWrapper = styled.div`
@@ -152,12 +153,6 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   const { onUnstake } = useUnstakeFarms(farm.pid)
   const dispatch = useAppDispatch()
   const location = useLocation()
-
-  console.log("details------------>", details)
-  console.log("apr------------>", apr)
-  console.log("multiplier------------>", multiplier)
-  console.log("liquidity------------>", liquidity)
-  console.log("userDataReady------------>", userDataReady)
 
   const handleStake = async (amount: string) => {
     await onStake(amount)
@@ -318,44 +313,46 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           </IconButtonWrapper>
         </StakedContent>
       )} */}
-      <StakedContent>
-        {isApproved && stakedBalance.gt(0) &&  <IconButtonWrapper>
-          <div>
-            <p>{t('Staked')}</p>
-            <p>{displayBalance()}</p>
-          </div>
-          <IconButton
-            style={{
-              background: '#49468A',
-              borderRadius: '16px',
-              width: '40px',
-              height: '39.13px',
-              top: '74.34px',
-              float: 'left',
-              marginLeft: '50px',
-            }}
-            onClick={onPresentWithdraw}
-            mr="6px"
-          >
-            <MinusIcon color="#FFFFFF" width="18px" />
-          </IconButton>
-          <IconButton
-            // variant="secondary"
-            style={{
-              background: '#49468A',
-              borderRadius: '16px',
-              width: '40px',
-              height: '39.13px',
-              top: '74.34px',
-              left: '974px',
-            }}
-            onClick={onPresentDeposit}
-            disabled={['history', 'archived'].some((item) => location.pathname.includes(item))}
-          >
-            <AddIcon color="#FFFFFF" fontSize="18px" />
-          </IconButton>
-        </IconButtonWrapper>}
-      </StakedContent>
+      {isApproved && stakedBalance.gt(0) &&
+        <StakedContent>
+          <IconButtonWrapper>
+            <div>
+              <p>{t('Staked')}</p>
+              <p>{displayBalance()}</p>
+            </div>
+            <IconButton
+              style={{
+                background: '#49468A',
+                borderRadius: '16px',
+                width: '40px',
+                height: '39.13px',
+                top: '74.34px',
+                float: 'left',
+                marginLeft: '50px',
+              }}
+              onClick={onPresentWithdraw}
+              mr="6px"
+            >
+              <MinusIcon color="#FFFFFF" width="18px" />
+            </IconButton>
+            <IconButton
+              // variant="secondary"
+              style={{
+                background: '#49468A',
+                borderRadius: '16px',
+                width: '40px',
+                height: '39.13px',
+                top: '74.34px',
+                left: '974px',
+              }}
+              onClick={onPresentDeposit}
+              disabled={['history', 'archived'].some((item) => location.pathname.includes(item))}
+            >
+              <AddIcon color="#FFFFFF" fontSize="18px" />
+            </IconButton>
+          </IconButtonWrapper>
+        </StakedContent>
+      }
     </Container>
   )
 }

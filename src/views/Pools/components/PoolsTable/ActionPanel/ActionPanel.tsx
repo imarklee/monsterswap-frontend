@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styled, { keyframes, css } from 'styled-components'
 import { useModal, Button, Flex, IconButton, Skeleton, Text, TimerIcon, useTooltip, AddIcon, MinusIcon } from 'uikit'
 import { BASE_BSC_SCAN_URL } from 'config'
