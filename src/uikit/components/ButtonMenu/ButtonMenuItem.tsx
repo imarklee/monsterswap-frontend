@@ -23,7 +23,7 @@ const ActiveButton: PolymorphicComponent<ActiveButtonProps, 'button'> = styled(B
 `
 const InactiveButton: PolymorphicComponent<InactiveButtonProps, 'button'> = styled(Button)<InactiveButtonProps>`
   background-color: transparent;
-  color: #49468A;
+  color: #000;
   font-family: 'Funhouse';
   font-size: 14px;
   &:hover:not(:disabled):not(:active) {
