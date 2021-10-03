@@ -7,7 +7,7 @@ export const BodyWrapper = styled(Card)`
   // max-width: 436px;
   // max-width: 40%;
   @media (min-width: 768px) {
-    max-width: 40%;
+    max-width: 669px;
   }
   width: 100%;
   z-index: 1;
