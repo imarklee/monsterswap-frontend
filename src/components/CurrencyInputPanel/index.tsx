@@ -136,7 +136,7 @@ export default function CurrencyInputPanel({
                     {pair?.token0.symbol}:{pair?.token1.symbol}
                   </Text>
                 ) : (
-                  <Text id="pair" fontFamily="UbuntuBold" fontSize="22px" bold>
+                  <Text id="pair" color="textBlack" fontFamily="UbuntuBold" fontSize="22px" bold>
                     {account && currency && showMaxButton && label !== 'To' && (
                       <SupperText onClick={onMax}>MAX</SupperText>
                     )}

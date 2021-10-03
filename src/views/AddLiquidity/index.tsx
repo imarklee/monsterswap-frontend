@@ -345,7 +345,7 @@ export default function AddLiquidity({
             <ColumnCenter>
               <InstructionMessage variant="warning" backColor="purpleLight">
                 <div>
-                  <Text fontFamily="Ubuntu">
+                  <Text color="textBlack" fontFamily="Ubuntu">
                     {t(
                       'Tip: When you add liquidity, you will receive pool tokens representing your position. These tokens automatically earn fees proportional to your share of the pool, and can be redeemed at any time.',
                     )}
