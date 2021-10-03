@@ -603,7 +603,7 @@ export default function RemoveLiquidity({
           </RowBetween>
           <Box position="relative" mt="16px">
             {!account ? (
-              <ConnectWalletButton />
+              <ConnectWalletButton width="100%" buttonType="primary" />
             ) : (
               <RowBetween>
                 <Button
