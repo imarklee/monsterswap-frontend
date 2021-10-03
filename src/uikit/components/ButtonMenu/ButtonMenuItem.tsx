@@ -16,7 +16,7 @@ const ActiveButton: PolymorphicComponent<ActiveButtonProps, 'button'> = styled(B
   color: white;
   font-family: 'Funhouse';
   font-size: 14px;
-  border-radius: 16px;
+  border-radius: 10px;
   &:hover:not(:disabled):not(:active) {
     background-color: #4E4E9D;
   }
