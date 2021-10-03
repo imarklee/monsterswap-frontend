@@ -406,7 +406,7 @@ export default function AddLiquidity({
                 {t('Unsupported Asset')}
               </Button>
             ) : !account ? (
-              <ConnectWalletButton />
+              <ConnectWalletButton buttonType="primary"/>
             ) : (
               <AutoColumn gap="md">
                 {(approvalA === ApprovalState.NOT_APPROVED ||
